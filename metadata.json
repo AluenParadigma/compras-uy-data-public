@@ -1,0 +1,17 @@
+{
+  "extraction_timestamp": "2026-08-24T19:11:43.010161+00:00",
+  "source": "Compras Estatales Uruguay / ARCE",
+  "source_endpoint": "https://www.comprasestatales.gub.uy/comprasenlinea/jboss/generarReporte",
+  "publication_type": "Llamados vigentes",
+  "start_date": "2024-01-01",
+  "windows_processed": 97,
+  "failed_windows": 0,
+  "xml_records_raw": 1024,
+  "unique_records": 218,
+  "json_records": 218,
+  "csv_records": 218,
+  "coverage_complete": true,
+  "portal_reconciliation": false,
+  "validation_status": "OK",
+  "note": "Cobertura XML completa de todas las ventanas consultadas. La reconciliación contra el total del portal web se incorporará en una segunda etapa."
+}
