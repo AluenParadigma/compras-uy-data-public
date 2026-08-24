@@ -1,28 +1,36 @@
 name: Update Compras UY
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "30 10 * * *"
-  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   update:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - run: python extractor.py
+      - name: Run extractor
+        run: python extractor.py
 
-      - run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add latest.json latest.csv metadata.json
-          git commit -m "Update Compras UY snapshot" || exit 0
+          git diff --cached --quiet || git commit -m "Update Compras UY snapshot"
           git push
