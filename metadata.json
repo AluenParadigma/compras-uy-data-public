@@ -1,7 +1,8 @@
 {
-  "extraction_timestamp": "2026-08-24T19:11:43.010161+00:00",
+  "extraction_timestamp": "2026-08-24T19:17:07.860097+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "source_endpoint": "https://www.comprasestatales.gub.uy/comprasenlinea/jboss/generarReporte",
+  "portal_url": "https://www.comprasestatales.gub.uy/consultas/buscar",
   "publication_type": "Llamados vigentes",
   "start_date": "2024-01-01",
   "windows_processed": 97,
@@ -10,8 +11,10 @@
   "unique_records": 218,
   "json_records": 218,
   "csv_records": 218,
-  "coverage_complete": true,
+  "portal_total": null,
+  "xml_coverage_complete": true,
   "portal_reconciliation": false,
-  "validation_status": "OK",
-  "note": "Cobertura XML completa de todas las ventanas consultadas. La reconciliación contra el total del portal web se incorporará en una segunda etapa."
+  "coverage_complete": false,
+  "validation_status": "PARTIAL_VALIDATION",
+  "note": "Extraccion XML completa e internamente consistente, pero no fue posible recuperar el total del portal web. No se certifica cobertura 100%."
 }
