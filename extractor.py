@@ -8,6 +8,10 @@ import xml.etree.ElementTree as ET
 import requests
 
 
+# Permite leer campos CSV grandes provenientes del XML de ARCE
+csv.field_size_limit(sys.maxsize)
+
+
 # ============================================================
 # CONFIGURACION
 # ============================================================
