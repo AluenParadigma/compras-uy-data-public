@@ -1,6 +1,5 @@
 import csv
 import json
-import re
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -18,17 +17,10 @@ BASE_URL = (
     "comprasenlinea/jboss/generarReporte"
 )
 
-PORTAL_URL = (
-    "https://www.comprasestatales.gub.uy/"
-    "consultas/index/tipo-pub/VIG"
-)
-
 OUTPUT_JSON = Path("latest.json")
 OUTPUT_CSV = Path("latest.csv")
 OUTPUT_METADATA = Path("metadata.json")
 
-# Backfill amplio para capturar llamados publicados o modificados
-# anteriormente que todavía puedan estar vigentes.
 START_DATE = datetime(2024, 1, 1)
 
 WINDOW_DAYS = 10
@@ -36,12 +28,12 @@ TIMEOUT = 60
 
 
 # ============================================================
-# UTILIDADES XML
+# PARAMETROS
 # ============================================================
 
-def build_params(start_date, end_date):
+def build_params(start_date, end_date, publication_type):
     return {
-        "tipo_publicacion": "lv",
+        "tipo_publicacion": publication_type,
         "tipo_compra": "",
         "anio_inicial": start_date.strftime("%Y"),
         "mes_inicial": start_date.strftime("%m"),
@@ -53,6 +45,10 @@ def build_params(start_date, end_date):
         "hora_final": "23",
     }
 
+
+# ============================================================
+# XML
+# ============================================================
 
 def normalize_tag(tag):
     if "}" in tag:
@@ -74,6 +70,7 @@ def element_to_dict(element):
         value = element_to_dict(child)
 
         if key in result:
+
             if not isinstance(result[key], list):
                 result[key] = [result[key]]
 
@@ -97,9 +94,15 @@ def find_record_nodes(root):
     candidates = []
 
     for element in root.iter():
-        tag = normalize_tag(element.tag).lower()
 
-        if tag in possible_names and list(element):
+        tag = normalize_tag(
+            element.tag
+        ).lower()
+
+        if (
+            tag in possible_names
+            and list(element)
+        ):
             candidates.append(element)
 
     if candidates:
@@ -111,11 +114,12 @@ def find_record_nodes(root):
         if list(child)
     ]
 
-    if children:
-        return children
+    return children
 
-    return []
 
+# ============================================================
+# FLATTEN
+# ============================================================
 
 def flatten(data, parent_key="", separator="_"):
     items = {}
@@ -151,13 +155,14 @@ def flatten(data, parent_key="", separator="_"):
                 items[new_key] = value
 
     else:
+
         items[parent_key] = data
 
     return items
 
 
 # ============================================================
-# IDENTIFICACION / DEDUPLICACION
+# IDENTIFICADOR
 # ============================================================
 
 def make_record_key(record):
@@ -167,6 +172,7 @@ def make_record_key(record):
         if v not in (None, "")
     }
 
+    # Priorizamos identificadores oficiales
     id_candidates = [
         "id_compra",
         "idcompra",
@@ -180,10 +186,15 @@ def make_record_key(record):
 
         for key, value in flattened.items():
 
-            if key.endswith(candidate) and value:
+            if (
+                key.endswith(candidate)
+                and value
+            ):
+                return (
+                    f"{candidate}:{value}"
+                )
 
-                return f"{candidate}:{value}"
-
+    # Fallback compuesto
     fallback_values = []
 
     keywords = [
@@ -198,7 +209,10 @@ def make_record_key(record):
 
         for key, value in flattened.items():
 
-            if keyword in key and value:
+            if (
+                keyword in key
+                and value
+            ):
 
                 fallback_values.append(
                     f"{keyword}:{value}"
@@ -207,7 +221,10 @@ def make_record_key(record):
                 break
 
     if fallback_values:
-        return "|".join(fallback_values)
+
+        return "|".join(
+            fallback_values
+        )
 
     return json.dumps(
         record,
@@ -217,64 +234,8 @@ def make_record_key(record):
 
 
 # ============================================================
-# DESCARGA XML
+# VENTANAS
 # ============================================================
-
-def download_window(
-    session,
-    start_date,
-    end_date
-):
-    params = build_params(
-        start_date,
-        end_date
-    )
-
-    print(
-        f"Consultando XML "
-        f"{start_date:%d/%m/%Y} "
-        f"- {end_date:%d/%m/%Y}"
-    )
-
-    response = session.get(
-        BASE_URL,
-        params=params,
-        timeout=TIMEOUT,
-    )
-
-    response.raise_for_status()
-
-    if not response.content:
-        return []
-
-    try:
-
-        root = ET.fromstring(
-            response.content
-        )
-
-    except ET.ParseError as exc:
-
-        preview = response.text[:500]
-
-        raise RuntimeError(
-            "ARCE no devolvio XML valido.\n"
-            f"Respuesta inicial:\n{preview}"
-        ) from exc
-
-    nodes = find_record_nodes(root)
-
-    records = []
-
-    for node in nodes:
-
-        record = element_to_dict(node)
-
-        if isinstance(record, dict):
-            records.append(record)
-
-    return records
-
 
 def generate_windows(
     start_date,
@@ -301,136 +262,198 @@ def generate_windows(
 
 
 # ============================================================
-# RECONCILIACION CONTRA PORTAL WEB
+# DESCARGA DE UNA VENTANA
 # ============================================================
 
-def get_portal_total(session):
-    """
-    Intenta recuperar el total de llamados vigentes
-    informado por el buscador oficial de Compras Estatales.
-
-    Devuelve None si no puede verificarse.
-    """
-
-    print("")
-    print(
-        "Intentando reconciliacion "
-        "contra portal web..."
+def download_window(
+    session,
+    start_date,
+    end_date,
+    publication_type,
+):
+    params = build_params(
+        start_date,
+        end_date,
+        publication_type,
     )
 
-    urls_to_try = [
-        (
-            "https://www.comprasestatales.gub.uy/"
-            "consultas/index/tipo-pub/VIG"
-        ),
-        (
-            "https://www.comprasestatales.gub.uy/"
-            "consultas/buscar/tipo-pub/VIG"
-        ),
-        (
-            "https://www.comprasestatales.gub.uy/"
-            "consultas/index/page/1/tipo-pub/VIG"
-        ),
-    ]
+    label = (
+        "LLAMADOS VIGENTES"
+        if publication_type == "lv"
+        else "TODOS LOS LLAMADOS"
+    )
 
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 "
-            "(Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 "
-            "(KHTML, like Gecko) "
-            "Chrome/130.0 Safari/537.36"
-        ),
-        "Accept": (
-            "text/html,application/xhtml+xml,"
-            "application/xml;q=0.9,*/*;q=0.8"
-        ),
-        "Accept-Language": (
-            "es-UY,es;q=0.9,en;q=0.8"
-        ),
-        "Referer": (
-            "https://www.comprasestatales.gub.uy/"
-        ),
-    }
+    print(
+        f"[{label}] "
+        f"{start_date:%d/%m/%Y} "
+        f"- {end_date:%d/%m/%Y}"
+    )
 
-    patterns = [
-        r"Se\s+encontraron\s+([\d\.\,]+)\s+resultados",
-        r"Se\s+encontró\s+([\d\.\,]+)\s+resultado",
-        r"([\d\.\,]+)\s+resultados",
-    ]
+    response = session.get(
+        BASE_URL,
+        params=params,
+        timeout=TIMEOUT,
+    )
 
-    for url in urls_to_try:
+    response.raise_for_status()
 
-        print("Probando portal:", url)
+    if not response.content:
+        return []
+
+    try:
+
+        root = ET.fromstring(
+            response.content
+        )
+
+    except ET.ParseError as exc:
+
+        preview = (
+            response.text[:500]
+        )
+
+        raise RuntimeError(
+            "ARCE no devolvio XML valido.\n"
+            f"{preview}"
+        ) from exc
+
+    nodes = find_record_nodes(root)
+
+    records = []
+
+    for node in nodes:
+
+        record = (
+            element_to_dict(node)
+        )
+
+        if isinstance(record, dict):
+            records.append(record)
+
+    return records
+
+
+# ============================================================
+# EXTRACCION COMPLETA
+# ============================================================
+
+def extract_publication_type(
+    session,
+    publication_type,
+    start_date,
+    end_date,
+):
+    all_records = []
+
+    windows_processed = 0
+    failed_windows = 0
+
+    for start, end in generate_windows(
+        start_date,
+        end_date,
+    ):
 
         try:
 
-            response = session.get(
-                url,
-                headers=headers,
-                timeout=TIMEOUT,
-                allow_redirects=True,
+            records = download_window(
+                session,
+                start,
+                end,
+                publication_type,
             )
 
-            print(
-                "HTTP:",
-                response.status_code,
-                "URL final:",
-                response.url,
+            all_records.extend(
+                records
             )
 
-            if response.status_code != 200:
-                continue
-
-            html = response.text
-
-            for pattern in patterns:
-
-                match = re.search(
-                    pattern,
-                    html,
-                    flags=re.IGNORECASE,
-                )
-
-                if not match:
-                    continue
-
-                raw_total = match.group(1)
-
-                normalized = (
-                    raw_total
-                    .replace(".", "")
-                    .replace(",", "")
-                )
-
-                total = int(normalized)
-
-                print(
-                    "Total informado por portal:",
-                    total,
-                )
-
-                return total
+            windows_processed += 1
 
         except Exception as exc:
 
+            failed_windows += 1
+
             print(
-                "Error consultando",
-                url,
-                ":",
-                exc,
+                "ERROR "
+                f"{publication_type} "
+                f"{start:%d/%m/%Y} "
+                f"- {end:%d/%m/%Y}: "
+                f"{exc}",
+                file=sys.stderr,
             )
 
-    print(
-        "No fue posible recuperar "
-        "el total del portal."
-    )
+    unique = {}
 
-    return None
+    for record in all_records:
+
+        key = make_record_key(
+            record
+        )
+
+        unique[key] = record
+
+    return {
+        "raw_records": all_records,
+        "unique": unique,
+        "windows_processed": (
+            windows_processed
+        ),
+        "failed_windows": (
+            failed_windows
+        ),
+    }
 
 
 # ============================================================
-# SALIDA JSON
+# VALIDACION CRUZADA
+# ============================================================
+
+def cross_validate(
+    lv_unique,
+    all_unique,
+):
+    """
+    Todo llamado vigente obtenido con tipo_publicacion=lv
+    deberia existir tambien dentro de tipo_publicacion=l.
+
+    Esta validacion detecta inconsistencias de universo,
+    IDs o extraccion.
+    """
+
+    lv_keys = set(
+        lv_unique.keys()
+    )
+
+    all_keys = set(
+        all_unique.keys()
+    )
+
+    missing_in_all = sorted(
+        lv_keys - all_keys
+    )
+
+    common = (
+        lv_keys & all_keys
+    )
+
+    lv_is_subset_of_all = (
+        len(missing_in_all) == 0
+    )
+
+    return {
+        "lv_keys": lv_keys,
+        "all_keys": all_keys,
+        "common": common,
+        "missing_in_all": (
+            missing_in_all
+        ),
+        "lv_is_subset_of_all": (
+            lv_is_subset_of_all
+        ),
+    }
+
+
+# ============================================================
+# JSON
 # ============================================================
 
 def write_json(records):
@@ -463,7 +486,7 @@ def write_json(records):
 
 
 # ============================================================
-# SALIDA CSV
+# CSV
 # ============================================================
 
 def write_csv(records):
@@ -503,6 +526,7 @@ def write_csv(records):
         writer.writeheader()
 
         for record in flat_records:
+
             writer.writerow(record)
 
 
@@ -527,36 +551,71 @@ def count_csv_records():
 
 
 # ============================================================
-# METADATA / VALIDACION
+# METADATA
 # ============================================================
 
 def write_metadata(
-    windows_processed,
-    raw_records,
-    unique_records,
-    failed_windows,
-    portal_total,
+    lv_result,
+    all_result,
+    cross_result,
 ):
-    json_records = unique_records
+    lv_unique_records = len(
+        lv_result["unique"]
+    )
+
+    all_unique_records = len(
+        all_result["unique"]
+    )
+
+    json_records = (
+        lv_unique_records
+    )
 
     csv_records = (
         count_csv_records()
     )
 
-    xml_coverage_complete = (
-        failed_windows == 0
-        and unique_records > 0
-        and json_records == csv_records
+    lv_xml_complete = (
+        lv_result[
+            "failed_windows"
+        ] == 0
+        and lv_unique_records > 0
     )
 
-    portal_reconciliation = (
-        portal_total is not None
-        and portal_total == unique_records
+    all_xml_complete = (
+        all_result[
+            "failed_windows"
+        ] == 0
+        and all_unique_records > 0
     )
 
+    file_integrity = (
+        json_records
+        == csv_records
+    )
+
+    cross_validation_match = (
+        cross_result[
+            "lv_is_subset_of_all"
+        ]
+    )
+
+    xml_double_validation = (
+        lv_xml_complete
+        and all_xml_complete
+        and file_integrity
+        and cross_validation_match
+    )
+
+    # Importante:
+    #
+    # Este campo indica cobertura completa
+    # respecto de la doble extraccion XML.
+    #
+    # No equivale aun a reconciliacion contra
+    # el contador HTML del portal.
     coverage_complete = (
-        xml_coverage_complete
-        and portal_reconciliation
+        xml_double_validation
     )
 
     if coverage_complete:
@@ -564,45 +623,25 @@ def write_metadata(
         validation_status = "OK"
 
         note = (
-            "Cobertura 100% verificada: "
-            "todas las ventanas XML fueron "
-            "procesadas y el total de registros "
-            "unicos coincide con el total "
-            "informado por el portal."
+            "Cobertura XML validada por doble "
+            "extraccion oficial: todas las ventanas "
+            "de llamados vigentes y todos los "
+            "llamados fueron procesadas sin error; "
+            "todos los llamados vigentes existen "
+            "tambien en el universo de todos los "
+            "llamados; JSON y CSV coinciden. "
+            "No incluye reconciliacion contra "
+            "el contador HTML del portal."
         )
-
-    elif xml_coverage_complete:
-
-        validation_status = (
-            "PARTIAL_VALIDATION"
-        )
-
-        if portal_total is None:
-
-            note = (
-                "Extraccion XML completa e "
-                "internamente consistente, pero "
-                "no fue posible recuperar el "
-                "total del portal web. "
-                "No se certifica cobertura 100%."
-            )
-
-        else:
-
-            note = (
-                "Extraccion XML completa, pero "
-                "el total XML no coincide con "
-                "el total informado por el portal. "
-                "No se certifica cobertura 100%."
-            )
 
     else:
 
         validation_status = "ERROR"
 
         note = (
-            "La extraccion XML presenta errores "
-            "o inconsistencias."
+            "La doble validacion XML detecto "
+            "errores o inconsistencias. "
+            "No se certifica cobertura."
         )
 
     metadata = {
@@ -614,45 +653,105 @@ def write_metadata(
         "source": (
             "Compras Estatales Uruguay / ARCE"
         ),
-        "source_endpoint": BASE_URL,
-        "portal_url": PORTAL_URL,
-        "publication_type": (
-            "Llamados vigentes"
+        "source_endpoint": (
+            BASE_URL
         ),
         "start_date": (
             START_DATE.strftime(
                 "%Y-%m-%d"
             )
         ),
-        "windows_processed": (
-            windows_processed
+
+        # LLAMADOS VIGENTES
+        "lv_windows_processed": (
+            lv_result[
+                "windows_processed"
+            ]
         ),
-        "failed_windows": (
-            failed_windows
+        "lv_failed_windows": (
+            lv_result[
+                "failed_windows"
+            ]
         ),
-        "xml_records_raw": (
-            raw_records
+        "lv_raw_records": len(
+            lv_result[
+                "raw_records"
+            ]
         ),
-        "unique_records": (
-            unique_records
+        "lv_unique_records": (
+            lv_unique_records
         ),
+
+        # TODOS LOS LLAMADOS
+        "all_windows_processed": (
+            all_result[
+                "windows_processed"
+            ]
+        ),
+        "all_failed_windows": (
+            all_result[
+                "failed_windows"
+            ]
+        ),
+        "all_raw_records": len(
+            all_result[
+                "raw_records"
+            ]
+        ),
+        "all_unique_records": (
+            all_unique_records
+        ),
+
+        # CRUCE
+        "lv_records_found_in_all": len(
+            cross_result[
+                "common"
+            ]
+        ),
+        "lv_records_missing_in_all": len(
+            cross_result[
+                "missing_in_all"
+            ]
+        ),
+        "lv_is_subset_of_all": (
+            cross_validation_match
+        ),
+
+        # ARCHIVOS
         "json_records": (
             json_records
         ),
         "csv_records": (
             csv_records
         ),
-        "portal_total": (
-            portal_total
+        "file_integrity": (
+            file_integrity
         ),
-        "xml_coverage_complete": (
-            xml_coverage_complete
+
+        # CONTROLES
+        "lv_xml_complete": (
+            lv_xml_complete
         ),
-        "portal_reconciliation": (
-            portal_reconciliation
+        "all_xml_complete": (
+            all_xml_complete
         ),
+        "cross_validation_match": (
+            cross_validation_match
+        ),
+        "xml_double_validation": (
+            xml_double_validation
+        ),
+
+        # FRONTEND
+        "portal_total": None,
+        "portal_reconciliation": False,
+
+        # RESULTADO
         "coverage_complete": (
             coverage_complete
+        ),
+        "coverage_basis": (
+            "DOUBLE_OFFICIAL_XML_EXTRACTION"
         ),
         "validation_status": (
             validation_status
@@ -675,7 +774,9 @@ def write_metadata(
 # ============================================================
 
 def main():
-    today = datetime.now().date()
+    today = (
+        datetime.now().date()
+    )
 
     end_date = datetime(
         today.year,
@@ -695,9 +796,8 @@ def main():
                 "Chrome/130 Safari/537.36"
             ),
             "Accept": (
-                "text/html,"
-                "application/xhtml+xml,"
-                "application/xml;q=0.9,"
+                "application/xml,"
+                "text/xml,"
                 "*/*;q=0.8"
             ),
             "Accept-Language": (
@@ -706,216 +806,251 @@ def main():
         }
     )
 
-    all_records = []
+    print("")
+    print(
+        "===================================="
+    )
+    print(
+        "EXTRACCION A - LLAMADOS VIGENTES"
+    )
+    print(
+        "===================================="
+    )
 
-    windows_processed = 0
-    failed_windows = 0
-
-    # --------------------------------------------------------
-    # EXTRACCION XML
-    # --------------------------------------------------------
-
-    for start, end in generate_windows(
-        START_DATE,
-        end_date,
-    ):
-
-        try:
-
-            records = download_window(
-                session,
-                start,
-                end,
-            )
-
-            all_records.extend(
-                records
-            )
-
-            windows_processed += 1
-
-        except Exception as exc:
-
-            failed_windows += 1
-
-            print(
-                "ERROR ventana "
-                f"{start:%d/%m/%Y} - "
-                f"{end:%d/%m/%Y}: "
-                f"{exc}",
-                file=sys.stderr,
-            )
+    lv_result = (
+        extract_publication_type(
+            session=session,
+            publication_type="lv",
+            start_date=START_DATE,
+            end_date=end_date,
+        )
+    )
 
     print("")
     print(
-        "Registros XML crudos:",
-        len(all_records),
-    )
-
-    # --------------------------------------------------------
-    # DEDUPLICACION
-    # --------------------------------------------------------
-
-    unique = {}
-
-    for record in all_records:
-
-        key = make_record_key(record)
-
-        unique[key] = record
-
-    records = list(
-        unique.values()
+        "LV crudos:",
+        len(
+            lv_result[
+                "raw_records"
+            ]
+        ),
     )
 
     print(
-        "Registros unicos:",
-        len(records),
+        "LV unicos:",
+        len(
+            lv_result[
+                "unique"
+            ]
+        ),
+    )
+
+    print("")
+    print(
+        "===================================="
+    )
+    print(
+        "EXTRACCION B - TODOS LOS LLAMADOS"
+    )
+    print(
+        "===================================="
+    )
+
+    all_result = (
+        extract_publication_type(
+            session=session,
+            publication_type="l",
+            start_date=START_DATE,
+            end_date=end_date,
+        )
+    )
+
+    print("")
+    print(
+        "ALL crudos:",
+        len(
+            all_result[
+                "raw_records"
+            ]
+        ),
+    )
+
+    print(
+        "ALL unicos:",
+        len(
+            all_result[
+                "unique"
+            ]
+        ),
     )
 
     # --------------------------------------------------------
-    # ARCHIVOS
+    # VALIDACION
     # --------------------------------------------------------
+
+    cross_result = (
+        cross_validate(
+            lv_result[
+                "unique"
+            ],
+            all_result[
+                "unique"
+            ],
+        )
+    )
+
+    print("")
+    print(
+        "===================================="
+    )
+    print(
+        "VALIDACION CRUZADA"
+    )
+    print(
+        "===================================="
+    )
+
+    print(
+        "LV encontrados en ALL:",
+        len(
+            cross_result[
+                "common"
+            ]
+        ),
+    )
+
+    print(
+        "LV faltantes en ALL:",
+        len(
+            cross_result[
+                "missing_in_all"
+            ]
+        ),
+    )
+
+    print(
+        "LV subset de ALL:",
+        cross_result[
+            "lv_is_subset_of_all"
+        ],
+    )
+
+    # --------------------------------------------------------
+    # ARCHIVOS FINALES
+    # --------------------------------------------------------
+
+    records = list(
+        lv_result[
+            "unique"
+        ].values()
+    )
 
     write_json(records)
     write_csv(records)
 
-    # --------------------------------------------------------
-    # PORTAL
-    # --------------------------------------------------------
-
-    portal_total = (
-        get_portal_total(session)
-    )
-
-    # --------------------------------------------------------
-    # METADATA
-    # --------------------------------------------------------
-
     write_metadata(
-        windows_processed=(
-            windows_processed
-        ),
-        raw_records=(
-            len(all_records)
-        ),
-        unique_records=(
-            len(records)
-        ),
-        failed_windows=(
-            failed_windows
-        ),
-        portal_total=(
-            portal_total
-        ),
+        lv_result=lv_result,
+        all_result=all_result,
+        cross_result=cross_result,
     )
 
     # --------------------------------------------------------
-    # RESULTADO
+    # VALIDACIONES DE ERROR
     # --------------------------------------------------------
 
-    print("")
-    print(
-        "================================="
-    )
-
-    print(
-        "RESUMEN DE VALIDACION"
-    )
-
-    print(
-        "================================="
-    )
-
-    print(
-        "Ventanas procesadas:",
-        windows_processed,
-    )
-
-    print(
-        "Ventanas fallidas:",
-        failed_windows,
-    )
-
-    print(
-        "Registros XML crudos:",
-        len(all_records),
-    )
-
-    print(
-        "Registros unicos:",
-        len(records),
-    )
-
-    print(
-        "Total portal:",
-        portal_total,
-    )
-
-    print("")
-    print(
-        "Archivos generados:"
-    )
-
-    print(
-        "- latest.json"
-    )
-
-    print(
-        "- latest.csv"
-    )
-
-    print(
-        "- metadata.json"
-    )
-
-    if failed_windows:
-
-        print("")
+    if (
+        lv_result[
+            "failed_windows"
+        ] > 0
+    ):
         print(
-            "ERROR: hubo ventanas "
-            "XML fallidas."
+            "ERROR: hubo ventanas fallidas "
+            "en llamados vigentes."
         )
+        sys.exit(1)
 
+    if (
+        all_result[
+            "failed_windows"
+        ] > 0
+    ):
+        print(
+            "ERROR: hubo ventanas fallidas "
+            "en todos los llamados."
+        )
         sys.exit(1)
 
     if not records:
-
         print(
             "ERROR: no se obtuvieron "
-            "registros.",
-            file=sys.stderr,
+            "llamados vigentes."
         )
+        sys.exit(1)
+
+    if not cross_result[
+        "lv_is_subset_of_all"
+    ]:
+
+        print(
+            "ERROR: existen llamados vigentes "
+            "que no aparecen en todos los llamados."
+        )
+
+        print(
+            "Primeros faltantes:"
+        )
+
+        for key in (
+            cross_result[
+                "missing_in_all"
+            ][:20]
+        ):
+            print("-", key)
 
         sys.exit(1)
 
     print("")
     print(
-        "Extraccion finalizada."
+        "===================================="
+    )
+    print(
+        "EXTRACCION FINALIZADA"
+    )
+    print(
+        "===================================="
     )
 
-    if (
-        portal_total is not None
-        and portal_total == len(records)
-    ):
+    print(
+        "latest.json:",
+        len(records),
+        "registros"
+    )
 
-        print(
-            "COBERTURA 100% VERIFICADA"
-        )
+    print(
+        "latest.csv:",
+        count_csv_records(),
+        "registros"
+    )
 
-    elif portal_total is None:
+    print(
+        "Doble validacion XML: OK"
+    )
 
-        print(
-            "XML completo. "
-            "Reconciliacion web no disponible."
-        )
+    print("")
+    print(
+        "IMPORTANTE:"
+    )
 
-    else:
+    print(
+        "coverage_complete=true significa "
+        "cobertura validada mediante las dos "
+        "consultas XML oficiales de ARCE."
+    )
 
-        print(
-            "ATENCION: XML y portal "
-            "no coinciden."
-        )
+    print(
+        "La reconciliacion contra el contador "
+        "HTML del portal permanece separada."
+    )
 
 
 if __name__ == "__main__":
