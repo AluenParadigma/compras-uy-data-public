@@ -20,7 +20,7 @@ BASE_URL = (
 
 PORTAL_URL = (
     "https://www.comprasestatales.gub.uy/"
-    "consultas/buscar"
+    "consultas/index/tipo-pub/VIG"
 )
 
 OUTPUT_JSON = Path("latest.json")
@@ -151,7 +151,6 @@ def flatten(data, parent_key="", separator="_"):
                 items[new_key] = value
 
     else:
-
         items[parent_key] = data
 
     return items
@@ -168,7 +167,6 @@ def make_record_key(record):
         if v not in (None, "")
     }
 
-    # Priorizamos identificadores oficiales
     id_candidates = [
         "id_compra",
         "idcompra",
@@ -186,7 +184,6 @@ def make_record_key(record):
 
                 return f"{candidate}:{value}"
 
-    # Fallback compuesto
     fallback_values = []
 
     keywords = [
@@ -274,7 +271,6 @@ def download_window(
         record = element_to_dict(node)
 
         if isinstance(record, dict):
-
             records.append(record)
 
     return records
@@ -311,10 +307,9 @@ def generate_windows(
 def get_portal_total(session):
     """
     Intenta recuperar el total de llamados vigentes
-    informado por el portal web.
+    informado por el buscador oficial de Compras Estatales.
 
-    Si el portal bloquea la consulta, devuelve None.
-    Nunca inventamos el total.
+    Devuelve None si no puede verificarse.
     """
 
     print("")
@@ -323,55 +318,85 @@ def get_portal_total(session):
         "contra portal web..."
     )
 
-    try:
+    urls_to_try = [
+        (
+            "https://www.comprasestatales.gub.uy/"
+            "consultas/index/tipo-pub/VIG"
+        ),
+        (
+            "https://www.comprasestatales.gub.uy/"
+            "consultas/buscar/tipo-pub/VIG"
+        ),
+        (
+            "https://www.comprasestatales.gub.uy/"
+            "consultas/index/page/1/tipo-pub/VIG"
+        ),
+    ]
 
-        response = session.get(
-            PORTAL_URL,
-            params={
-                "tipo-pub": "VIG"
-            },
-            timeout=TIMEOUT,
-        )
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 "
+            "(Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 "
+            "(KHTML, like Gecko) "
+            "Chrome/130.0 Safari/537.36"
+        ),
+        "Accept": (
+            "text/html,application/xhtml+xml,"
+            "application/xml;q=0.9,*/*;q=0.8"
+        ),
+        "Accept-Language": (
+            "es-UY,es;q=0.9,en;q=0.8"
+        ),
+        "Referer": (
+            "https://www.comprasestatales.gub.uy/"
+        ),
+    }
 
-        print(
-            "Portal HTTP:",
-            response.status_code
-        )
+    patterns = [
+        r"Se\s+encontraron\s+([\d\.\,]+)\s+resultados",
+        r"Se\s+encontró\s+([\d\.\,]+)\s+resultado",
+        r"([\d\.\,]+)\s+resultados",
+    ]
 
-        if response.status_code != 200:
+    for url in urls_to_try:
+
+        print("Probando portal:", url)
+
+        try:
+
+            response = session.get(
+                url,
+                headers=headers,
+                timeout=TIMEOUT,
+                allow_redirects=True,
+            )
 
             print(
-                "No se pudo obtener "
-                "el total del portal."
+                "HTTP:",
+                response.status_code,
+                "URL final:",
+                response.url,
             )
 
-            return None
+            if response.status_code != 200:
+                continue
 
-        html = response.text
+            html = response.text
 
-        # Patrones posibles:
-        # Se encontraron 218 resultados
-        # Se encontraron 1.024 resultados
-        # 218 resultados
-        patterns = [
-            r"Se\s+encontraron\s+([\d\.\,]+)\s+resultados",
-            r"([\d\.\,]+)\s+resultados",
-        ]
+            for pattern in patterns:
 
-        for pattern in patterns:
+                match = re.search(
+                    pattern,
+                    html,
+                    flags=re.IGNORECASE,
+                )
 
-            match = re.search(
-                pattern,
-                html,
-                flags=re.IGNORECASE,
-            )
-
-            if match:
+                if not match:
+                    continue
 
                 raw_total = match.group(1)
 
-                # Eliminamos separadores
-                # de miles.
                 normalized = (
                     raw_total
                     .replace(".", "")
@@ -381,27 +406,27 @@ def get_portal_total(session):
                 total = int(normalized)
 
                 print(
-                    "Total informado "
-                    f"por portal: {total}"
+                    "Total informado por portal:",
+                    total,
                 )
 
                 return total
 
-        print(
-            "Portal accesible pero "
-            "no se encontro el total."
-        )
+        except Exception as exc:
 
-        return None
+            print(
+                "Error consultando",
+                url,
+                ":",
+                exc,
+            )
 
-    except Exception as exc:
+    print(
+        "No fue posible recuperar "
+        "el total del portal."
+    )
 
-        print(
-            "Error consultando portal:",
-            exc,
-        )
-
-        return None
+    return None
 
 
 # ============================================================
@@ -410,16 +435,20 @@ def get_portal_total(session):
 
 def write_json(records):
     payload = {
-        "generated_at": datetime.now(
-            timezone.utc
-        ).isoformat(),
+        "generated_at": (
+            datetime.now(
+                timezone.utc
+            ).isoformat()
+        ),
         "source": (
             "Compras Estatales Uruguay / ARCE"
         ),
         "publication_type": (
             "Llamados vigentes"
         ),
-        "total_records": len(records),
+        "total_records": (
+            len(records)
+        ),
         "data": records,
     }
 
@@ -474,7 +503,6 @@ def write_csv(records):
         writer.writeheader()
 
         for record in flat_records:
-
             writer.writerow(record)
 
 
@@ -518,22 +546,14 @@ def write_metadata(
     xml_coverage_complete = (
         failed_windows == 0
         and unique_records > 0
-        and json_records
-        == csv_records
+        and json_records == csv_records
     )
 
     portal_reconciliation = (
         portal_total is not None
-        and portal_total
-        == unique_records
+        and portal_total == unique_records
     )
 
-    # 100% solamente si:
-    #
-    # 1. todas las ventanas XML funcionaron
-    # 2. JSON = CSV
-    # 3. tenemos total del portal
-    # 4. portal = XML
     coverage_complete = (
         xml_coverage_complete
         and portal_reconciliation
@@ -758,7 +778,6 @@ def main():
     # --------------------------------------------------------
 
     write_json(records)
-
     write_csv(records)
 
     # --------------------------------------------------------
@@ -850,18 +869,9 @@ def main():
         "- metadata.json"
     )
 
-    # Fallamos el workflow solamente
-    # si hubo errores XML reales.
-    #
-    # No fallamos si el portal devuelve
-    # 403, porque queremos conservar
-    # igualmente el snapshot XML.
     if failed_windows:
 
-        print(
-            ""
-        )
-
+        print("")
         print(
             "ERROR: hubo ventanas "
             "XML fallidas."
@@ -886,8 +896,7 @@ def main():
 
     if (
         portal_total is not None
-        and portal_total
-        == len(records)
+        and portal_total == len(records)
     ):
 
         print(
