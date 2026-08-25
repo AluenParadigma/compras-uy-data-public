@@ -31,5 +31,5 @@
   "coverage_complete": true,
   "coverage_basis": "DOUBLE_OFFICIAL_XML_EXTRACTION_PLUS_CONTENT_VALIDATION",
   "validation_status": "OK",
-  "note": "Cobertura XML validada por doble extraccion oficial ARCE. Todas las ventanas fueron procesadas sin error, los llamados vigentes estan contenidos en el universo general, JSON y CSV coinciden y todos los registros contienen informacion sustantiva proveniente de los atributos XML de compra."
+  "note": "Cobertura XML validada por doble extraccion oficial ARCE. Todas las ventanas fueron procesadas sin error, los llamados vigentes estan contenidos en el universo general, JSON y CSV coinciden y todos los registros contienen informacion sustantiva proveniente de los atributos XML de compra. "
 }
