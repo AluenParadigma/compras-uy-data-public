@@ -1,5 +1,5 @@
 {
-  "extraction_timestamp": "2026-08-25T00:00:56.141533+00:00",
+  "extraction_timestamp": "2026-08-25T00:16:30.993836+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "source_endpoint": "https://www.comprasestatales.gub.uy/comprasenlinea/jboss/generarReporte",
   "start_date": "2024-01-01",
@@ -31,5 +31,5 @@
   "coverage_complete": true,
   "coverage_basis": "DOUBLE_OFFICIAL_XML_EXTRACTION_PLUS_CONTENT_VALIDATION",
   "validation_status": "OK",
-  "note": "Cobertura XML validada por doble extraccion oficial ARCE. Todas las ventanas fueron procesadas sin error, los llamados vigentes estan contenidos en el universo general, JSON y CSV coinciden y todos los registros contienen informacion sustantiva proveniente de los atributos XML de compra. "
+  "note": "Cobertura XML validada por doble extraccion oficial ARCE. Todas las ventanas fueron procesadas sin error, los llamados vigentes estan contenidos en el universo general, JSON y CSV coinciden y todos los registros contienen informacion sustantiva proveniente de los atributos XML de compra."
 }
