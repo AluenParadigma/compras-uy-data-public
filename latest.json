@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-25T00:16:30.763609+00:00",
+  "generated_at": "2026-08-25T12:04:53.948974+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "publication_type": "Llamados vigentes",
-  "total_records": 901,
+  "total_records": 898,
   "data": [
     {
       "id_compra": "1352393",
@@ -3286,281 +3286,6 @@
           "id_marca": "",
           "desc_marca": ""
         }
-      }
-    },
-    {
-      "id_compra": "1350640",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "25260",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1350640.doc",
-      "fecha_publicacion": "23/06/2026 15:05",
-      "fecha_ult_mod_llamado": "05/08/2026 15:08",
-      "id_tipocompra": "LA",
-      "subtipo_compra": "COM",
-      "objeto": "Licitación Abreviada Nº25260   Reacondicionamiento de obra civil",
-      "fecha_hora_apertura": "27/08/2026 11:00",
-      "lugar_apertura": "SANMARTIN3235",
-      "fecha_sol_prorr": "17/08/2026",
-      "fecha_sol_aclar": "17/08/2026",
-      "fecha_hora_tope_entrega": "27/08/2026 11:00",
-      "lugar_entrega": "SANMARTIN3235",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Licitaciones Obras",
-      "fax_contacto": "1952/2433",
-      "email_contacto": "licitacionesobras@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": [
-          {
-            "nro_item": "1",
-            "cant_pedida": "380.00",
-            "id_articulo": "8",
-            "desc_articulo": "ARENA FINA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "16",
-            "unidad": "M3",
-            "id_variante": "1|192|1",
-            "variante": "-----",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "GRANEL",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "4",
-            "cant_pedida": "72.00",
-            "id_articulo": "121323",
-            "desc_articulo": "GRAVA FILTRANTE",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "16",
-            "unidad": "M3",
-            "id_variante": "111670|1|1",
-            "variante": "TAMAÑO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "12 A 25",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "3",
-            "cant_pedida": "36.00",
-            "id_articulo": "121323",
-            "desc_articulo": "GRAVA FILTRANTE",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "16",
-            "unidad": "M3",
-            "id_variante": "111667|1|1",
-            "variante": "TAMAÑO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "3 A 6",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "2",
-            "cant_pedida": "36.00",
-            "id_articulo": "121323",
-            "desc_articulo": "GRAVA FILTRANTE",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "16",
-            "unidad": "M3",
-            "id_variante": "19820|1|1",
-            "variante": "TAMAÑO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "6 A 12",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "5",
-            "cant_pedida": "1.00",
-            "id_articulo": "121916",
-            "desc_articulo": "ACONDICIONAMIENTO DE INSTALACIONES DE USINA POTABILIZADORA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "-----",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          }
-        ]
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_25260_1.doc",
-            "fecha": "02/07/2026 15:13",
-            "nom_archivo": "aclar_llamado_1350640_0.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25260_2.doc",
-            "fecha": "14/07/2026 15:14",
-            "nom_archivo": "aclar_llamado_1350640_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25260_3.doc",
-            "fecha": "15/07/2026 00:33",
-            "nom_archivo": "aclar_llamado_1350640_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25260_4.doc",
-            "fecha": "15/07/2026 15:15",
-            "nom_archivo": "aclar_llamado_1350640_3.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25260_5.doc",
-            "fecha": "17/07/2026 00:33",
-            "nom_archivo": "aclar_llamado_1350640_4.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25260_6.doc",
-            "fecha": "03/08/2026 15:14",
-            "nom_archivo": "aclar_llamado_1350640_5.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25260_7.doc",
-            "fecha": "05/08/2026 15:08",
-            "nom_archivo": "aclar_llamado_1350640_6.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "02/07/2026 15:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "09/07/2026 11:00",
-            "valor_nuevo": "23/07/2026 11:00"
-          },
-          {
-            "fecha": "02/07/2026 15:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "09/07/2026 11:00",
-            "valor_nuevo": "23/07/2026 11:00"
-          },
-          {
-            "fecha": "02/07/2026 15:20",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "30/06/2026",
-            "valor_nuevo": "14/07/2026"
-          },
-          {
-            "fecha": "02/07/2026 15:20",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "30/06/2026",
-            "valor_nuevo": "14/07/2026"
-          },
-          {
-            "fecha": "14/07/2026 15:25",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "23/07/2026 11:00",
-            "valor_nuevo": "06/08/2026 11:00"
-          },
-          {
-            "fecha": "14/07/2026 15:25",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "23/07/2026 11:00",
-            "valor_nuevo": "06/08/2026 11:00"
-          },
-          {
-            "fecha": "14/07/2026 15:25",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "14/07/2026",
-            "valor_nuevo": "28/07/2026"
-          },
-          {
-            "fecha": "14/07/2026 15:25",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "14/07/2026",
-            "valor_nuevo": "28/07/2026"
-          },
-          {
-            "fecha": "16/07/2026 23:40",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "06/08/2026 11:00",
-            "valor_nuevo": "11/08/2026 11:00"
-          },
-          {
-            "fecha": "16/07/2026 23:40",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "06/08/2026 11:00",
-            "valor_nuevo": "11/08/2026 11:00"
-          },
-          {
-            "fecha": "16/07/2026 23:40",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "28/07/2026",
-            "valor_nuevo": "31/07/2026"
-          },
-          {
-            "fecha": "16/07/2026 23:40",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "28/07/2026",
-            "valor_nuevo": "31/07/2026"
-          },
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "11/08/2026 11:00",
-            "valor_nuevo": "27/08/2026 11:00"
-          },
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "11/08/2026 11:00",
-            "valor_nuevo": "27/08/2026 11:00"
-          },
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "31/07/2026",
-            "valor_nuevo": "17/08/2026"
-          },
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "31/07/2026",
-            "valor_nuevo": "17/08/2026"
-          }
-        ]
       }
     },
     {
@@ -20089,119 +19814,6 @@
       }
     },
     {
-      "id_compra": "1358135",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "26421",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1358135.doc",
-      "fecha_publicacion": "22/07/2026 15:05",
-      "fecha_ult_mod_llamado": "12/08/2026 15:16",
-      "id_tipocompra": "LP",
-      "subtipo_compra": "COM",
-      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 22 trabajadores para la Gerencia de Tecnologías de la Información",
-      "fecha_hora_apertura": "02/09/2026 11:00",
-      "lugar_apertura": "SANMARTIN3235",
-      "fecha_sol_prorr": "10/08/2026",
-      "fecha_sol_aclar": "10/08/2026",
-      "fecha_hora_tope_entrega": "02/09/2026 11:00",
-      "lugar_entrega": "SANMARTIN3235",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Licitaciones Serv",
-      "fax_contacto": "1952/2426",
-      "email_contacto": "licservicios@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": [
-          {
-            "nro_item": "1",
-            "cant_pedida": "1.00",
-            "id_articulo": "76071",
-            "desc_articulo": "CONTRATACION DE PERSONAL ADMINISTRATIVO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "-----",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "2",
-            "cant_pedida": "1.00",
-            "id_articulo": "118934",
-            "desc_articulo": "CONTRATACION DE EMPRESA PROVEEDORA DE PERSONAL",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "-----",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          }
-        ]
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_26421_1.doc",
-            "fecha": "04/08/2026 00:36",
-            "nom_archivo": "aclar_llamado_1358135_0.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26421_2.doc",
-            "fecha": "06/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1358135_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26421_3.doc",
-            "fecha": "12/08/2026 10:07",
-            "nom_archivo": "aclar_llamado_1358135_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26421_4.doc",
-            "fecha": "12/08/2026 15:16",
-            "nom_archivo": "aclar_llamado_1358135_3.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "12/08/2026 10:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "19/08/2026 11:00",
-            "valor_nuevo": "02/09/2026 11:00"
-          },
-          {
-            "fecha": "12/08/2026 10:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "19/08/2026 11:00",
-            "valor_nuevo": "02/09/2026 11:00"
-          }
-        ]
-      }
-    },
-    {
       "id_compra": "1363499",
       "id_inciso": "83",
       "id_ue": "1",
@@ -27300,34 +26912,6 @@
       }
     },
     {
-      "id_compra": "i499121",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D194511",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i499121.html",
-      "fecha_publicacion": "14/08/2026 15:30",
-      "fecha_ult_mod_llamado": "14/08/2026 15:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": " Suministro e instalacion de Aire Acondicionado",
-      "fecha_hora_tope_entrega": "24/08/2026 23:59",
-      "lugar_entrega": "Sin especificar",
-      "nombre_contacto": "Servicio de Compras",
-      "fax_contacto": "Sin especificar",
-      "email_contacto": "compras.directas@imm.gub.uy",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "14/08/2026 15:30",
-          "nom_archivo": "aclar_llamado_i499121_2.PDF"
-        }
-      }
-    },
-    {
       "id_compra": "i499119",
       "id_inciso": "98",
       "id_ue": "1",
@@ -28464,216 +28048,6 @@
             "campo": "FECHA_SOL_PRORR",
             "valor_anterior": "12/08/2026",
             "valor_nuevo": "24/08/2026"
-          }
-        ]
-      }
-    },
-    {
-      "id_compra": "1354589",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "26870",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1354589.doc",
-      "fecha_publicacion": "08/07/2026 23:35",
-      "fecha_ult_mod_llamado": "15/08/2026 11:10",
-      "id_tipocompra": "LA",
-      "subtipo_compra": "COM",
-      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 20 trabajadores para el Área Comercial Operativa de la Gerencia Región Litoral Norte",
-      "fecha_hora_apertura": "28/08/2026 14:00",
-      "lugar_apertura": "SANMARTIN3235",
-      "fecha_sol_prorr": "21/07/2026",
-      "fecha_sol_aclar": "21/07/2026",
-      "fecha_hora_tope_entrega": "28/08/2026 14:00",
-      "lugar_entrega": "SANMARTIN3235",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Licitaciones Serv",
-      "fax_contacto": "1952/2423",
-      "email_contacto": "licservicios@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": [
-          {
-            "nro_item": "1",
-            "cant_pedida": "1.00",
-            "id_articulo": "28031",
-            "desc_articulo": "CONTRATACION DE MANO DE OBRA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "TIPO",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "2",
-            "cant_pedida": "1.00",
-            "id_articulo": "76071",
-            "desc_articulo": "CONTRATACION DE PERSONAL ADMINISTRATIVO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "-----",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          }
-        ]
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_26870_1.doc",
-            "fecha": "16/07/2026 15:17",
-            "nom_archivo": "aclar_llamado_1354589_0.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_2.doc",
-            "fecha": "21/07/2026 09:17"
-          },
-          {
-            "texto": "Aclar_llamado_26870_2.doc",
-            "fecha": "22/07/2026 11:30",
-            "nom_archivo": "aclar_llamado_1354589_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_3.doc",
-            "fecha": "23/07/2026 15:17",
-            "nom_archivo": "aclar_llamado_1354589_3.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_4.doc",
-            "fecha": "25/07/2026 10:36",
-            "nom_archivo": "aclar_llamado_1354589_4.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_5.doc",
-            "fecha": "27/07/2026 15:17",
-            "nom_archivo": "aclar_llamado_1354589_5.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_6.doc",
-            "fecha": "04/08/2026 10:15",
-            "nom_archivo": "aclar_llamado_1354589_6.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_7.doc",
-            "fecha": "04/08/2026 15:09",
-            "nom_archivo": "aclar_llamado_1354589_7.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_8.doc",
-            "fecha": "05/08/2026 00:38",
-            "nom_archivo": "aclar_llamado_1354589_8.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_9.doc",
-            "fecha": "07/08/2026 10:23",
-            "nom_archivo": "aclar_llamado_1354589_9.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_10.doc",
-            "fecha": "12/08/2026 00:33",
-            "nom_archivo": "aclar_llamado_1354589_10.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_11.doc",
-            "fecha": "12/08/2026 00:33",
-            "nom_archivo": "aclar_llamado_1354589_11.doc"
-          },
-          {
-            "texto": "Aclar_llamado_26870_12.doc",
-            "fecha": "14/08/2026 15:15",
-            "nom_archivo": "aclar_llamado_1354589_12.doc"
-          },
-          {
-            "texto": "aclar_llamado_26870_13.doc",
-            "fecha": "15/08/2026 11:03",
-            "nom_archivo": "aclar_llamado_1354589_13.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "23/07/2026 15:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "30/07/2026 14:00",
-            "valor_nuevo": "06/08/2026 14:00"
-          },
-          {
-            "fecha": "23/07/2026 15:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "30/07/2026 14:00",
-            "valor_nuevo": "06/08/2026 14:00"
-          },
-          {
-            "fecha": "04/08/2026 10:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "06/08/2026 14:00",
-            "valor_nuevo": "11/08/2026 11:00"
-          },
-          {
-            "fecha": "04/08/2026 10:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "06/08/2026 14:00",
-            "valor_nuevo": "11/08/2026 11:00"
-          },
-          {
-            "fecha": "04/08/2026 15:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "11/08/2026 11:00",
-            "valor_nuevo": "11/08/2026 14:00"
-          },
-          {
-            "fecha": "04/08/2026 15:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "11/08/2026 11:00",
-            "valor_nuevo": "11/08/2026 14:00"
-          },
-          {
-            "fecha": "07/08/2026 10:35",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "11/08/2026 14:00",
-            "valor_nuevo": "18/08/2026 14:00"
-          },
-          {
-            "fecha": "07/08/2026 10:35",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "11/08/2026 14:00",
-            "valor_nuevo": "18/08/2026 14:00"
-          },
-          {
-            "fecha": "15/08/2026 11:10",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "18/08/2026 14:00",
-            "valor_nuevo": "28/08/2026 14:00"
-          },
-          {
-            "fecha": "15/08/2026 11:10",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "18/08/2026 14:00",
-            "valor_nuevo": "28/08/2026 14:00"
           }
         ]
       }
@@ -32098,34 +31472,6 @@
           "unidad_medida_presentacion": "",
           "id_marca": "",
           "desc_marca": ""
-        }
-      }
-    },
-    {
-      "id_compra": "i499262",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D191821A",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i499262.html",
-      "fecha_publicacion": "17/08/2026 15:30",
-      "fecha_ult_mod_llamado": "17/08/2026 15:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": " SERVICIO DE VIGILANCIA PRIVADA A PRESTARSE EN BASE 1",
-      "fecha_hora_tope_entrega": "24/08/2026 23:59",
-      "lugar_entrega": "Sin especificar",
-      "nombre_contacto": "Servicio de Compras",
-      "fax_contacto": "Sin especificar",
-      "email_contacto": "compras.directas@imm.gub.uy",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "17/08/2026 15:30",
-          "nom_archivo": "aclar_llamado_i499262_2.RAR"
         }
       }
     },
@@ -39824,165 +39170,6 @@
       }
     },
     {
-      "id_compra": "1359287",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "27007",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1359287.doc",
-      "fecha_publicacion": "28/07/2026 10:05",
-      "fecha_ult_mod_llamado": "18/08/2026 15:25",
-      "id_tipocompra": "LA",
-      "subtipo_compra": "COM",
-      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 7 trabajadores para el Dpto. Paysandú, Gerencia Región Litoral Norte.",
-      "fecha_hora_apertura": "28/08/2026 11:00",
-      "lugar_apertura": "SANMARTIN3235",
-      "fecha_sol_prorr": "10/08/2026",
-      "fecha_sol_aclar": "10/08/2026",
-      "fecha_hora_tope_entrega": "28/08/2026 11:00",
-      "lugar_entrega": "SANMARTIN3235",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Licitaciones Serv",
-      "fax_contacto": "1952/2424",
-      "email_contacto": "licservicios@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": [
-          {
-            "nro_item": "1",
-            "cant_pedida": "1.00",
-            "id_articulo": "28031",
-            "desc_articulo": "CONTRATACION DE MANO DE OBRA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "TIPO",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "3",
-            "cant_pedida": "1.00",
-            "id_articulo": "102801",
-            "desc_articulo": "CONTRATACION DE PERSONAL TECNICO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "110534|1|1",
-            "variante": "TIPO",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "AYUDANTE DE SANITARIO",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "2",
-            "cant_pedida": "1.00",
-            "id_articulo": "102801",
-            "desc_articulo": "CONTRATACION DE PERSONAL TECNICO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "28015|1|1",
-            "variante": "TIPO",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "ELECTROMECANICO",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          }
-        ]
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_27007_1.doc",
-            "fecha": "03/08/2026 15:15",
-            "nom_archivo": "aclar_llamado_1359287_0.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27007_2.doc",
-            "fecha": "07/08/2026 15:18",
-            "nom_archivo": "aclar_llamado_1359287_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27007_3.doc",
-            "fecha": "11/08/2026 15:07",
-            "nom_archivo": "aclar_llamado_1359287_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27007_4.doc",
-            "fecha": "12/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1359287_3.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_5.doc",
-            "fecha": "12/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1359287_4.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27007_6.doc",
-            "fecha": "13/08/2026 00:46",
-            "nom_archivo": "aclar_llamado_1359287_5.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27007_7.doc",
-            "fecha": "14/08/2026 13:01",
-            "nom_archivo": "aclar_llamado_1359287_6.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_5.doc",
-            "fecha": "15/08/2026 11:04",
-            "nom_archivo": "aclar_llamado_1359287_7.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27007_8.doc",
-            "fecha": "18/08/2026 15:10",
-            "nom_archivo": "aclar_llamado_1359287_8.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "18/08/2026 15:25",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "19/08/2026 14:00",
-            "valor_nuevo": "28/08/2026 11:00"
-          },
-          {
-            "fecha": "18/08/2026 15:25",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "19/08/2026 14:00",
-            "valor_nuevo": "28/08/2026 11:00"
-          }
-        ]
-      }
-    },
-    {
       "id_compra": "1360650",
       "id_inciso": "66",
       "id_ue": "1",
@@ -41773,152 +40960,6 @@
             "texto": "Resolución de Aprobación de llamado",
             "fecha": "18/08/2026 22:00",
             "nom_archivo": "aclar_llamado_i499389_3.pdf"
-          }
-        ]
-      }
-    },
-    {
-      "id_compra": "1355235",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "27161",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1355235.doc",
-      "fecha_publicacion": "10/07/2026 23:35",
-      "fecha_ult_mod_llamado": "19/08/2026 01:24",
-      "id_tipocompra": "LA",
-      "subtipo_compra": "COM",
-      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 22 trabajadores para prestar los servicios de Operadores, para las Áreas de Tratamiento y de Captación y Aducción de la Planta de Aguas Corrientes, Gerencia Técnica Metropolitana.",
-      "fecha_hora_apertura": "02/09/2026 14:00",
-      "lugar_apertura": "SANMARTIN3235",
-      "fecha_sol_prorr": "23/07/2026",
-      "fecha_sol_aclar": "23/07/2026",
-      "fecha_hora_tope_entrega": "02/09/2026 14:00",
-      "lugar_entrega": "SANMARTIN3235",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Licitaciones Serv",
-      "fax_contacto": "1952/2425",
-      "email_contacto": "licservicios@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": {
-          "nro_item": "1",
-          "cant_pedida": "1.00",
-          "id_articulo": "102801",
-          "desc_articulo": "CONTRATACION DE PERSONAL TECNICO",
-          "id_color": "",
-          "desc_color": "",
-          "id_detalle_variante": "",
-          "desc_detalle_variante": "",
-          "id_unidad": "22",
-          "unidad": "UNIDAD",
-          "id_variante": "110534|1|1",
-          "variante": "TIPO",
-          "unidad_medida_variante": "-----",
-          "medida_variante": "AYUDANTE DE SANITARIO",
-          "presentacion": "-----",
-          "medida_presentacion": "-----",
-          "unidad_medida_presentacion": "-----",
-          "id_marca": "",
-          "desc_marca": ""
-        }
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_27161_1.doc",
-            "fecha": "30/07/2026 15:15",
-            "nom_archivo": "aclar_llamado_1355235_0.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_2.doc",
-            "fecha": "31/07/2026 10:15",
-            "nom_archivo": "aclar_llamado_1355235_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_3.doc",
-            "fecha": "07/08/2026 15:15",
-            "nom_archivo": "aclar_llamado_1355235_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_4.doc",
-            "fecha": "11/08/2026 10:15",
-            "nom_archivo": "aclar_llamado_1355235_3.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_6.doc",
-            "fecha": "14/08/2026 12:55",
-            "nom_archivo": "aclar_llamado_1355235_4.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_7.doc",
-            "fecha": "14/08/2026 12:55",
-            "nom_archivo": "aclar_llamado_1355235_5.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_5.doc",
-            "fecha": "15/08/2026 11:04",
-            "nom_archivo": "aclar_llamado_1355235_6.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27161_8.doc",
-            "fecha": "19/08/2026 01:24",
-            "nom_archivo": "aclar_llamado_1355235_7.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "30/07/2026 15:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "03/08/2026 11:00",
-            "valor_nuevo": "10/08/2026 14:00"
-          },
-          {
-            "fecha": "30/07/2026 15:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "03/08/2026 11:00",
-            "valor_nuevo": "10/08/2026 14:00"
-          },
-          {
-            "fecha": "07/08/2026 15:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "10/08/2026 14:00",
-            "valor_nuevo": "17/08/2026 14:00"
-          },
-          {
-            "fecha": "07/08/2026 15:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "10/08/2026 14:00",
-            "valor_nuevo": "17/08/2026 14:00"
-          },
-          {
-            "fecha": "14/08/2026 14:10",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "17/08/2026 14:00",
-            "valor_nuevo": "20/08/2026 14:00"
-          },
-          {
-            "fecha": "14/08/2026 14:10",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "17/08/2026 14:00",
-            "valor_nuevo": "20/08/2026 14:00"
-          },
-          {
-            "fecha": "18/08/2026 23:40",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "20/08/2026 14:00",
-            "valor_nuevo": "02/09/2026 14:00"
-          },
-          {
-            "fecha": "18/08/2026 23:40",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "20/08/2026 14:00",
-            "valor_nuevo": "02/09/2026 14:00"
           }
         ]
       }
@@ -53143,33 +52184,6 @@
       }
     },
     {
-      "id_compra": "i499368",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D193279",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i499368.html",
-      "fecha_publicacion": "18/08/2026 18:00",
-      "fecha_ult_mod_llamado": "19/08/2026 15:37",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Adquisición de herramientas para gomeria de taller de mecánico. Ver especificaciones en ANEXO.",
-      "fecha_hora_tope_entrega": "24/08/2026 23:59",
-      "lugar_entrega": "CNO CARLOS MARIA DE PENA Nro: 4579 ",
-      "nombre_contacto": "SERVICIO DE MANTENIMIENTO 1",
-      "fax_contacto": " CARLOS MARIA DE PENA Nro: 4579",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "19/08/2026 15:37",
-          "nom_archivo": "aclar_llamado_i499368_2.PDF"
-        }
-      }
-    },
-    {
       "id_compra": "i499369",
       "id_inciso": "98",
       "id_ue": "1",
@@ -53277,33 +52291,6 @@
           "texto": "Pliego del llamado",
           "fecha": "19/08/2026 15:37",
           "nom_archivo": "aclar_llamado_i499439_2.PDF"
-        }
-      }
-    },
-    {
-      "id_compra": "i499440",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D193509",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i499440.html",
-      "fecha_publicacion": "19/08/2026 15:30",
-      "fecha_ult_mod_llamado": "19/08/2026 15:37",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Servicio de calibración de pipetas automáticas (ver pliego adjunto) Enviar ofertas a compras.gga@imm.gub.uy",
-      "fecha_hora_tope_entrega": "24/08/2026 23:59",
-      "lugar_entrega": "ANA VINOCUR Nro: 100  ",
-      "nombre_contacto": "EVALUACION DE LA CALIDAD Y CONTROL AMBIENTAL",
-      "fax_contacto": " 7112407",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "19/08/2026 15:37",
-          "nom_archivo": "aclar_llamado_i499440_2.PDF"
         }
       }
     },
@@ -55420,25 +54407,6 @@
           "nom_archivo": "aclar_llamado_1365361_0.docx"
         }
       }
-    },
-    {
-      "id_compra": "i499461",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D193818A",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i499461.html",
-      "fecha_publicacion": "19/08/2026 17:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Ensayo interlaboratorio - Enterococos en cursos de agua naturales/efluentes. Enviar ofertas a compras.gga@imm.gub.uy",
-      "fecha_hora_tope_entrega": "24/08/2026 23:59",
-      "lugar_entrega": "ANA VINOCUR Nro: 100  ",
-      "nombre_contacto": "EVALUACION DE LA CALIDAD Y CONTROL AMBIENTAL",
-      "fax_contacto": " 7112407",
-      "fondos_rotatorios": "N"
     },
     {
       "id_compra": "1343712",
@@ -107323,115 +106291,6 @@
       }
     },
     {
-      "id_compra": "i494938",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "25551",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i494938.doc",
-      "fecha_publicacion": "22/06/2026 00:00",
-      "fecha_ult_mod_llamado": "21/08/2026 23:04",
-      "id_tipocompra": "LN",
-      "subtipo_compra": "COM",
-      "objeto": "LICITACION PÚBLICA NACIONAL N° 25.551 ,, OBRAS DE SISTEMAS DE POTABILIZACIÓN PARA REMOCIÓN DE ARSÉNICO A TRAVÉS",
-      "fecha_hora_apertura": "31/08/2026 11:00",
-      "lugar_apertura": "SAN MARTIN 3235",
-      "fecha_sol_prorr": "17/08/2026",
-      "fecha_sol_aclar": "17/08/2026",
-      "fecha_hora_tope_entrega": "31/08/2026 11:00",
-      "lugar_entrega": "SAN MARTIN 3235",
-      "precio_pliego": "0.00",
-      "lugar_compra_pliego": "",
-      "nombre_contacto": "Licitaciones Obras",
-      "fax_contacto": "22084147",
-      "email_contacto": "licitacionesobras@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_25551_1.doc",
-            "fecha": "26/06/2026 14:47",
-            "nom_archivo": "aclar_llamado_i494938_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_2.doc",
-            "fecha": "24/07/2026 12:17",
-            "nom_archivo": "aclar_llamado_i494938_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_3.doc",
-            "fecha": "30/07/2026 23:05",
-            "nom_archivo": "aclar_llamado_i494938_3.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_4.doc",
-            "fecha": "03/08/2026 23:05",
-            "nom_archivo": "aclar_llamado_i494938_4.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_5.doc",
-            "fecha": "03/08/2026 23:05",
-            "nom_archivo": "aclar_llamado_i494938_5.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_6.doc",
-            "fecha": "11/08/2026 23:04",
-            "nom_archivo": "aclar_llamado_i494938_6.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_7.doc",
-            "fecha": "12/08/2026 23:04",
-            "nom_archivo": "aclar_llamado_i494938_7.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_8.doc",
-            "fecha": "19/08/2026 23:13",
-            "nom_archivo": "aclar_llamado_i494938_8.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_9.doc",
-            "fecha": "19/08/2026 23:10",
-            "nom_archivo": "aclar_llamado_i494938_9.doc"
-          },
-          {
-            "texto": "Aclar_llamado_25551_10.doc",
-            "fecha": "21/08/2026 23:04",
-            "nom_archivo": "aclar_llamado_i494938_10.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "03/08/2026 23:00",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "10/08/2026 11:00",
-            "valor_nuevo": "31/08/2026 11:00"
-          },
-          {
-            "fecha": "03/08/2026 23:00",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "10/08/2026 11:00",
-            "valor_nuevo": "31/08/2026 11:00"
-          },
-          {
-            "fecha": "03/08/2026 23:00",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "27/07/2026",
-            "valor_nuevo": "17/08/2026"
-          },
-          {
-            "fecha": "03/08/2026 23:00",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "27/07/2026",
-            "valor_nuevo": "17/08/2026"
-          }
-        ]
-      }
-    },
-    {
       "id_compra": "1366114",
       "id_inciso": "66",
       "id_ue": "1",
@@ -124832,50 +123691,6 @@
       }
     },
     {
-      "id_compra": "1366362",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "88931",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pedido_1366362.pdf",
-      "fecha_publicacion": "24/08/2026 15:10",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Contratación Personal",
-      "fecha_hora_tope_entrega": "28/08/2026 11:00",
-      "lugar_entrega": "CARLOSROXLO1275,PISO0OFICINA15",
-      "nombre_contacto": "Gcia de CCrit y Em",
-      "fax_contacto": "1952/4516",
-      "email_contacto": "no_tiene_mail@gmail.com",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": {
-          "nro_item": "1",
-          "cant_pedida": "1.00",
-          "id_articulo": "118934",
-          "desc_articulo": "CONTRATACION DE EMPRESA PROVEEDORA DE PERSONAL",
-          "id_color": "",
-          "desc_color": "",
-          "id_detalle_variante": "",
-          "desc_detalle_variante": "",
-          "id_unidad": "22",
-          "unidad": "UNIDAD",
-          "id_variante": "1|1|1",
-          "variante": "-----",
-          "unidad_medida_variante": "-----",
-          "medida_variante": "-----",
-          "presentacion": "-----",
-          "medida_presentacion": "-----",
-          "unidad_medida_presentacion": "-----",
-          "id_marca": "",
-          "desc_marca": ""
-        }
-      }
-    },
-    {
       "id_compra": "1366360",
       "id_inciso": "29",
       "id_ue": "5",
@@ -130280,6 +129095,1223 @@
           "id_marca": "",
           "desc_marca": ""
         }
+      }
+    },
+    {
+      "id_compra": "i499789",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195148",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i499789.html",
+      "fecha_publicacion": "24/08/2026 21:30",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Set de boxeo - bolsa, guantes, bucal etc . envio sin costo Crece Flor de Maroñas // Manuel Acuña 3061 tel .1950 int.3976 ofertas al correo compras.crece@imm.gub.uy- fernando.pizzo@imm.gub.uy",
+      "fecha_hora_tope_entrega": "28/08/2026 13:00",
+      "lugar_entrega": "PCIO. MUNICIPAL - PISO 3 - SECTOR SANTIAGO DE CHILE",
+      "nombre_contacto": "CENTRO CULTURAL \"FLOR DE MAROÑAS\"",
+      "fax_contacto": "O. MUNICIPAL - PISO 3 - SECTOR SANTIAGO DE CHILE",
+      "fondos_rotatorios": "N"
+    },
+    {
+      "id_compra": "i494938",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "25551",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i494938.doc",
+      "fecha_publicacion": "22/06/2026 00:00",
+      "fecha_ult_mod_llamado": "24/08/2026 23:05",
+      "id_tipocompra": "LN",
+      "subtipo_compra": "COM",
+      "objeto": "LICITACION PÚBLICA NACIONAL N° 25.551 ,, OBRAS DE SISTEMAS DE POTABILIZACIÓN PARA REMOCIÓN DE ARSÉNICO A TRAVÉS",
+      "fecha_hora_apertura": "31/08/2026 11:00",
+      "lugar_apertura": "SAN MARTIN 3235",
+      "fecha_sol_prorr": "17/08/2026",
+      "fecha_sol_aclar": "17/08/2026",
+      "fecha_hora_tope_entrega": "31/08/2026 11:00",
+      "lugar_entrega": "SAN MARTIN 3235",
+      "precio_pliego": "0.00",
+      "lugar_compra_pliego": "",
+      "nombre_contacto": "Licitaciones Obras",
+      "fax_contacto": "22084147",
+      "email_contacto": "licitacionesobras@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_25551_1.doc",
+            "fecha": "26/06/2026 14:47",
+            "nom_archivo": "aclar_llamado_i494938_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_2.doc",
+            "fecha": "24/07/2026 12:17",
+            "nom_archivo": "aclar_llamado_i494938_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_3.doc",
+            "fecha": "30/07/2026 23:05",
+            "nom_archivo": "aclar_llamado_i494938_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_4.doc",
+            "fecha": "03/08/2026 23:05",
+            "nom_archivo": "aclar_llamado_i494938_4.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_5.doc",
+            "fecha": "03/08/2026 23:05",
+            "nom_archivo": "aclar_llamado_i494938_5.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_6.doc",
+            "fecha": "11/08/2026 23:04",
+            "nom_archivo": "aclar_llamado_i494938_6.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_7.doc",
+            "fecha": "12/08/2026 23:04",
+            "nom_archivo": "aclar_llamado_i494938_7.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_8.doc",
+            "fecha": "19/08/2026 23:13",
+            "nom_archivo": "aclar_llamado_i494938_8.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_9.doc",
+            "fecha": "19/08/2026 23:10",
+            "nom_archivo": "aclar_llamado_i494938_9.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_10.doc",
+            "fecha": "21/08/2026 23:04",
+            "nom_archivo": "aclar_llamado_i494938_10.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25551_11.doc",
+            "fecha": "24/08/2026 23:05",
+            "nom_archivo": "aclar_llamado_i494938_11.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "03/08/2026 23:00",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "10/08/2026 11:00",
+            "valor_nuevo": "31/08/2026 11:00"
+          },
+          {
+            "fecha": "03/08/2026 23:00",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "10/08/2026 11:00",
+            "valor_nuevo": "31/08/2026 11:00"
+          },
+          {
+            "fecha": "03/08/2026 23:00",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "27/07/2026",
+            "valor_nuevo": "17/08/2026"
+          },
+          {
+            "fecha": "03/08/2026 23:00",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "27/07/2026",
+            "valor_nuevo": "17/08/2026"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "1366421",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "88889",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pedido_1366421.pdf",
+      "fecha_publicacion": "24/08/2026 23:35",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Adquisición de racks",
+      "fecha_hora_tope_entrega": "14/09/2026 19:00",
+      "lugar_entrega": "CARLOSROXLO1275",
+      "nombre_contacto": "Sec.General",
+      "fax_contacto": "19521201",
+      "email_contacto": "no_tiene_mail@gmail.com",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "32.00",
+          "id_articulo": "13771",
+          "desc_articulo": "RACK DE EQUIPOS DE RED",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "1|1|1",
+          "variante": "UNIDAD RACK",
+          "unidad_medida_variante": "UNIDAD",
+          "medida_variante": "-----",
+          "presentacion": "-----",
+          "medida_presentacion": "-----",
+          "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      }
+    },
+    {
+      "id_compra": "1350640",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "25260",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1350640.doc",
+      "fecha_publicacion": "23/06/2026 15:05",
+      "fecha_ult_mod_llamado": "25/08/2026 00:39",
+      "id_tipocompra": "LA",
+      "subtipo_compra": "COM",
+      "objeto": "Licitación Abreviada Nº25260   Reacondicionamiento de obra civil",
+      "fecha_hora_apertura": "02/09/2026 11:00",
+      "lugar_apertura": "SANMARTIN3235",
+      "fecha_sol_prorr": "17/08/2026",
+      "fecha_sol_aclar": "17/08/2026",
+      "fecha_hora_tope_entrega": "02/09/2026 11:00",
+      "lugar_entrega": "SANMARTIN3235",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Licitaciones Obras",
+      "fax_contacto": "1952/2433",
+      "email_contacto": "licitacionesobras@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": [
+          {
+            "nro_item": "1",
+            "cant_pedida": "380.00",
+            "id_articulo": "8",
+            "desc_articulo": "ARENA FINA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "16",
+            "unidad": "M3",
+            "id_variante": "1|192|1",
+            "variante": "-----",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "GRANEL",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "4",
+            "cant_pedida": "72.00",
+            "id_articulo": "121323",
+            "desc_articulo": "GRAVA FILTRANTE",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "16",
+            "unidad": "M3",
+            "id_variante": "111670|1|1",
+            "variante": "TAMAÑO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "12 A 25",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "3",
+            "cant_pedida": "36.00",
+            "id_articulo": "121323",
+            "desc_articulo": "GRAVA FILTRANTE",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "16",
+            "unidad": "M3",
+            "id_variante": "111667|1|1",
+            "variante": "TAMAÑO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "3 A 6",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "2",
+            "cant_pedida": "36.00",
+            "id_articulo": "121323",
+            "desc_articulo": "GRAVA FILTRANTE",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "16",
+            "unidad": "M3",
+            "id_variante": "19820|1|1",
+            "variante": "TAMAÑO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "6 A 12",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "5",
+            "cant_pedida": "1.00",
+            "id_articulo": "121916",
+            "desc_articulo": "ACONDICIONAMIENTO DE INSTALACIONES DE USINA POTABILIZADORA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "-----",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          }
+        ]
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_25260_1.doc",
+            "fecha": "02/07/2026 15:13",
+            "nom_archivo": "aclar_llamado_1350640_0.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25260_2.doc",
+            "fecha": "14/07/2026 15:14",
+            "nom_archivo": "aclar_llamado_1350640_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25260_3.doc",
+            "fecha": "15/07/2026 00:33",
+            "nom_archivo": "aclar_llamado_1350640_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25260_4.doc",
+            "fecha": "15/07/2026 15:15",
+            "nom_archivo": "aclar_llamado_1350640_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25260_5.doc",
+            "fecha": "17/07/2026 00:33",
+            "nom_archivo": "aclar_llamado_1350640_4.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25260_6.doc",
+            "fecha": "03/08/2026 15:14",
+            "nom_archivo": "aclar_llamado_1350640_5.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25260_7.doc",
+            "fecha": "05/08/2026 15:08",
+            "nom_archivo": "aclar_llamado_1350640_6.doc"
+          },
+          {
+            "texto": "Aclar_llamado_25260_8.doc",
+            "fecha": "25/08/2026 00:39",
+            "nom_archivo": "aclar_llamado_1350640_7.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "02/07/2026 15:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "09/07/2026 11:00",
+            "valor_nuevo": "23/07/2026 11:00"
+          },
+          {
+            "fecha": "02/07/2026 15:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "09/07/2026 11:00",
+            "valor_nuevo": "23/07/2026 11:00"
+          },
+          {
+            "fecha": "02/07/2026 15:20",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "30/06/2026",
+            "valor_nuevo": "14/07/2026"
+          },
+          {
+            "fecha": "02/07/2026 15:20",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "30/06/2026",
+            "valor_nuevo": "14/07/2026"
+          },
+          {
+            "fecha": "14/07/2026 15:25",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "23/07/2026 11:00",
+            "valor_nuevo": "06/08/2026 11:00"
+          },
+          {
+            "fecha": "14/07/2026 15:25",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "23/07/2026 11:00",
+            "valor_nuevo": "06/08/2026 11:00"
+          },
+          {
+            "fecha": "14/07/2026 15:25",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "14/07/2026",
+            "valor_nuevo": "28/07/2026"
+          },
+          {
+            "fecha": "14/07/2026 15:25",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "14/07/2026",
+            "valor_nuevo": "28/07/2026"
+          },
+          {
+            "fecha": "16/07/2026 23:40",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "06/08/2026 11:00",
+            "valor_nuevo": "11/08/2026 11:00"
+          },
+          {
+            "fecha": "16/07/2026 23:40",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "06/08/2026 11:00",
+            "valor_nuevo": "11/08/2026 11:00"
+          },
+          {
+            "fecha": "16/07/2026 23:40",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "28/07/2026",
+            "valor_nuevo": "31/07/2026"
+          },
+          {
+            "fecha": "16/07/2026 23:40",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "28/07/2026",
+            "valor_nuevo": "31/07/2026"
+          },
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "11/08/2026 11:00",
+            "valor_nuevo": "27/08/2026 11:00"
+          },
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "11/08/2026 11:00",
+            "valor_nuevo": "27/08/2026 11:00"
+          },
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "31/07/2026",
+            "valor_nuevo": "17/08/2026"
+          },
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "31/07/2026",
+            "valor_nuevo": "17/08/2026"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "27/08/2026 11:00",
+            "valor_nuevo": "02/09/2026 11:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "27/08/2026 11:00",
+            "valor_nuevo": "02/09/2026 11:00"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "1354589",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "26870",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1354589.doc",
+      "fecha_publicacion": "08/07/2026 23:35",
+      "fecha_ult_mod_llamado": "25/08/2026 00:39",
+      "id_tipocompra": "LA",
+      "subtipo_compra": "COM",
+      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 20 trabajadores para el Área Comercial Operativa de la Gerencia Región Litoral Norte",
+      "fecha_hora_apertura": "16/09/2026 14:00",
+      "lugar_apertura": "SANMARTIN3235",
+      "fecha_sol_prorr": "21/07/2026",
+      "fecha_sol_aclar": "21/07/2026",
+      "fecha_hora_tope_entrega": "16/09/2026 14:00",
+      "lugar_entrega": "SANMARTIN3235",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Licitaciones Serv",
+      "fax_contacto": "1952/2423",
+      "email_contacto": "licservicios@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": [
+          {
+            "nro_item": "1",
+            "cant_pedida": "1.00",
+            "id_articulo": "28031",
+            "desc_articulo": "CONTRATACION DE MANO DE OBRA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "TIPO",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "2",
+            "cant_pedida": "1.00",
+            "id_articulo": "76071",
+            "desc_articulo": "CONTRATACION DE PERSONAL ADMINISTRATIVO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "-----",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          }
+        ]
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_26870_1.doc",
+            "fecha": "16/07/2026 15:17",
+            "nom_archivo": "aclar_llamado_1354589_0.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_2.doc",
+            "fecha": "21/07/2026 09:17"
+          },
+          {
+            "texto": "Aclar_llamado_26870_2.doc",
+            "fecha": "22/07/2026 11:30",
+            "nom_archivo": "aclar_llamado_1354589_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_3.doc",
+            "fecha": "23/07/2026 15:17",
+            "nom_archivo": "aclar_llamado_1354589_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_4.doc",
+            "fecha": "25/07/2026 10:36",
+            "nom_archivo": "aclar_llamado_1354589_4.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_5.doc",
+            "fecha": "27/07/2026 15:17",
+            "nom_archivo": "aclar_llamado_1354589_5.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_6.doc",
+            "fecha": "04/08/2026 10:15",
+            "nom_archivo": "aclar_llamado_1354589_6.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_7.doc",
+            "fecha": "04/08/2026 15:09",
+            "nom_archivo": "aclar_llamado_1354589_7.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_8.doc",
+            "fecha": "05/08/2026 00:38",
+            "nom_archivo": "aclar_llamado_1354589_8.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_9.doc",
+            "fecha": "07/08/2026 10:23",
+            "nom_archivo": "aclar_llamado_1354589_9.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_10.doc",
+            "fecha": "12/08/2026 00:33",
+            "nom_archivo": "aclar_llamado_1354589_10.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_11.doc",
+            "fecha": "12/08/2026 00:33",
+            "nom_archivo": "aclar_llamado_1354589_11.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_12.doc",
+            "fecha": "14/08/2026 15:15",
+            "nom_archivo": "aclar_llamado_1354589_12.doc"
+          },
+          {
+            "texto": "aclar_llamado_26870_13.doc",
+            "fecha": "15/08/2026 11:03",
+            "nom_archivo": "aclar_llamado_1354589_13.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26870_14.doc",
+            "fecha": "25/08/2026 00:39",
+            "nom_archivo": "aclar_llamado_1354589_14.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "23/07/2026 15:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "30/07/2026 14:00",
+            "valor_nuevo": "06/08/2026 14:00"
+          },
+          {
+            "fecha": "23/07/2026 15:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "30/07/2026 14:00",
+            "valor_nuevo": "06/08/2026 14:00"
+          },
+          {
+            "fecha": "04/08/2026 10:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "06/08/2026 14:00",
+            "valor_nuevo": "11/08/2026 11:00"
+          },
+          {
+            "fecha": "04/08/2026 10:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "06/08/2026 14:00",
+            "valor_nuevo": "11/08/2026 11:00"
+          },
+          {
+            "fecha": "04/08/2026 15:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "11/08/2026 11:00",
+            "valor_nuevo": "11/08/2026 14:00"
+          },
+          {
+            "fecha": "04/08/2026 15:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "11/08/2026 11:00",
+            "valor_nuevo": "11/08/2026 14:00"
+          },
+          {
+            "fecha": "07/08/2026 10:35",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "11/08/2026 14:00",
+            "valor_nuevo": "18/08/2026 14:00"
+          },
+          {
+            "fecha": "07/08/2026 10:35",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "11/08/2026 14:00",
+            "valor_nuevo": "18/08/2026 14:00"
+          },
+          {
+            "fecha": "15/08/2026 11:10",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "18/08/2026 14:00",
+            "valor_nuevo": "28/08/2026 14:00"
+          },
+          {
+            "fecha": "15/08/2026 11:10",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "18/08/2026 14:00",
+            "valor_nuevo": "28/08/2026 14:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "28/08/2026 14:00",
+            "valor_nuevo": "16/09/2026 14:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "28/08/2026 14:00",
+            "valor_nuevo": "16/09/2026 14:00"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "1355235",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "27161",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1355235.doc",
+      "fecha_publicacion": "10/07/2026 23:35",
+      "fecha_ult_mod_llamado": "25/08/2026 00:40",
+      "id_tipocompra": "LA",
+      "subtipo_compra": "COM",
+      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 22 trabajadores para prestar los servicios de Operadores, para las Áreas de Tratamiento y de Captación y Aducción de la Planta de Aguas Corrientes, Gerencia Técnica Metropolitana.",
+      "fecha_hora_apertura": "17/09/2026 14:00",
+      "lugar_apertura": "SANMARTIN3235",
+      "fecha_sol_prorr": "23/07/2026",
+      "fecha_sol_aclar": "23/07/2026",
+      "fecha_hora_tope_entrega": "17/09/2026 14:00",
+      "lugar_entrega": "SANMARTIN3235",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Licitaciones Serv",
+      "fax_contacto": "1952/2425",
+      "email_contacto": "licservicios@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "1.00",
+          "id_articulo": "102801",
+          "desc_articulo": "CONTRATACION DE PERSONAL TECNICO",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "110534|1|1",
+          "variante": "TIPO",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "AYUDANTE DE SANITARIO",
+          "presentacion": "-----",
+          "medida_presentacion": "-----",
+          "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_27161_1.doc",
+            "fecha": "30/07/2026 15:15",
+            "nom_archivo": "aclar_llamado_1355235_0.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_2.doc",
+            "fecha": "31/07/2026 10:15",
+            "nom_archivo": "aclar_llamado_1355235_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_3.doc",
+            "fecha": "07/08/2026 15:15",
+            "nom_archivo": "aclar_llamado_1355235_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_4.doc",
+            "fecha": "11/08/2026 10:15",
+            "nom_archivo": "aclar_llamado_1355235_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_6.doc",
+            "fecha": "14/08/2026 12:55",
+            "nom_archivo": "aclar_llamado_1355235_4.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_7.doc",
+            "fecha": "14/08/2026 12:55",
+            "nom_archivo": "aclar_llamado_1355235_5.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_5.doc",
+            "fecha": "15/08/2026 11:04",
+            "nom_archivo": "aclar_llamado_1355235_6.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_8.doc",
+            "fecha": "19/08/2026 01:24",
+            "nom_archivo": "aclar_llamado_1355235_7.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_9.doc",
+            "fecha": "25/08/2026 00:40",
+            "nom_archivo": "aclar_llamado_1355235_8.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "30/07/2026 15:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "03/08/2026 11:00",
+            "valor_nuevo": "10/08/2026 14:00"
+          },
+          {
+            "fecha": "30/07/2026 15:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "03/08/2026 11:00",
+            "valor_nuevo": "10/08/2026 14:00"
+          },
+          {
+            "fecha": "07/08/2026 15:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "10/08/2026 14:00",
+            "valor_nuevo": "17/08/2026 14:00"
+          },
+          {
+            "fecha": "07/08/2026 15:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "10/08/2026 14:00",
+            "valor_nuevo": "17/08/2026 14:00"
+          },
+          {
+            "fecha": "14/08/2026 14:10",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "17/08/2026 14:00",
+            "valor_nuevo": "20/08/2026 14:00"
+          },
+          {
+            "fecha": "14/08/2026 14:10",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "17/08/2026 14:00",
+            "valor_nuevo": "20/08/2026 14:00"
+          },
+          {
+            "fecha": "18/08/2026 23:40",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "20/08/2026 14:00",
+            "valor_nuevo": "02/09/2026 14:00"
+          },
+          {
+            "fecha": "18/08/2026 23:40",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "20/08/2026 14:00",
+            "valor_nuevo": "02/09/2026 14:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "02/09/2026 14:00",
+            "valor_nuevo": "17/09/2026 14:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "02/09/2026 14:00",
+            "valor_nuevo": "17/09/2026 14:00"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "1366362",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "88931",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pedido_1366362.pdf",
+      "fecha_publicacion": "24/08/2026 15:10",
+      "fecha_ult_mod_llamado": "25/08/2026 00:45",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Contratación Personal",
+      "fecha_hora_tope_entrega": "28/08/2026 11:00",
+      "lugar_entrega": "CARLOSROXLO1275,PISO0OFICINA15",
+      "nombre_contacto": "Gcia de CCrit y Em",
+      "fax_contacto": "1952/4516",
+      "email_contacto": "no_tiene_mail@gmail.com",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "1.00",
+          "id_articulo": "118934",
+          "desc_articulo": "CONTRATACION DE EMPRESA PROVEEDORA DE PERSONAL",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "1|1|1",
+          "variante": "-----",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "-----",
+          "presentacion": "-----",
+          "medida_presentacion": "-----",
+          "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      },
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Aclar_llamado_10088931_1.pdf",
+          "fecha": "25/08/2026 00:45",
+          "nom_archivo": "aclar_llamado_1366362_0.pdf"
+        }
+      }
+    },
+    {
+      "id_compra": "1358135",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "26421",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1358135.doc",
+      "fecha_publicacion": "22/07/2026 15:05",
+      "fecha_ult_mod_llamado": "25/08/2026 00:45",
+      "id_tipocompra": "LP",
+      "subtipo_compra": "COM",
+      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 22 trabajadores para la Gerencia de Tecnologías de la Información",
+      "fecha_hora_apertura": "18/09/2026 11:00",
+      "lugar_apertura": "SANMARTIN3235",
+      "fecha_sol_prorr": "10/08/2026",
+      "fecha_sol_aclar": "10/08/2026",
+      "fecha_hora_tope_entrega": "18/09/2026 11:00",
+      "lugar_entrega": "SANMARTIN3235",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Licitaciones Serv",
+      "fax_contacto": "1952/2426",
+      "email_contacto": "licservicios@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": [
+          {
+            "nro_item": "1",
+            "cant_pedida": "1.00",
+            "id_articulo": "76071",
+            "desc_articulo": "CONTRATACION DE PERSONAL ADMINISTRATIVO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "-----",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "2",
+            "cant_pedida": "1.00",
+            "id_articulo": "118934",
+            "desc_articulo": "CONTRATACION DE EMPRESA PROVEEDORA DE PERSONAL",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "-----",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          }
+        ]
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_26421_1.doc",
+            "fecha": "04/08/2026 00:36",
+            "nom_archivo": "aclar_llamado_1358135_0.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26421_2.doc",
+            "fecha": "06/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1358135_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26421_3.doc",
+            "fecha": "12/08/2026 10:07",
+            "nom_archivo": "aclar_llamado_1358135_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26421_4.doc",
+            "fecha": "12/08/2026 15:16",
+            "nom_archivo": "aclar_llamado_1358135_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_26421_5.doc",
+            "fecha": "25/08/2026 00:45",
+            "nom_archivo": "aclar_llamado_1358135_4.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "12/08/2026 10:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "19/08/2026 11:00",
+            "valor_nuevo": "02/09/2026 11:00"
+          },
+          {
+            "fecha": "12/08/2026 10:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "19/08/2026 11:00",
+            "valor_nuevo": "02/09/2026 11:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "02/09/2026 11:00",
+            "valor_nuevo": "18/09/2026 11:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "02/09/2026 11:00",
+            "valor_nuevo": "18/09/2026 11:00"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "1359287",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "27007",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1359287.doc",
+      "fecha_publicacion": "28/07/2026 10:05",
+      "fecha_ult_mod_llamado": "25/08/2026 00:45",
+      "id_tipocompra": "LA",
+      "subtipo_compra": "COM",
+      "objeto": "Contratación de una Agencia de Empleo Privada suministradora de hasta 7 trabajadores para el Dpto. Paysandú, Gerencia Región Litoral Norte.",
+      "fecha_hora_apertura": "15/09/2026 11:00",
+      "lugar_apertura": "SANMARTIN3235",
+      "fecha_sol_prorr": "10/08/2026",
+      "fecha_sol_aclar": "10/08/2026",
+      "fecha_hora_tope_entrega": "15/09/2026 11:00",
+      "lugar_entrega": "SANMARTIN3235",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Licitaciones Serv",
+      "fax_contacto": "1952/2424",
+      "email_contacto": "licservicios@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": [
+          {
+            "nro_item": "1",
+            "cant_pedida": "1.00",
+            "id_articulo": "28031",
+            "desc_articulo": "CONTRATACION DE MANO DE OBRA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "TIPO",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "3",
+            "cant_pedida": "1.00",
+            "id_articulo": "102801",
+            "desc_articulo": "CONTRATACION DE PERSONAL TECNICO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "110534|1|1",
+            "variante": "TIPO",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "AYUDANTE DE SANITARIO",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "2",
+            "cant_pedida": "1.00",
+            "id_articulo": "102801",
+            "desc_articulo": "CONTRATACION DE PERSONAL TECNICO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "28015|1|1",
+            "variante": "TIPO",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "ELECTROMECANICO",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          }
+        ]
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_27007_1.doc",
+            "fecha": "03/08/2026 15:15",
+            "nom_archivo": "aclar_llamado_1359287_0.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27007_2.doc",
+            "fecha": "07/08/2026 15:18",
+            "nom_archivo": "aclar_llamado_1359287_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27007_3.doc",
+            "fecha": "11/08/2026 15:07",
+            "nom_archivo": "aclar_llamado_1359287_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27007_4.doc",
+            "fecha": "12/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1359287_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_5.doc",
+            "fecha": "12/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1359287_4.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27007_6.doc",
+            "fecha": "13/08/2026 00:46",
+            "nom_archivo": "aclar_llamado_1359287_5.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27007_7.doc",
+            "fecha": "14/08/2026 13:01",
+            "nom_archivo": "aclar_llamado_1359287_6.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27161_5.doc",
+            "fecha": "15/08/2026 11:04",
+            "nom_archivo": "aclar_llamado_1359287_7.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27007_8.doc",
+            "fecha": "18/08/2026 15:10",
+            "nom_archivo": "aclar_llamado_1359287_8.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27007_9.doc",
+            "fecha": "25/08/2026 00:45",
+            "nom_archivo": "aclar_llamado_1359287_9.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "18/08/2026 15:25",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "19/08/2026 14:00",
+            "valor_nuevo": "28/08/2026 11:00"
+          },
+          {
+            "fecha": "18/08/2026 15:25",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "19/08/2026 14:00",
+            "valor_nuevo": "28/08/2026 11:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "28/08/2026 11:00",
+            "valor_nuevo": "15/09/2026 11:00"
+          },
+          {
+            "fecha": "24/08/2026 23:40",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "28/08/2026 11:00",
+            "valor_nuevo": "15/09/2026 11:00"
+          }
+        ]
       }
     }
   ]
