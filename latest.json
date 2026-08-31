@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-30T10:44:51.895290+00:00",
+  "generated_at": "2026-08-31T10:45:58.257346+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "publication_type": "Llamados vigentes",
-  "total_records": 851,
+  "total_records": 863,
   "data": [
     {
       "id_compra": "1352393",
@@ -80274,124 +80274,6 @@
       "fondos_rotatorios": "N"
     },
     {
-      "id_compra": "1366356",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "7541",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1366356.doc",
-      "fecha_publicacion": "24/08/2026 15:10",
-      "fecha_ult_mod_llamado": "27/08/2026 15:17",
-      "id_tipocompra": "CR",
-      "subtipo_compra": "COM",
-      "objeto": "¿Llamado a Precios construcción de hasta",
-      "fecha_hora_apertura": "15/09/2026 11:00",
-      "lugar_apertura": "Braceras277",
-      "fecha_sol_prorr": "08/09/2026",
-      "fecha_sol_aclar": "10/09/2026",
-      "fecha_hora_tope_entrega": "15/09/2026 11:00",
-      "lugar_entrega": "Braceras277",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Soriano TEC",
-      "fax_contacto": "45322345/117",
-      "email_contacto": "no_tiene_mail@gmail.com",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": [
-          {
-            "nro_item": "1",
-            "cant_pedida": "1.00",
-            "id_articulo": "9993",
-            "desc_articulo": "MANTENIMIENTO DE PAVIMENTO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "TIPO",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "2",
-            "cant_pedida": "1.00",
-            "id_articulo": "70048",
-            "desc_articulo": "CONEXION DOMICILIARIA A LA RED DE SANEAMIENTO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "-----",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "3",
-            "cant_pedida": "1.00",
-            "id_articulo": "70289",
-            "desc_articulo": "CONSTRUCCION DE RED DE SANEAMIENTO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "1|1|1",
-            "variante": "-----",
-            "unidad_medida_variante": "-----",
-            "medida_variante": "-----",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          }
-        ]
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_20007541_1.pdf",
-            "fecha": "24/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1366356_0.pdf"
-          },
-          {
-            "texto": "Aclar_llamado_20007541_2.doc",
-            "fecha": "24/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1366356_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20007541_3.xls",
-            "fecha": "24/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1366356_2.xls"
-          },
-          {
-            "texto": "Aclar_llamado_20007541_2.pdf",
-            "fecha": "27/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1366356_3.pdf"
-          }
-        ]
-      }
-    },
-    {
       "id_compra": "1366693",
       "id_inciso": "66",
       "id_ue": "1",
@@ -116865,33 +116747,6 @@
       }
     },
     {
-      "id_compra": "i500113",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D195333",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i500113.html",
-      "fecha_publicacion": "28/08/2026 19:30",
-      "fecha_ult_mod_llamado": "28/08/2026 19:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Arrendamiento de carpas cot:compras.municipioa@imm.gub.uy",
-      "fecha_hora_tope_entrega": "02/09/2026 23:00",
-      "lugar_entrega": "AV CARLOS MARIA RAMIREZ Nro: 867  ",
-      "nombre_contacto": "MUNICIPIO A",
-      "fax_contacto": " 23071655",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "28/08/2026 19:30",
-          "nom_archivo": "aclar_llamado_i500113_2.PDF"
-        }
-      }
-    },
-    {
       "id_compra": "1367499",
       "id_ucc": "69",
       "num_compra": "10032",
@@ -133471,6 +133326,502 @@
           "variante": "CAPACIDAD",
           "unidad_medida_variante": "L",
           "medida_variante": "9500",
+          "presentacion": "-----",
+          "medida_presentacion": "-----",
+          "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      }
+    },
+    {
+      "id_compra": "1367508",
+      "id_inciso": "29",
+      "id_ue": "68",
+      "num_compra": "10034",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1367508.pdf",
+      "fecha_publicacion": "30/08/2026 18:10",
+      "id_tipocompra": "LP",
+      "subtipo_compra": "COM",
+      "objeto": "DISEÑO, PROYECTO EJECUTIVO, CONSTRUCCIÓN, EQUIPAMIENTO TECNOLÓGICO\nDE INSTALACIÓN ESPECIAL Y PUESTA EN MARCHA DEL HOSPITAL DE LA COSTA ¿ATLÁNTIDA",
+      "fecha_hora_apertura": "30/09/2026 10:00",
+      "fecha_sol_prorr": "23/09/2026",
+      "fecha_sol_aclar": "23/09/2026",
+      "fecha_hora_tope_entrega": "30/09/2026 10:00",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "licitaciones",
+      "fax_contacto": "2486-50-08 int. 2071/6328",
+      "email_contacto": "licitaciones@asse.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "S",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "1.00",
+          "id_articulo": "45440",
+          "desc_articulo": "CONSTRUCCION DE HOSPITAL",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "||",
+          "variante": "-----",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "",
+          "presentacion": "",
+          "medida_presentacion": "",
+          "unidad_medida_presentacion": "",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      }
+    },
+    {
+      "id_compra": "1366356",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "7541",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1366356.doc",
+      "fecha_publicacion": "24/08/2026 15:10",
+      "fecha_ult_mod_llamado": "31/08/2026 00:28",
+      "id_tipocompra": "CR",
+      "subtipo_compra": "COM",
+      "objeto": "¿Llamado a Precios construcción de hasta",
+      "fecha_hora_apertura": "15/09/2026 11:00",
+      "lugar_apertura": "Braceras277",
+      "fecha_sol_prorr": "08/09/2026",
+      "fecha_sol_aclar": "10/09/2026",
+      "fecha_hora_tope_entrega": "15/09/2026 11:00",
+      "lugar_entrega": "Braceras277",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Soriano TEC",
+      "fax_contacto": "45322345/117",
+      "email_contacto": "no_tiene_mail@gmail.com",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": [
+          {
+            "nro_item": "1",
+            "cant_pedida": "1.00",
+            "id_articulo": "9993",
+            "desc_articulo": "MANTENIMIENTO DE PAVIMENTO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "TIPO",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "2",
+            "cant_pedida": "1.00",
+            "id_articulo": "70048",
+            "desc_articulo": "CONEXION DOMICILIARIA A LA RED DE SANEAMIENTO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "-----",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "3",
+            "cant_pedida": "1.00",
+            "id_articulo": "70289",
+            "desc_articulo": "CONSTRUCCION DE RED DE SANEAMIENTO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "1|1|1",
+            "variante": "-----",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "-----",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          }
+        ]
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_20007541_1.pdf",
+            "fecha": "24/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1366356_0.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_20007541_2.doc",
+            "fecha": "24/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1366356_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20007541_3.xls",
+            "fecha": "24/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1366356_2.xls"
+          },
+          {
+            "texto": "Aclar_llamado_20007541_2.pdf",
+            "fecha": "27/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1366356_3.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_20007541_2.pdf",
+            "fecha": "31/08/2026 00:28",
+            "nom_archivo": "aclar_llamado_1366356_4.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "i500131",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195424",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500131.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "COMPRA DE LINTERNA LED TRUPER MODELO LARE-900. CONTACTO Y PRESUPUESTOS UNICAMENTE A compras.villadolores@imm.gub.uy TELEFONO DE CONTACTO: 1950 INT 8556/8557",
+      "fecha_hora_tope_entrega": "02/09/2026 16:00",
+      "lugar_entrega": "AV GRAL RIVERA Nro: 3245  ",
+      "nombre_contacto": "ZOOLOGICO VILLA DOLORES",
+      "fax_contacto": " 26229111",
+      "fondos_rotatorios": "N"
+    },
+    {
+      "id_compra": "i500132",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195448",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500132.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Artefacto tipo ¿proyector led¿ para eventos y espacios públicos diego.collazo@imm.gub.uy 1950-7589",
+      "fecha_hora_tope_entrega": "04/09/2026 08:00",
+      "lugar_entrega": "AV DR LUIS ALBERTO DE HERRERA Nro: 4553 ",
+      "nombre_contacto": "MUNICIPIO C",
+      "fax_contacto": "DR LUIS ALBERTO DE HERRERA Nro: 4553",
+      "fondos_rotatorios": "N"
+    },
+    {
+      "id_compra": "i500138",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195738",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500138.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Adquisicón televisor led smart 42\" compras.ccz11@imm.gub.uy",
+      "fecha_hora_tope_entrega": "02/09/2026 23:59",
+      "lugar_entrega": "AV GRAL FLORES Nro: 4694  ",
+      "nombre_contacto": "CENTRO COMUNAL ZONAL 11",
+      "fax_contacto": " 25140081",
+      "fondos_rotatorios": "N"
+    },
+    {
+      "id_compra": "i500134",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D194513",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500134.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Adquisicion de Cable 5 hilos c/ficha M12 hembra acodada y conector M12 acodado hembra 5 pines VER ANEXO Las ofertas seran enviadas exclusivamente a la casilla de correo: compras.limpieza@imm.gub.uy",
+      "fecha_hora_tope_entrega": "03/09/2026 23:59",
+      "lugar_entrega": "CNO CARLOS MARIA DE PENA Nro: 4579 ",
+      "nombre_contacto": "SERVICIO DE MANTENIMIENTO 1",
+      "fax_contacto": " CARLOS MARIA DE PENA Nro: 4579",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Pliego del llamado",
+          "fecha": "31/08/2026 06:00",
+          "nom_archivo": "aclar_llamado_i500134_2.PDF"
+        }
+      }
+    },
+    {
+      "id_compra": "i500137",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195629",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500137.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": " ALQUILER DE CARTELERÍA CORRECAMINATA",
+      "fecha_hora_tope_entrega": "02/09/2026 23:59",
+      "lugar_entrega": "AV 8 DE OCTUBRE Nro: 4700  ",
+      "nombre_contacto": "MUNICIPIO F",
+      "fax_contacto": "  19507385",
+      "email_contacto": "compras.municipiof@gmail.com",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Pliego del llamado",
+          "fecha": "31/08/2026 06:00",
+          "nom_archivo": "aclar_llamado_i500137_2.PDF"
+        }
+      }
+    },
+    {
+      "id_compra": "i500136",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195585",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500136.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": " SERVICIO DE AMBULANCIA C/ENFERMERO",
+      "fecha_hora_tope_entrega": "02/09/2026 23:59",
+      "lugar_entrega": "AV 8 DE OCTUBRE Nro: 4700  ",
+      "nombre_contacto": "MUNICIPIO F",
+      "fax_contacto": "  19507385",
+      "email_contacto": "compras.municipiof@gmail.com",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Pliego del llamado",
+          "fecha": "31/08/2026 06:00",
+          "nom_archivo": "aclar_llamado_i500136_2.PDF"
+        }
+      }
+    },
+    {
+      "id_compra": "i500129",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D194781",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500129.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": " COMPRA DE BOTELLAS DE AGUA",
+      "fecha_hora_tope_entrega": "02/09/2026 23:59",
+      "lugar_entrega": "AV 8 DE OCTUBRE Nro: 4700  ",
+      "nombre_contacto": "MUNICIPIO F",
+      "fax_contacto": "  19507385",
+      "email_contacto": "compras.municipiof@gmail.com",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Pliego del llamado",
+          "fecha": "31/08/2026 06:00",
+          "nom_archivo": "aclar_llamado_i500129_2.PDF"
+        }
+      }
+    },
+    {
+      "id_compra": "i500113",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195333",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500113.html",
+      "fecha_publicacion": "28/08/2026 19:30",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Arrendamiento de carpas cot:compras.municipioa@imm.gub.uy",
+      "fecha_hora_tope_entrega": "02/09/2026 23:00",
+      "lugar_entrega": "AV CARLOS MARIA RAMIREZ Nro: 867  ",
+      "nombre_contacto": "MUNICIPIO A",
+      "fax_contacto": " 23071655",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Pliego del llamado",
+            "fecha": "28/08/2026 19:30",
+            "nom_archivo": "aclar_llamado_i500113_2.PDF"
+          },
+          {
+            "texto": "Aclaración",
+            "fecha": "31/08/2026 06:00",
+            "nom_archivo": "aclar_llamado_i500113_3.PDF"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "i500130",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195474",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500130.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "GUARDABULTOS cot:compras.municipioa@imm.gub.uy",
+      "fecha_hora_tope_entrega": "02/09/2026 23:00",
+      "lugar_entrega": "AV CARLOS MARIA RAMIREZ Nro: 867  ",
+      "nombre_contacto": "MUNICIPIO A",
+      "fax_contacto": " 23071655",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Pliego del llamado",
+          "fecha": "31/08/2026 06:00",
+          "nom_archivo": "aclar_llamado_i500130_2.PDF"
+        }
+      }
+    },
+    {
+      "id_compra": "i500133",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D194975",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500133.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Adquisicion de Spray aire comprimido-Alcohol isopropilico- Caño termofusion-Tornillo cabeza allen VER ANEXO Las ofertas seran enviadas exclusivamente a la casilla de correo: compras.limpieza@imm.gub.u",
+      "fecha_hora_tope_entrega": "03/09/2026 23:59",
+      "lugar_entrega": "CNO CARLOS MARIA DE PENA Nro: 4579 ",
+      "nombre_contacto": "SERVICIO DE MANTENIMIENTO 1",
+      "fax_contacto": " CARLOS MARIA DE PENA Nro: 4579",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Pliego del llamado",
+          "fecha": "31/08/2026 06:00",
+          "nom_archivo": "aclar_llamado_i500133_2.PDF"
+        }
+      }
+    },
+    {
+      "id_compra": "i500135",
+      "id_inciso": "98",
+      "id_ue": "1",
+      "num_compra": "D195409",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500135.html",
+      "fecha_publicacion": "31/08/2026 06:00",
+      "fecha_ult_mod_llamado": "31/08/2026 06:00",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "COMPRA DE ENVASES PLÁSTICOS (CUBETAS O BALDES CON TAPA ROSCA) 1 LT Y ENVASES DE 4LTS CON TAPA EXCLUYENTE. 40 UNIDADES CADA UNO. CONTACTO Y PRESUPUESTOS UNICAMENTE;compras.villadolores@imm.gub.uy; Tel",
+      "fecha_hora_tope_entrega": "03/09/2026 16:00",
+      "lugar_entrega": "AV GRAL RIVERA Nro: 3245  ",
+      "nombre_contacto": "ZOOLOGICO VILLA DOLORES",
+      "fax_contacto": " 26229111",
+      "fondos_rotatorios": "N",
+      "aclaraciones_lla": {
+        "aclaracion": {
+          "texto": "Pliego del llamado",
+          "fecha": "31/08/2026 06:00",
+          "nom_archivo": "aclar_llamado_i500135_2.PDF"
+        }
+      }
+    },
+    {
+      "id_compra": "1367511",
+      "id_inciso": "29",
+      "id_ue": "54",
+      "num_compra": "14389",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "fecha_publicacion": "31/08/2026 07:35",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "ESTANTERÍA METÁLICA DE 1.85M X 85CM ANCHO . ADJUNTAR IMAGEN Y DETALLE  DE LO COTIZADO    PAGO SIIF",
+      "fecha_hora_tope_entrega": "02/09/2026 07:57",
+      "lugar_entrega": "HOSPITAL SAN CARLOS",
+      "nombre_contacto": "ANA CLAUDIA BARRIOS EGUZQUIZA",
+      "fax_contacto": "42669127 INT 151 - 152",
+      "email_contacto": "COMPRAS.SANCARLOS@ASSE.COM.UY",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "4.00",
+          "id_articulo": "5602",
+          "desc_articulo": "ESTANTERIA DE METAL",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "1|1|1",
+          "variante": "NUMERO DE ESTANTES",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "-----",
           "presentacion": "-----",
           "medida_presentacion": "-----",
           "unidad_medida_presentacion": "-----",
