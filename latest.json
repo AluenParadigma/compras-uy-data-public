@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-05T10:46:54.273653+00:00",
+  "generated_at": "2026-09-06T10:48:43.534312+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "publication_type": "Llamados vigentes",
-  "total_records": 877,
+  "total_records": 878,
   "data": [
     {
       "id_compra": "1352393",
@@ -68384,25 +68384,6 @@
       }
     },
     {
-      "id_compra": "i500436",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D195811",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i500436.html",
-      "fecha_publicacion": "02/09/2026 15:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "COMPRA DE 45MTS DE TELA TNT VERDE OSCURA PARA EVENTO EN PVD EL 19-20/09 Presupuestos únicamente a: compras.villadolores@imm.gub.uy Tel. contacto: 1950 Int. 8556 -8557 - SE ADJUNTA ANEXO",
-      "fecha_hora_tope_entrega": "05/09/2026 16:00",
-      "lugar_entrega": "AV GRAL RIVERA Nro: 3245  ",
-      "nombre_contacto": "ZOOLOGICO VILLA DOLORES",
-      "fax_contacto": " 26229111",
-      "fondos_rotatorios": "N"
-    },
-    {
       "id_compra": "i500444",
       "id_inciso": "98",
       "id_ue": "1",
@@ -68419,25 +68400,6 @@
       "lugar_entrega": "MARCELINO SOSA Nro: 2477  ",
       "nombre_contacto": "TECNICA DE ALUMBRADO PUBLICO",
       "fax_contacto": "  22009748",
-      "fondos_rotatorios": "N"
-    },
-    {
-      "id_compra": "i500448",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D195516",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i500448.html",
-      "fecha_publicacion": "02/09/2026 15:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "COMPRA DE INSUMOS COMESTIBLES PARA EVENTO DE VETERINARIOS 19-20 DE SETIEMBRE. PRESUPUESTOS UNICAMENTE A: compras.villadolores@imm.gub.uy Tel. contacto: 1950 Int. 8556 -8557 - SE ADJUNTA ANEXO",
-      "fecha_hora_tope_entrega": "05/09/2026 16:00",
-      "lugar_entrega": "AV GRAL RIVERA Nro: 3245  ",
-      "nombre_contacto": "ZOOLOGICO VILLA DOLORES",
-      "fax_contacto": " 26229111",
       "fondos_rotatorios": "N"
     },
     {
@@ -90419,305 +90381,6 @@
             "valor_nuevo": "11/09/2026"
           }
         ]
-      }
-    },
-    {
-      "id_compra": "1352194",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "27250",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1352194.pdf",
-      "fecha_publicacion": "29/06/2026 15:10",
-      "fecha_ult_mod_llamado": "04/09/2026 01:04",
-      "id_tipocompra": "LI",
-      "subtipo_compra": "COM",
-      "objeto": "CONSTRUCCION DE UNA PRESA SOBRE EL ARROYO CASUPA Y OBRAS ANEXAS",
-      "fecha_hora_apertura": "06/10/2026 14:00",
-      "lugar_apertura": "CarlosRoxlo1275,Montevideo-Uruguay;EdificioCordón-1er.Piso.",
-      "fecha_sol_prorr": "22/09/2026",
-      "fecha_sol_aclar": "22/09/2026",
-      "fecha_hora_tope_entrega": "06/10/2026 14:00",
-      "lugar_entrega": "CarlosRoxlo1275,Montevideo-Uruguay;EdificioCordón-1er.Piso.",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Licitaciones Obras",
-      "fax_contacto": "1952/2432",
-      "email_contacto": "licitacionesobras@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": {
-          "nro_item": "1",
-          "cant_pedida": "1.00",
-          "id_articulo": "122722",
-          "desc_articulo": "CONSTRUCCION DE REPRESA PARA ABASTECIMIENTO DE AGUA POTABLE",
-          "id_color": "",
-          "desc_color": "",
-          "id_detalle_variante": "",
-          "desc_detalle_variante": "",
-          "id_unidad": "22",
-          "unidad": "UNIDAD",
-          "id_variante": "1|1|1",
-          "variante": "-----",
-          "unidad_medida_variante": "-----",
-          "medida_variante": "-----",
-          "presentacion": "-----",
-          "medida_presentacion": "-----",
-          "unidad_medida_presentacion": "-----",
-          "id_marca": "",
-          "desc_marca": ""
-        }
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_27250_1.doc",
-            "fecha": "18/07/2026 12:03",
-            "nom_archivo": "aclar_llamado_1352194_0.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_2.doc",
-            "fecha": "22/07/2026 15:15",
-            "nom_archivo": "aclar_llamado_1352194_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_3.doc",
-            "fecha": "22/07/2026 15:15",
-            "nom_archivo": "aclar_llamado_1352194_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_4.doc",
-            "fecha": "24/07/2026 00:38",
-            "nom_archivo": "aclar_llamado_1352194_3.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_5.doc",
-            "fecha": "24/07/2026 00:38",
-            "nom_archivo": "aclar_llamado_1352194_4.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_6.doc",
-            "fecha": "24/07/2026 00:38",
-            "nom_archivo": "aclar_llamado_1352194_5.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_7.doc",
-            "fecha": "24/07/2026 15:07",
-            "nom_archivo": "aclar_llamado_1352194_6.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_1.doc",
-            "fecha": "25/07/2026 10:46",
-            "nom_archivo": "aclar_llamado_1352194_7.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_2.doc",
-            "fecha": "25/07/2026 10:46",
-            "nom_archivo": "aclar_llamado_1352194_8.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_3.doc",
-            "fecha": "25/07/2026 10:46",
-            "nom_archivo": "aclar_llamado_1352194_9.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_4.doc",
-            "fecha": "25/07/2026 10:46",
-            "nom_archivo": "aclar_llamado_1352194_10.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_5.doc",
-            "fecha": "25/07/2026 10:47",
-            "nom_archivo": "aclar_llamado_1352194_11.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_6.doc",
-            "fecha": "25/07/2026 10:47",
-            "nom_archivo": "aclar_llamado_1352194_12.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_8.doc",
-            "fecha": "25/07/2026 10:47",
-            "nom_archivo": "aclar_llamado_1352194_13.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_9.doc",
-            "fecha": "03/08/2026 15:15",
-            "nom_archivo": "aclar_llamado_1352194_14.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_10.doc",
-            "fecha": "05/08/2026 00:38",
-            "nom_archivo": "aclar_llamado_1352194_15.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_11.doc",
-            "fecha": "14/08/2026 12:55",
-            "nom_archivo": "aclar_llamado_1352194_16.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_12.doc",
-            "fecha": "18/08/2026 10:17",
-            "nom_archivo": "aclar_llamado_1352194_17.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_13.doc",
-            "fecha": "26/08/2026 15:17",
-            "nom_archivo": "aclar_llamado_1352194_18.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_14.doc",
-            "fecha": "03/09/2026 15:17",
-            "nom_archivo": "aclar_llamado_1352194_19.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_1.doc",
-            "fecha": "04/09/2026 01:02",
-            "nom_archivo": "aclar_llamado_1352194_20.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_2.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_21.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_3.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_22.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_4.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_23.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_5.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_24.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_6.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_25.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_7.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_26.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_11.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_27.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_12.doc",
-            "fecha": "04/09/2026 01:03",
-            "nom_archivo": "aclar_llamado_1352194_28.doc"
-          },
-          {
-            "texto": "Aclar_llamado_27250_13.doc",
-            "fecha": "04/09/2026 01:04",
-            "nom_archivo": "aclar_llamado_1352194_29.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "18/08/2026 14:00",
-            "valor_nuevo": "06/10/2026 14:00"
-          },
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "18/08/2026 14:00",
-            "valor_nuevo": "06/10/2026 14:00"
-          },
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "04/08/2026",
-            "valor_nuevo": "22/09/2026"
-          },
-          {
-            "fecha": "03/08/2026 15:20",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "04/08/2026",
-            "valor_nuevo": "22/09/2026"
-          }
-        ]
-      }
-    },
-    {
-      "id_compra": "1367505",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "88635",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pedido_1367505.doc",
-      "fecha_publicacion": "28/08/2026 23:35",
-      "fecha_ult_mod_llamado": "04/09/2026 01:06",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Suministro y colocación de parches metálicos exteriores",
-      "fecha_hora_tope_entrega": "10/09/2026 11:00",
-      "lugar_entrega": "SarandiyLedesma",
-      "nombre_contacto": "Area Técnica UGD",
-      "fax_contacto": "42240910/163",
-      "email_contacto": "comprasugd@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": {
-          "nro_item": "1",
-          "cant_pedida": "1.00",
-          "id_articulo": "11820",
-          "desc_articulo": "MANTENIMIENTO DE TANQUE DE AGUA",
-          "id_color": "",
-          "desc_color": "",
-          "id_detalle_variante": "",
-          "desc_detalle_variante": "",
-          "id_unidad": "22",
-          "unidad": "UNIDAD",
-          "id_variante": "1|1|1",
-          "variante": "-----",
-          "unidad_medida_variante": "-----",
-          "medida_variante": "-----",
-          "presentacion": "-----",
-          "medida_presentacion": "-----",
-          "unidad_medida_presentacion": "-----",
-          "id_marca": "",
-          "desc_marca": ""
-        }
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "aclar_llamado_10088635_1.doc",
-            "fecha": "03/09/2026 15:26",
-            "nom_archivo": "aclar_llamado_1367505_0.doc"
-          },
-          {
-            "texto": "aclar_llamado_10088635_2.doc",
-            "fecha": "04/09/2026 01:06",
-            "nom_archivo": "aclar_llamado_1367505_1.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": {
-          "fecha": "03/09/2026 16:15",
-          "campo": "FECHA_HORA_TOPE_ENTREGA",
-          "valor_anterior": "04/09/2026 11:00",
-          "valor_nuevo": "10/09/2026 11:00"
-        }
       }
     },
     {
@@ -128572,464 +128235,6 @@
       }
     },
     {
-      "id_compra": "1366688",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "6784",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1366688.doc",
-      "fecha_publicacion": "26/08/2026 15:10",
-      "fecha_ult_mod_llamado": "04/09/2026 15:19",
-      "id_tipocompra": "CR",
-      "subtipo_compra": "COM",
-      "objeto": "Adquisición de juntas y aros de goma",
-      "fecha_hora_apertura": "17/09/2026 10:00",
-      "lugar_apertura": "SanMartin3235",
-      "fecha_sol_prorr": "10/09/2026",
-      "fecha_sol_aclar": "10/09/2026",
-      "fecha_hora_tope_entrega": "17/09/2026 10:00",
-      "lugar_entrega": "SanMartin3235",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Carolina Silva",
-      "fax_contacto": "22084147/140",
-      "email_contacto": "compras@ose.com.uy",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": [
-          {
-            "nro_item": "1",
-            "cant_pedida": "5000.00",
-            "id_articulo": "2535",
-            "desc_articulo": "UNION MOVIL PARA CAÑO DE PLOMO",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "14982|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "PLG",
-            "medida_variante": "3/4",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "3",
-            "cant_pedida": "3000.00",
-            "id_articulo": "11210",
-            "desc_articulo": "JUNTA DE GOMA PARA CAÑO DE PVC",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "7429|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "75",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "2",
-            "cant_pedida": "500.00",
-            "id_articulo": "11210",
-            "desc_articulo": "JUNTA DE GOMA PARA CAÑO DE PVC",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "6229|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "63",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "5",
-            "cant_pedida": "20.00",
-            "id_articulo": "14778",
-            "desc_articulo": "GOMA NATURAL EN PLANCHA SIN TELA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "15",
-            "unidad": "M2",
-            "id_variante": "378|1|1",
-            "variante": "ESPESOR",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "4",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "4",
-            "cant_pedida": "30.00",
-            "id_articulo": "14778",
-            "desc_articulo": "GOMA NATURAL EN PLANCHA SIN TELA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "15",
-            "unidad": "M2",
-            "id_variante": "280|1|1",
-            "variante": "ESPESOR",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "3",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "9",
-            "cant_pedida": "30.00",
-            "id_articulo": "103148",
-            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "15",
-            "unidad": "M2",
-            "id_variante": "15908|1|1",
-            "variante": "ESPESOR",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "3.5",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "8",
-            "cant_pedida": "30.00",
-            "id_articulo": "103148",
-            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "15",
-            "unidad": "M2",
-            "id_variante": "473|1|1",
-            "variante": "ESPESOR",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "5",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "7",
-            "cant_pedida": "30.00",
-            "id_articulo": "103148",
-            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "15",
-            "unidad": "M2",
-            "id_variante": "378|1|1",
-            "variante": "ESPESOR",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "4",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "6",
-            "cant_pedida": "100.00",
-            "id_articulo": "103148",
-            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "15",
-            "unidad": "M2",
-            "id_variante": "280|1|1",
-            "variante": "ESPESOR",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "3",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "12",
-            "cant_pedida": "20.00",
-            "id_articulo": "103351",
-            "desc_articulo": "ARO DE GOMA PARA JUNTA GIBAULT",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "17178|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "275",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "11",
-            "cant_pedida": "1100.00",
-            "id_articulo": "103351",
-            "desc_articulo": "ARO DE GOMA PARA JUNTA GIBAULT",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "7429|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "75",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "10",
-            "cant_pedida": "300.00",
-            "id_articulo": "103351",
-            "desc_articulo": "ARO DE GOMA PARA JUNTA GIBAULT",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "6229|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "63",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "14",
-            "cant_pedida": "500.00",
-            "id_articulo": "103364",
-            "desc_articulo": "JUNTA PLANA DE GOMA PARA BRIDA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "9929|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "100",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "13",
-            "cant_pedida": "500.00",
-            "id_articulo": "103364",
-            "desc_articulo": "JUNTA PLANA DE GOMA PARA BRIDA",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "7429|1|1",
-            "variante": "DIAMETRO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "75",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          },
-          {
-            "nro_item": "15",
-            "cant_pedida": "2000.00",
-            "id_articulo": "120719",
-            "desc_articulo": "ARO DE GOMA PARA JUNTA UNIVERSAL",
-            "id_color": "",
-            "desc_color": "",
-            "id_detalle_variante": "",
-            "desc_detalle_variante": "",
-            "id_unidad": "22",
-            "unidad": "UNIDAD",
-            "id_variante": "111233|1|1",
-            "variante": "RANGO",
-            "unidad_medida_variante": "MM",
-            "medida_variante": "109 - 128",
-            "presentacion": "-----",
-            "medida_presentacion": "-----",
-            "unidad_medida_presentacion": "-----",
-            "id_marca": "",
-            "desc_marca": ""
-          }
-        ]
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_20006784_1.doc",
-            "fecha": "31/08/2026 15:20",
-            "nom_archivo": "aclar_llamado_1366688_0.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "02/09/2026 10:26",
-            "nom_archivo": "aclar_llamado_1366688_1.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "02/09/2026 10:27",
-            "nom_archivo": "aclar_llamado_1366688_2.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "02/09/2026 15:21",
-            "nom_archivo": "aclar_llamado_1366688_3.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "02/09/2026 15:22",
-            "nom_archivo": "aclar_llamado_1366688_4.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "03/09/2026 00:48",
-            "nom_archivo": "aclar_llamado_1366688_5.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "03/09/2026 00:50",
-            "nom_archivo": "aclar_llamado_1366688_6.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_1.doc",
-            "fecha": "04/09/2026 01:08",
-            "nom_archivo": "aclar_llamado_1366688_7.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "04/09/2026 01:09",
-            "nom_archivo": "aclar_llamado_1366688_8.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "04/09/2026 01:10",
-            "nom_archivo": "aclar_llamado_1366688_9.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_1.doc",
-            "fecha": "04/09/2026 10:29",
-            "nom_archivo": "aclar_llamado_1366688_10.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "04/09/2026 10:30",
-            "nom_archivo": "aclar_llamado_1366688_11.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "04/09/2026 10:31",
-            "nom_archivo": "aclar_llamado_1366688_12.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_1.doc",
-            "fecha": "04/09/2026 15:17",
-            "nom_archivo": "aclar_llamado_1366688_13.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "04/09/2026 15:18",
-            "nom_archivo": "aclar_llamado_1366688_14.doc"
-          },
-          {
-            "texto": "Aclar_llamado_20006784_2.doc",
-            "fecha": "04/09/2026 15:19",
-            "nom_archivo": "aclar_llamado_1366688_15.doc"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "31/08/2026 15:25",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "08/09/2026 10:00",
-            "valor_nuevo": "17/09/2026 10:00"
-          },
-          {
-            "fecha": "31/08/2026 15:25",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "08/09/2026 10:00",
-            "valor_nuevo": "17/09/2026 10:00"
-          },
-          {
-            "fecha": "31/08/2026 15:25",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "01/09/2026",
-            "valor_nuevo": "10/09/2026"
-          },
-          {
-            "fecha": "31/08/2026 15:25",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "01/09/2026",
-            "valor_nuevo": "10/09/2026"
-          }
-        ]
-      }
-    },
-    {
       "id_compra": "1358135",
       "id_inciso": "66",
       "id_ue": "1",
@@ -136357,6 +135562,876 @@
           "presentacion": "-----",
           "medida_presentacion": "-----",
           "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      }
+    },
+    {
+      "id_compra": "1352194",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "27250",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1352194.pdf",
+      "fecha_publicacion": "29/06/2026 15:10",
+      "fecha_ult_mod_llamado": "05/09/2026 10:19",
+      "id_tipocompra": "LI",
+      "subtipo_compra": "COM",
+      "objeto": "CONSTRUCCION DE UNA PRESA SOBRE EL ARROYO CASUPA Y OBRAS ANEXAS",
+      "fecha_hora_apertura": "06/10/2026 14:00",
+      "lugar_apertura": "CarlosRoxlo1275,Montevideo-Uruguay;EdificioCordón-1er.Piso.",
+      "fecha_sol_prorr": "22/09/2026",
+      "fecha_sol_aclar": "22/09/2026",
+      "fecha_hora_tope_entrega": "06/10/2026 14:00",
+      "lugar_entrega": "CarlosRoxlo1275,Montevideo-Uruguay;EdificioCordón-1er.Piso.",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Licitaciones Obras",
+      "fax_contacto": "1952/2432",
+      "email_contacto": "licitacionesobras@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "1.00",
+          "id_articulo": "122722",
+          "desc_articulo": "CONSTRUCCION DE REPRESA PARA ABASTECIMIENTO DE AGUA POTABLE",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "1|1|1",
+          "variante": "-----",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "-----",
+          "presentacion": "-----",
+          "medida_presentacion": "-----",
+          "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_27250_1.doc",
+            "fecha": "18/07/2026 12:03",
+            "nom_archivo": "aclar_llamado_1352194_0.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_2.doc",
+            "fecha": "22/07/2026 15:15",
+            "nom_archivo": "aclar_llamado_1352194_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_3.doc",
+            "fecha": "22/07/2026 15:15",
+            "nom_archivo": "aclar_llamado_1352194_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_4.doc",
+            "fecha": "24/07/2026 00:38",
+            "nom_archivo": "aclar_llamado_1352194_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_5.doc",
+            "fecha": "24/07/2026 00:38",
+            "nom_archivo": "aclar_llamado_1352194_4.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_6.doc",
+            "fecha": "24/07/2026 00:38",
+            "nom_archivo": "aclar_llamado_1352194_5.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_7.doc",
+            "fecha": "24/07/2026 15:07",
+            "nom_archivo": "aclar_llamado_1352194_6.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_1.doc",
+            "fecha": "25/07/2026 10:46",
+            "nom_archivo": "aclar_llamado_1352194_7.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_2.doc",
+            "fecha": "25/07/2026 10:46",
+            "nom_archivo": "aclar_llamado_1352194_8.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_3.doc",
+            "fecha": "25/07/2026 10:46",
+            "nom_archivo": "aclar_llamado_1352194_9.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_4.doc",
+            "fecha": "25/07/2026 10:46",
+            "nom_archivo": "aclar_llamado_1352194_10.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_5.doc",
+            "fecha": "25/07/2026 10:47",
+            "nom_archivo": "aclar_llamado_1352194_11.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_6.doc",
+            "fecha": "25/07/2026 10:47",
+            "nom_archivo": "aclar_llamado_1352194_12.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_8.doc",
+            "fecha": "25/07/2026 10:47",
+            "nom_archivo": "aclar_llamado_1352194_13.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_9.doc",
+            "fecha": "03/08/2026 15:15",
+            "nom_archivo": "aclar_llamado_1352194_14.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_10.doc",
+            "fecha": "05/08/2026 00:38",
+            "nom_archivo": "aclar_llamado_1352194_15.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_11.doc",
+            "fecha": "14/08/2026 12:55",
+            "nom_archivo": "aclar_llamado_1352194_16.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_12.doc",
+            "fecha": "18/08/2026 10:17",
+            "nom_archivo": "aclar_llamado_1352194_17.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_13.doc",
+            "fecha": "26/08/2026 15:17",
+            "nom_archivo": "aclar_llamado_1352194_18.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_14.doc",
+            "fecha": "03/09/2026 15:17",
+            "nom_archivo": "aclar_llamado_1352194_19.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_1.doc",
+            "fecha": "04/09/2026 01:02",
+            "nom_archivo": "aclar_llamado_1352194_20.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_2.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_21.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_3.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_22.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_4.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_23.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_5.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_24.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_6.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_25.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_7.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_26.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_11.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_27.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_12.doc",
+            "fecha": "04/09/2026 01:03",
+            "nom_archivo": "aclar_llamado_1352194_28.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_13.doc",
+            "fecha": "04/09/2026 01:04",
+            "nom_archivo": "aclar_llamado_1352194_29.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_15.doc",
+            "fecha": "05/09/2026 10:19",
+            "nom_archivo": "aclar_llamado_1352194_30.doc"
+          },
+          {
+            "texto": "Aclar_llamado_27250_16.doc",
+            "fecha": "05/09/2026 10:19",
+            "nom_archivo": "aclar_llamado_1352194_31.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "18/08/2026 14:00",
+            "valor_nuevo": "06/10/2026 14:00"
+          },
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "18/08/2026 14:00",
+            "valor_nuevo": "06/10/2026 14:00"
+          },
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "04/08/2026",
+            "valor_nuevo": "22/09/2026"
+          },
+          {
+            "fecha": "03/08/2026 15:20",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "04/08/2026",
+            "valor_nuevo": "22/09/2026"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "1367505",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "88635",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pedido_1367505.doc",
+      "fecha_publicacion": "28/08/2026 23:35",
+      "fecha_ult_mod_llamado": "05/09/2026 10:21",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Suministro y colocación de parches metálicos exteriores",
+      "fecha_hora_tope_entrega": "10/09/2026 11:00",
+      "lugar_entrega": "SarandiyLedesma",
+      "nombre_contacto": "Area Técnica UGD",
+      "fax_contacto": "42240910/163",
+      "email_contacto": "comprasugd@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "1.00",
+          "id_articulo": "11820",
+          "desc_articulo": "MANTENIMIENTO DE TANQUE DE AGUA",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "1|1|1",
+          "variante": "-----",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "-----",
+          "presentacion": "-----",
+          "medida_presentacion": "-----",
+          "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "aclar_llamado_10088635_1.doc",
+            "fecha": "03/09/2026 15:26",
+            "nom_archivo": "aclar_llamado_1367505_0.doc"
+          },
+          {
+            "texto": "aclar_llamado_10088635_2.doc",
+            "fecha": "04/09/2026 01:06",
+            "nom_archivo": "aclar_llamado_1367505_1.doc"
+          },
+          {
+            "texto": "aclar_llamado_10088635_3.doc",
+            "fecha": "05/09/2026 10:21",
+            "nom_archivo": "aclar_llamado_1367505_2.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": {
+          "fecha": "03/09/2026 16:15",
+          "campo": "FECHA_HORA_TOPE_ENTREGA",
+          "valor_anterior": "04/09/2026 11:00",
+          "valor_nuevo": "10/09/2026 11:00"
+        }
+      }
+    },
+    {
+      "id_compra": "1366688",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "6784",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1366688.doc",
+      "fecha_publicacion": "26/08/2026 15:10",
+      "fecha_ult_mod_llamado": "05/09/2026 10:23",
+      "id_tipocompra": "CR",
+      "subtipo_compra": "COM",
+      "objeto": "Adquisición de juntas y aros de goma",
+      "fecha_hora_apertura": "17/09/2026 10:00",
+      "lugar_apertura": "SanMartin3235",
+      "fecha_sol_prorr": "10/09/2026",
+      "fecha_sol_aclar": "10/09/2026",
+      "fecha_hora_tope_entrega": "17/09/2026 10:00",
+      "lugar_entrega": "SanMartin3235",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Carolina Silva",
+      "fax_contacto": "22084147/140",
+      "email_contacto": "compras@ose.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": [
+          {
+            "nro_item": "1",
+            "cant_pedida": "5000.00",
+            "id_articulo": "2535",
+            "desc_articulo": "UNION MOVIL PARA CAÑO DE PLOMO",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "14982|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "PLG",
+            "medida_variante": "3/4",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "3",
+            "cant_pedida": "3000.00",
+            "id_articulo": "11210",
+            "desc_articulo": "JUNTA DE GOMA PARA CAÑO DE PVC",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "7429|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "75",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "2",
+            "cant_pedida": "500.00",
+            "id_articulo": "11210",
+            "desc_articulo": "JUNTA DE GOMA PARA CAÑO DE PVC",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "6229|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "63",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "5",
+            "cant_pedida": "20.00",
+            "id_articulo": "14778",
+            "desc_articulo": "GOMA NATURAL EN PLANCHA SIN TELA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "15",
+            "unidad": "M2",
+            "id_variante": "378|1|1",
+            "variante": "ESPESOR",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "4",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "4",
+            "cant_pedida": "30.00",
+            "id_articulo": "14778",
+            "desc_articulo": "GOMA NATURAL EN PLANCHA SIN TELA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "15",
+            "unidad": "M2",
+            "id_variante": "280|1|1",
+            "variante": "ESPESOR",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "3",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "9",
+            "cant_pedida": "30.00",
+            "id_articulo": "103148",
+            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "15",
+            "unidad": "M2",
+            "id_variante": "15908|1|1",
+            "variante": "ESPESOR",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "3.5",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "8",
+            "cant_pedida": "30.00",
+            "id_articulo": "103148",
+            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "15",
+            "unidad": "M2",
+            "id_variante": "473|1|1",
+            "variante": "ESPESOR",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "5",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "7",
+            "cant_pedida": "30.00",
+            "id_articulo": "103148",
+            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "15",
+            "unidad": "M2",
+            "id_variante": "378|1|1",
+            "variante": "ESPESOR",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "4",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "6",
+            "cant_pedida": "100.00",
+            "id_articulo": "103148",
+            "desc_articulo": "GOMA NATURAL EN PLANCHA CON UNA TELA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "15",
+            "unidad": "M2",
+            "id_variante": "280|1|1",
+            "variante": "ESPESOR",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "3",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "12",
+            "cant_pedida": "20.00",
+            "id_articulo": "103351",
+            "desc_articulo": "ARO DE GOMA PARA JUNTA GIBAULT",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "17178|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "275",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "11",
+            "cant_pedida": "1100.00",
+            "id_articulo": "103351",
+            "desc_articulo": "ARO DE GOMA PARA JUNTA GIBAULT",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "7429|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "75",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "10",
+            "cant_pedida": "300.00",
+            "id_articulo": "103351",
+            "desc_articulo": "ARO DE GOMA PARA JUNTA GIBAULT",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "6229|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "63",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "14",
+            "cant_pedida": "500.00",
+            "id_articulo": "103364",
+            "desc_articulo": "JUNTA PLANA DE GOMA PARA BRIDA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "9929|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "100",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "13",
+            "cant_pedida": "500.00",
+            "id_articulo": "103364",
+            "desc_articulo": "JUNTA PLANA DE GOMA PARA BRIDA",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "7429|1|1",
+            "variante": "DIAMETRO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "75",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "15",
+            "cant_pedida": "2000.00",
+            "id_articulo": "120719",
+            "desc_articulo": "ARO DE GOMA PARA JUNTA UNIVERSAL",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "111233|1|1",
+            "variante": "RANGO",
+            "unidad_medida_variante": "MM",
+            "medida_variante": "109 - 128",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          }
+        ]
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_20006784_1.doc",
+            "fecha": "31/08/2026 15:20",
+            "nom_archivo": "aclar_llamado_1366688_0.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "02/09/2026 10:26",
+            "nom_archivo": "aclar_llamado_1366688_1.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "02/09/2026 10:27",
+            "nom_archivo": "aclar_llamado_1366688_2.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "02/09/2026 15:21",
+            "nom_archivo": "aclar_llamado_1366688_3.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "02/09/2026 15:22",
+            "nom_archivo": "aclar_llamado_1366688_4.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "03/09/2026 00:48",
+            "nom_archivo": "aclar_llamado_1366688_5.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "03/09/2026 00:50",
+            "nom_archivo": "aclar_llamado_1366688_6.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_1.doc",
+            "fecha": "04/09/2026 01:08",
+            "nom_archivo": "aclar_llamado_1366688_7.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "04/09/2026 01:09",
+            "nom_archivo": "aclar_llamado_1366688_8.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "04/09/2026 01:10",
+            "nom_archivo": "aclar_llamado_1366688_9.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_1.doc",
+            "fecha": "04/09/2026 10:29",
+            "nom_archivo": "aclar_llamado_1366688_10.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "04/09/2026 10:30",
+            "nom_archivo": "aclar_llamado_1366688_11.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "04/09/2026 10:31",
+            "nom_archivo": "aclar_llamado_1366688_12.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_1.doc",
+            "fecha": "04/09/2026 15:17",
+            "nom_archivo": "aclar_llamado_1366688_13.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "04/09/2026 15:18",
+            "nom_archivo": "aclar_llamado_1366688_14.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "04/09/2026 15:19",
+            "nom_archivo": "aclar_llamado_1366688_15.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_1.doc",
+            "fecha": "05/09/2026 10:21",
+            "nom_archivo": "aclar_llamado_1366688_16.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "05/09/2026 10:22",
+            "nom_archivo": "aclar_llamado_1366688_17.doc"
+          },
+          {
+            "texto": "Aclar_llamado_20006784_2.doc",
+            "fecha": "05/09/2026 10:23",
+            "nom_archivo": "aclar_llamado_1366688_18.doc"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "31/08/2026 15:25",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "08/09/2026 10:00",
+            "valor_nuevo": "17/09/2026 10:00"
+          },
+          {
+            "fecha": "31/08/2026 15:25",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "08/09/2026 10:00",
+            "valor_nuevo": "17/09/2026 10:00"
+          },
+          {
+            "fecha": "31/08/2026 15:25",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "01/09/2026",
+            "valor_nuevo": "10/09/2026"
+          },
+          {
+            "fecha": "31/08/2026 15:25",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "01/09/2026",
+            "valor_nuevo": "10/09/2026"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "i500714",
+      "id_inciso": "81",
+      "id_ue": "1",
+      "num_compra": "1473",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500714.pdf",
+      "fecha_publicacion": "05/09/2026 11:53",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": " ADQUISICION DE EQUIPO DE AIRE ACONDICIONADO ",
+      "fecha_hora_tope_entrega": "09/09/2026 12:00",
+      "lugar_entrega": "VIA CORREO O FLORENCIO SANCHEZ 158",
+      "nombre_contacto": "DPTO . COMPRA DIRECTA",
+      "fax_contacto": "1828  int  2307",
+      "email_contacto": "compra.directa@imcanelones.gub.uy",
+      "fondos_rotatorios": "N"
+    },
+    {
+      "id_compra": "i500715",
+      "id_inciso": "81",
+      "id_ue": "1",
+      "num_compra": "1503",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i500715.zip",
+      "fecha_publicacion": "05/09/2026 13:28",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": " SERVICIO DE MATENIMIENTO DE SOFTWARE ",
+      "fecha_hora_tope_entrega": "10/09/2026 13:45",
+      "lugar_entrega": "VIA CORREO O FLORENCIO SANCHEZ 158",
+      "nombre_contacto": "DPTO . COMPRA DIRECTA",
+      "fax_contacto": "1828  int  2307",
+      "email_contacto": "compra.directa@imcanelones.gub.uy",
+      "fondos_rotatorios": "N"
+    },
+    {
+      "id_compra": "1369512",
+      "id_inciso": "50",
+      "id_ue": "1",
+      "num_compra": "407",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pedido_1369512.pdf",
+      "fecha_publicacion": "05/09/2026 21:45",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Pasaje aéreo en clase económica Mvdeo-Asunción-Mvdeo",
+      "fecha_hora_tope_entrega": "07/09/2026 14:00",
+      "nombre_contacto": "Adquisiciones",
+      "fax_contacto": "19672319",
+      "email_contacto": "adquisiciones@bcu.gub.uy",
+      "fondos_rotatorios": "N",
+      "apel": "S",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "1.00",
+          "id_articulo": "816",
+          "desc_articulo": "PASAJE EN TRANSPORTE AEREO DE PASAJEROS FUERA DEL PAIS, CONTRATADO EN URUGUAY",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "||",
+          "variante": "TIPO",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "",
+          "presentacion": "",
+          "medida_presentacion": "",
+          "unidad_medida_presentacion": "",
           "id_marca": "",
           "desc_marca": ""
         }
