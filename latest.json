@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-19T14:06:00.305832+00:00",
+  "generated_at": "2026-09-20T14:26:13.299359+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "publication_type": "Llamados vigentes",
-  "total_records": 899,
+  "total_records": 900,
   "data": [
     {
       "id_compra": "1352393",
@@ -122092,6 +122092,26 @@
       }
     },
     {
+      "id_compra": "i501782",
+      "id_inciso": "81",
+      "id_ue": "1",
+      "num_compra": "1605",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i501782.zip",
+      "fecha_publicacion": "19/09/2026 11:51",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "SERVICIO DE PRODUCCION PARA CONTENIDO DIGITAL ",
+      "fecha_hora_tope_entrega": "23/09/2026 12:00",
+      "lugar_entrega": "VIA CORREO O FLORENCIO SANCHEZ 158",
+      "nombre_contacto": "Dpto. Compra Directa",
+      "fax_contacto": "1828  int  2307",
+      "email_contacto": "compra.directa@imcanelones.gub.uy",
+      "fondos_rotatorios": "N"
+    },
+    {
       "id_compra": "1370981",
       "id_inciso": "66",
       "id_ue": "1",
@@ -122101,7 +122121,7 @@
       "estado_compra": "4",
       "nombre_pliego": "pliego_1370981.pdf",
       "fecha_publicacion": "10/09/2026 15:10",
-      "fecha_ult_mod_llamado": "19/09/2026 10:15",
+      "fecha_ult_mod_llamado": "20/09/2026 10:16",
       "id_tipocompra": "LA",
       "subtipo_compra": "COM",
       "objeto": "Contratación de Empresa para suministro de cuadrilla que realice tareas asociadas a redes de agua y saneamiento para Jefatura Técnica Las Piedras, Dpto. Canelones- Gerencia Región Centro",
@@ -122271,6 +122291,36 @@
             "texto": "Aclar_llamado_27162.pdf",
             "fecha": "19/09/2026 10:15",
             "nom_archivo": "aclar_llamado_1370981_25.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27162.pdf",
+            "fecha": "19/09/2026 15:14",
+            "nom_archivo": "aclar_llamado_1370981_26.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27162.pdf",
+            "fecha": "19/09/2026 15:15",
+            "nom_archivo": "aclar_llamado_1370981_27.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27162.pdf",
+            "fecha": "20/09/2026 00:32",
+            "nom_archivo": "aclar_llamado_1370981_28.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27162.pdf",
+            "fecha": "20/09/2026 00:33",
+            "nom_archivo": "aclar_llamado_1370981_29.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27162.pdf",
+            "fecha": "20/09/2026 10:15",
+            "nom_archivo": "aclar_llamado_1370981_30.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27162.pdf",
+            "fecha": "20/09/2026 10:16",
+            "nom_archivo": "aclar_llamado_1370981_31.pdf"
           }
         ]
       }
