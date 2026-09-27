@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26T14:49:07.218980+00:00",
+  "generated_at": "2026-09-27T15:22:16.174144+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "publication_type": "Llamados vigentes",
   "total_records": 840,
@@ -113833,7 +113833,7 @@
       "estado_compra": "4",
       "nombre_pliego": "pliego_1374504.pdf",
       "fecha_publicacion": "24/09/2026 10:05",
-      "fecha_ult_mod_llamado": "26/09/2026 10:17",
+      "fecha_ult_mod_llamado": "27/09/2026 10:17",
       "id_tipocompra": "LA",
       "subtipo_compra": "COM",
       "objeto": "La Jefatura Comercial Departamental de Canelones, solicita servicio para realización de hasta 300 conexiones largas y hasta 500 cortas en la localidad de Canelones, Santa Lucía y zonas dependientes de dichas localidades.",
@@ -113953,6 +113953,51 @@
             "texto": "Aclar_llamado_27380.pdf",
             "fecha": "26/09/2026 10:17",
             "nom_archivo": "aclar_llamado_1374504_15.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380_1.pdf",
+            "fecha": "26/09/2026 15:15",
+            "nom_archivo": "aclar_llamado_1374504_16.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380.pdf",
+            "fecha": "26/09/2026 15:15",
+            "nom_archivo": "aclar_llamado_1374504_17.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380.pdf",
+            "fecha": "26/09/2026 15:16",
+            "nom_archivo": "aclar_llamado_1374504_18.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380_1.pdf",
+            "fecha": "27/09/2026 00:30",
+            "nom_archivo": "aclar_llamado_1374504_19.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380.pdf",
+            "fecha": "27/09/2026 00:30",
+            "nom_archivo": "aclar_llamado_1374504_20.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380.pdf",
+            "fecha": "27/09/2026 00:31",
+            "nom_archivo": "aclar_llamado_1374504_21.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380_1.pdf",
+            "fecha": "27/09/2026 10:16",
+            "nom_archivo": "aclar_llamado_1374504_22.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380.pdf",
+            "fecha": "27/09/2026 10:16",
+            "nom_archivo": "aclar_llamado_1374504_23.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_27380.pdf",
+            "fecha": "27/09/2026 10:17",
+            "nom_archivo": "aclar_llamado_1374504_24.pdf"
           }
         ]
       }
