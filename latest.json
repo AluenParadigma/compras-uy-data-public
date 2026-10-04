@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-03T14:56:23.432778+00:00",
+  "generated_at": "2026-10-04T15:34:32.461019+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "publication_type": "Llamados vigentes",
-  "total_records": 794,
+  "total_records": 793,
   "data": [
     {
       "id_compra": "1344530",
@@ -70855,33 +70855,6 @@
       }
     },
     {
-      "id_compra": "i502627",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D196948",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i502627.html",
-      "fecha_publicacion": "30/09/2026 15:30",
-      "fecha_ult_mod_llamado": "30/09/2026 15:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Compra de 10 Extintores 1 kg. Adjunto con detalles. Enviar ofertas al mail compras.limpieza@imm.gub.uy",
-      "fecha_hora_tope_entrega": "03/10/2026 23:59",
-      "lugar_entrega": "AV GRAL RIVERA Nro: 3881  ",
-      "nombre_contacto": "NECROPSIAS, PLAYAS Y EMERGENCIAS",
-      "fax_contacto": "  25089933",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "30/09/2026 15:30",
-          "nom_archivo": "aclar_llamado_i502627_2.ODT"
-        }
-      }
-    },
-    {
       "id_compra": "i502630",
       "id_inciso": "98",
       "id_ue": "1",
@@ -70905,33 +70878,6 @@
           "texto": "Pliego del llamado",
           "fecha": "30/09/2026 15:30",
           "nom_archivo": "aclar_llamado_i502630_2.PDF"
-        }
-      }
-    },
-    {
-      "id_compra": "i502631",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D196870",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i502631.html",
-      "fecha_publicacion": "30/09/2026 15:30",
-      "fecha_ult_mod_llamado": "30/09/2026 15:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "Compra de 30 escobillas metálicas. Detalles en adjunto. Enviar ofertas al mail compras.limpieza@imm.gub.uy",
-      "fecha_hora_tope_entrega": "03/10/2026 23:59",
-      "lugar_entrega": "AV GRAL RIVERA Nro: 3881  ",
-      "nombre_contacto": "NECROPSIAS, PLAYAS Y EMERGENCIAS",
-      "fax_contacto": "  25089933",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "30/09/2026 15:30",
-          "nom_archivo": "aclar_llamado_i502631_2.ODT"
         }
       }
     },
@@ -81643,40 +81589,6 @@
             "texto": "Aclaración",
             "fecha": "01/10/2026 13:00",
             "nom_archivo": "aclar_llamado_i501768_5.PDF"
-          }
-        ]
-      }
-    },
-    {
-      "id_compra": "i502639",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D194709",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i502639.html",
-      "fecha_publicacion": "30/09/2026 17:30",
-      "fecha_ult_mod_llamado": "01/10/2026 13:00",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": "COMPRA DE VARIAS HERRAMIENTAS PARA REPARACIÓN DE MUSEO DAL. VER ANEXO INCLUIDO. CONTACTO Y PRESUPUESTOS UNICAMENTE A compras.villadolores@imm.gub.uy TELEFONO DE CONTACTO: 1950 INT 8556/8557",
-      "fecha_hora_tope_entrega": "03/10/2026 12:00",
-      "lugar_entrega": "AV GRAL RIVERA Nro: 3245  ",
-      "nombre_contacto": "ZOOLOGICO VILLA DOLORES",
-      "fax_contacto": " 26229111",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Pliego del llamado",
-            "fecha": "30/09/2026 17:30",
-            "nom_archivo": "aclar_llamado_i502639_2.PDF"
-          },
-          {
-            "texto": "Aclaración",
-            "fecha": "01/10/2026 13:00",
-            "nom_archivo": "aclar_llamado_i502639_3.PDF"
           }
         ]
       }
@@ -109375,6 +109287,92 @@
           "valor_nuevo": "15/10/2026 11:00"
         }
       }
+    },
+    {
+      "id_compra": "1376895",
+      "id_inciso": "29",
+      "id_ue": "34",
+      "num_compra": "16571",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pedido_1376895.docx",
+      "fecha_publicacion": "03/10/2026 11:55",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": "Neumáticos para ambulancia",
+      "fecha_hora_tope_entrega": "06/10/2026 10:00",
+      "nombre_contacto": "Eduar Cardozo",
+      "fax_contacto": "47792131 int 104",
+      "email_contacto": "compras.bunion@asse.com.uy",
+      "fondos_rotatorios": "N",
+      "apel": "S",
+      "items": {
+        "item": [
+          {
+            "nro_item": "2",
+            "cant_pedida": "4.00",
+            "id_articulo": "7570",
+            "desc_articulo": "NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "107373|1|1",
+            "variante": "MEDIDA",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "215/65 R17",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          },
+          {
+            "nro_item": "1",
+            "cant_pedida": "8.00",
+            "id_articulo": "7570",
+            "desc_articulo": "NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
+            "id_color": "",
+            "desc_color": "",
+            "id_detalle_variante": "",
+            "desc_detalle_variante": "",
+            "id_unidad": "22",
+            "unidad": "UNIDAD",
+            "id_variante": "105795|1|1",
+            "variante": "MEDIDA",
+            "unidad_medida_variante": "-----",
+            "medida_variante": "235/65 R 16",
+            "presentacion": "-----",
+            "medida_presentacion": "-----",
+            "unidad_medida_presentacion": "-----",
+            "id_marca": "",
+            "desc_marca": ""
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "i502863",
+      "id_inciso": "81",
+      "id_ue": "1",
+      "num_compra": "1701",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_i502863.pdf",
+      "fecha_publicacion": "03/10/2026 13:36",
+      "id_tipocompra": "CD",
+      "subtipo_compra": "COM",
+      "objeto": " SERVICIO DE PORTERIA ",
+      "fecha_hora_tope_entrega": "08/10/2026 13:45",
+      "lugar_entrega": "VIA CORREO O FLORENCIO SANCHEZ 158",
+      "nombre_contacto": "DPTO . COMPRA DIRECTA",
+      "fax_contacto": "1828  int  2307",
+      "email_contacto": "compra.directa@imcanelones.gub.uy",
+      "fondos_rotatorios": "N"
     }
   ]
 }
