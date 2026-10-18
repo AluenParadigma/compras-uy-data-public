@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-10-17T14:00:46.183318+00:00",
+  "generated_at": "2026-10-18T14:25:34.837734+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "publication_type": "Llamados vigentes",
-  "total_records": 760,
+  "total_records": 759,
   "data": [
     {
       "id_compra": "1344530",
@@ -49930,33 +49930,6 @@
           "texto": "Pliego del llamado",
           "fecha": "14/10/2026 13:30",
           "nom_archivo": "aclar_llamado_i503517_2.PDF"
-        }
-      }
-    },
-    {
-      "id_compra": "i503516",
-      "id_inciso": "98",
-      "id_ue": "1",
-      "num_compra": "D198250",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_i503516.html",
-      "fecha_publicacion": "14/10/2026 13:30",
-      "fecha_ult_mod_llamado": "14/10/2026 13:30",
-      "id_tipocompra": "CD",
-      "subtipo_compra": "COM",
-      "objeto": " 3 equipos informáticos según pliego",
-      "fecha_hora_tope_entrega": "17/10/2026 12:00",
-      "lugar_entrega": "AV 18 DE JULIO Nro: 885 ",
-      "nombre_contacto": "CENTRO DE FOTOGRAFIA (CDF)",
-      "fax_contacto": "18 DE JULIO Nro: 885",
-      "fondos_rotatorios": "N",
-      "aclaraciones_lla": {
-        "aclaracion": {
-          "texto": "Pliego del llamado",
-          "fecha": "14/10/2026 13:30",
-          "nom_archivo": "aclar_llamado_i503516_2.PDF"
         }
       }
     },
@@ -107800,103 +107773,6 @@
       }
     },
     {
-      "id_compra": "1378389",
-      "id_inciso": "66",
-      "id_ue": "1",
-      "num_compra": "7690",
-      "anio_compra": "2026",
-      "nro_ampliacion": "0",
-      "estado_compra": "4",
-      "nombre_pliego": "pliego_1378389.doc",
-      "fecha_publicacion": "08/10/2026 15:05",
-      "fecha_ult_mod_llamado": "16/10/2026 15:15",
-      "id_tipocompra": "CR",
-      "subtipo_compra": "COM",
-      "objeto": "2 agente de campo",
-      "fecha_hora_apertura": "21/10/2026 12:00",
-      "lugar_apertura": "FONDAR763",
-      "fecha_sol_prorr": "18/10/2026",
-      "fecha_sol_aclar": "18/10/2026",
-      "fecha_hora_tope_entrega": "21/10/2026 12:00",
-      "lugar_entrega": "FONDAR763",
-      "precio_pliego": "0.00",
-      "nombre_contacto": "Flores COM",
-      "fax_contacto": "43642120",
-      "email_contacto": "no_tiene_mail@gmail.com",
-      "fondos_rotatorios": "N",
-      "apel": "N",
-      "items": {
-        "item": {
-          "nro_item": "1",
-          "cant_pedida": "1.00",
-          "id_articulo": "69339",
-          "desc_articulo": "SERVICIO DE TOMA DE CONSUMO",
-          "id_color": "",
-          "desc_color": "",
-          "id_detalle_variante": "",
-          "desc_detalle_variante": "",
-          "id_unidad": "22",
-          "unidad": "UNIDAD",
-          "id_variante": "21176|1|1",
-          "variante": "DE",
-          "unidad_medida_variante": "-----",
-          "medida_variante": "AGUA",
-          "presentacion": "-----",
-          "medida_presentacion": "-----",
-          "unidad_medida_presentacion": "-----",
-          "id_marca": "",
-          "desc_marca": ""
-        }
-      },
-      "aclaraciones_lla": {
-        "aclaracion": [
-          {
-            "texto": "Aclar_llamado_20007690_01.pdf",
-            "fecha": "15/10/2026 10:04",
-            "nom_archivo": "aclar_llamado_1378389_0.pdf"
-          },
-          {
-            "texto": "Aclar_llamado_20007690_02.pdf",
-            "fecha": "15/10/2026 15:14",
-            "nom_archivo": "aclar_llamado_1378389_1.pdf"
-          },
-          {
-            "texto": "Aclar_llamado_20007690_03.pdf",
-            "fecha": "16/10/2026 15:13",
-            "nom_archivo": "aclar_llamado_1378389_2.pdf"
-          }
-        ]
-      },
-      "hist_mod_llamado": {
-        "mod_llamado": [
-          {
-            "fecha": "16/10/2026 15:15",
-            "campo": "FECHA_HORA_APERTURA",
-            "valor_anterior": "19/10/2026 11:00",
-            "valor_nuevo": "21/10/2026 12:00"
-          },
-          {
-            "fecha": "16/10/2026 15:15",
-            "campo": "FECHA_HORA_TOPE_ENTREGA",
-            "valor_anterior": "19/10/2026 11:00",
-            "valor_nuevo": "21/10/2026 12:00"
-          },
-          {
-            "fecha": "16/10/2026 15:15",
-            "campo": "FECHA_SOL_ACLAR",
-            "valor_anterior": "16/10/2026",
-            "valor_nuevo": "18/10/2026"
-          },
-          {
-            "fecha": "16/10/2026 15:15",
-            "campo": "FECHA_SOL_PRORR",
-            "valor_anterior": "16/10/2026",
-            "valor_nuevo": "18/10/2026"
-          }
-        ]
-      }
-    },
-    {
       "id_compra": "1380251",
       "id_inciso": "28",
       "id_ue": "1",
@@ -112126,6 +112002,108 @@
             "texto": "Resolución de Aprobación de llamado",
             "fecha": "16/10/2026 21:30",
             "nom_archivo": "aclar_llamado_i503811_3.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "id_compra": "1378389",
+      "id_inciso": "66",
+      "id_ue": "1",
+      "num_compra": "7690",
+      "anio_compra": "2026",
+      "nro_ampliacion": "0",
+      "estado_compra": "4",
+      "nombre_pliego": "pliego_1378389.doc",
+      "fecha_publicacion": "08/10/2026 15:05",
+      "fecha_ult_mod_llamado": "17/10/2026 11:41",
+      "id_tipocompra": "CR",
+      "subtipo_compra": "COM",
+      "objeto": "2 agente de campo",
+      "fecha_hora_apertura": "21/10/2026 12:00",
+      "lugar_apertura": "FONDAR763",
+      "fecha_sol_prorr": "18/10/2026",
+      "fecha_sol_aclar": "18/10/2026",
+      "fecha_hora_tope_entrega": "21/10/2026 12:00",
+      "lugar_entrega": "FONDAR763",
+      "precio_pliego": "0.00",
+      "nombre_contacto": "Flores COM",
+      "fax_contacto": "43642120",
+      "email_contacto": "no_tiene_mail@gmail.com",
+      "fondos_rotatorios": "N",
+      "apel": "N",
+      "items": {
+        "item": {
+          "nro_item": "1",
+          "cant_pedida": "1.00",
+          "id_articulo": "69339",
+          "desc_articulo": "SERVICIO DE TOMA DE CONSUMO",
+          "id_color": "",
+          "desc_color": "",
+          "id_detalle_variante": "",
+          "desc_detalle_variante": "",
+          "id_unidad": "22",
+          "unidad": "UNIDAD",
+          "id_variante": "21176|1|1",
+          "variante": "DE",
+          "unidad_medida_variante": "-----",
+          "medida_variante": "AGUA",
+          "presentacion": "-----",
+          "medida_presentacion": "-----",
+          "unidad_medida_presentacion": "-----",
+          "id_marca": "",
+          "desc_marca": ""
+        }
+      },
+      "aclaraciones_lla": {
+        "aclaracion": [
+          {
+            "texto": "Aclar_llamado_20007690_01.pdf",
+            "fecha": "15/10/2026 10:04",
+            "nom_archivo": "aclar_llamado_1378389_0.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_20007690_02.pdf",
+            "fecha": "15/10/2026 15:14",
+            "nom_archivo": "aclar_llamado_1378389_1.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_20007690_03.pdf",
+            "fecha": "16/10/2026 15:13",
+            "nom_archivo": "aclar_llamado_1378389_2.pdf"
+          },
+          {
+            "texto": "Aclar_llamado_20007690_04.pdf",
+            "fecha": "17/10/2026 11:41",
+            "nom_archivo": "aclar_llamado_1378389_3.pdf"
+          }
+        ]
+      },
+      "hist_mod_llamado": {
+        "mod_llamado": [
+          {
+            "fecha": "16/10/2026 15:15",
+            "campo": "FECHA_HORA_APERTURA",
+            "valor_anterior": "19/10/2026 11:00",
+            "valor_nuevo": "21/10/2026 12:00"
+          },
+          {
+            "fecha": "16/10/2026 15:15",
+            "campo": "FECHA_HORA_TOPE_ENTREGA",
+            "valor_anterior": "19/10/2026 11:00",
+            "valor_nuevo": "21/10/2026 12:00"
+          },
+          {
+            "fecha": "16/10/2026 15:15",
+            "campo": "FECHA_SOL_ACLAR",
+            "valor_anterior": "16/10/2026",
+            "valor_nuevo": "18/10/2026"
+          },
+          {
+            "fecha": "16/10/2026 15:15",
+            "campo": "FECHA_SOL_PRORR",
+            "valor_anterior": "16/10/2026",
+            "valor_nuevo": "18/10/2026"
           }
         ]
       }
