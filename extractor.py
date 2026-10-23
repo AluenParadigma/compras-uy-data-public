@@ -1,15 +1,16 @@
 import csv
 import json
+import os
+import random
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
 import requests
-
-
-# Permite leer campos CSV grandes provenientes del XML de ARCE
-csv.field_size_limit(sys.maxsize)
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 
 # ============================================================
@@ -25,20 +26,99 @@ OUTPUT_JSON = Path("latest.json")
 OUTPUT_CSV = Path("latest.csv")
 OUTPUT_METADATA = Path("metadata.json")
 
-# Mantenemos el mismo horizonte que venia funcionando.
+TEMP_JSON = Path("latest.tmp.json")
+TEMP_CSV = Path("latest.tmp.csv")
+TEMP_METADATA = Path("metadata.tmp.json")
+
 START_DATE = datetime(2024, 1, 1)
 
-# ARCE admite rangos de hasta 10 dias.
 WINDOW_DAYS = 10
 
-TIMEOUT = 60
+CONNECT_TIMEOUT = 30
+READ_TIMEOUT = 120
+
+MAX_WINDOW_ATTEMPTS = 5
+
+BASE_RETRY_SECONDS = 8
+
+# ARCE puede devolver campos muy grandes en XML/CSV.
+csv.field_size_limit(sys.maxsize)
 
 
 # ============================================================
-# PARAMETROS DE CONSULTA
+# SESION HTTP
 # ============================================================
 
-def build_params(start_date, end_date, publication_type):
+def create_session():
+    session = requests.Session()
+
+    retry = Retry(
+        total=3,
+        connect=3,
+        read=3,
+        status=3,
+        backoff_factor=2,
+        status_forcelist=[
+            429,
+            500,
+            502,
+            503,
+            504,
+        ],
+        allowed_methods=["GET"],
+        raise_on_status=False,
+    )
+
+    adapter = HTTPAdapter(
+        max_retries=retry,
+        pool_connections=10,
+        pool_maxsize=10,
+    )
+
+    session.mount(
+        "https://",
+        adapter,
+    )
+
+    session.mount(
+        "http://",
+        adapter,
+    )
+
+    session.headers.update(
+        {
+            "User-Agent": (
+                "Mozilla/5.0 "
+                "(Windows NT 10.0; Win64; x64) "
+                "AppleWebKit/537.36 "
+                "(KHTML, like Gecko) "
+                "Chrome/130.0 Safari/537.36"
+            ),
+            "Accept": (
+                "application/xml,"
+                "text/xml,"
+                "application/xhtml+xml,"
+                "*/*;q=0.8"
+            ),
+            "Accept-Language": (
+                "es-UY,es;q=0.9,en;q=0.8"
+            ),
+            "Connection": "keep-alive",
+        }
+    )
+
+    return session
+
+
+# ============================================================
+# PARAMETROS
+# ============================================================
+
+def build_params(
+    start_date,
+    end_date,
+    publication_type,
+):
     return {
         "tipo_publicacion": publication_type,
         "tipo_compra": "",
@@ -58,9 +138,6 @@ def build_params(start_date, end_date, publication_type):
 # ============================================================
 
 def normalize_tag(tag):
-    """
-    Elimina namespace XML si existiera.
-    """
     if "}" in tag:
         return tag.split("}", 1)[1]
 
@@ -68,43 +145,24 @@ def normalize_tag(tag):
 
 
 def xml_element_to_dict(element):
-    """
-    Convierte un nodo XML en diccionario.
-
-    IMPORTANTE:
-    ARCE guarda gran parte de la informacion en atributos XML.
-    Por eso se incorporan primero element.attrib.
-
-    Ejemplo conceptual:
-
-    <compra id_compra="123"
-            desc_compra="Consultoria..."
-            fecha_publicacion="...">
-
-    pasa a:
-
-    {
-        "id_compra": "123",
-        "desc_compra": "Consultoria...",
-        "fecha_publicacion": "...",
-        ...
-    }
-    """
-
     result = {}
 
     # --------------------------------------------------------
-    # ATRIBUTOS DEL NODO
+    # ATRIBUTOS XML
     # --------------------------------------------------------
 
     for key, value in element.attrib.items():
-        result[normalize_tag(key)] = value
+        result[
+            normalize_tag(key)
+        ] = value
 
     # --------------------------------------------------------
-    # TEXTO DEL NODO
+    # TEXTO
     # --------------------------------------------------------
 
-    text = (element.text or "").strip()
+    text = (
+        element.text or ""
+    ).strip()
 
     if text:
         result["_text"] = text
@@ -114,57 +172,65 @@ def xml_element_to_dict(element):
     # --------------------------------------------------------
 
     for child in list(element):
+        key = normalize_tag(
+            child.tag
+        )
 
-        key = normalize_tag(child.tag)
+        child_value = (
+            xml_element_to_dict(
+                child
+            )
+        )
 
-        child_value = xml_element_to_dict(child)
-
-        # Nodo vacio
         if not child_value:
             child_value = None
 
         if key in result:
+            if not isinstance(
+                result[key],
+                list,
+            ):
+                result[key] = [
+                    result[key]
+                ]
 
-            if not isinstance(result[key], list):
-                result[key] = [result[key]]
-
-            result[key].append(child_value)
+            result[key].append(
+                child_value
+            )
 
         else:
-            result[key] = child_value
+            result[key] = (
+                child_value
+            )
 
     return result
 
 
 def find_compra_nodes(root):
-    """
-    La documentacion oficial de ARCE define cada registro
-    de compra mediante nodos <compra>.
-
-    No intentamos adivinar otros nodos como item,
-    aclaracion o registro, porque eso genero el problema
-    de la version anterior.
-    """
-
     compras = []
 
     for element in root.iter():
-
         tag = normalize_tag(
             element.tag
         ).lower()
 
         if tag == "compra":
-            compras.append(element)
+            compras.append(
+                element
+            )
 
     return compras
 
 
 # ============================================================
-# FLATTEN PARA CSV
+# FLATTEN
 # ============================================================
 
-def flatten(data, parent_key="", separator="_"):
+def flatten(
+    data,
+    parent_key="",
+    separator="_",
+):
     items = {}
 
     if isinstance(data, dict):
@@ -172,13 +238,17 @@ def flatten(data, parent_key="", separator="_"):
         for key, value in data.items():
 
             new_key = (
-                f"{parent_key}{separator}{key}"
+                f"{parent_key}"
+                f"{separator}"
+                f"{key}"
                 if parent_key
                 else key
             )
 
-            if isinstance(value, dict):
-
+            if isinstance(
+                value,
+                dict,
+            ):
                 items.update(
                     flatten(
                         value,
@@ -187,55 +257,65 @@ def flatten(data, parent_key="", separator="_"):
                     )
                 )
 
-            elif isinstance(value, list):
-
-                # Conservamos listas complejas como JSON.
-                items[new_key] = json.dumps(
+            elif isinstance(
+                value,
+                list,
+            ):
+                items[
+                    new_key
+                ] = json.dumps(
                     value,
                     ensure_ascii=False,
                 )
 
             elif value is None:
-
                 items[new_key] = ""
 
             else:
-
-                items[new_key] = value
+                items[
+                    new_key
+                ] = value
 
     else:
-
-        items[parent_key] = data
+        items[
+            parent_key
+        ] = data
 
     return items
 
 
 # ============================================================
-# CALIDAD DEL REGISTRO
+# CALIDAD
 # ============================================================
 
-def count_non_empty_scalar_fields(record):
-    """
-    Cuenta campos simples con informacion.
-    Sirve para evitar volver a aceptar registros que solo
-    contienen estructuras vacias.
-    """
-
-    flattened = flatten(record)
+def count_non_empty_scalar_fields(
+    record,
+):
+    flattened = flatten(
+        record
+    )
 
     count = 0
 
-    for value in flattened.values():
+    for value in (
+        flattened.values()
+    ):
 
         if value is None:
             continue
 
-        text = str(value).strip()
+        text = str(
+            value
+        ).strip()
 
         if not text:
             continue
 
-        if text in ("[]", "{}", "null"):
+        if text in (
+            "[]",
+            "{}",
+            "null",
+        ):
             continue
 
         count += 1
@@ -243,38 +323,32 @@ def count_non_empty_scalar_fields(record):
     return count
 
 
-def record_has_real_content(record):
-    """
-    Un registro de compra debe contener informacion sustantiva.
-
-    Usamos un umbral bajo porque los esquemas pueden variar,
-    pero ya evita aceptar objetos practicamente vacios.
-    """
-
-    return count_non_empty_scalar_fields(record) >= 3
+def record_has_real_content(
+    record,
+):
+    return (
+        count_non_empty_scalar_fields(
+            record
+        )
+        >= 3
+    )
 
 
 # ============================================================
-# IDENTIFICADOR / DEDUPLICACION
+# IDENTIFICADOR
 # ============================================================
 
 def make_record_key(record):
-    """
-    Prioriza identificadores oficiales de ARCE.
-
-    Si cambian los nombres de campos, utiliza una combinacion
-    de atributos frecuentes y finalmente el contenido completo.
-    """
-
     flattened = {
-        str(k).lower(): str(v).strip()
-        for k, v in flatten(record).items()
-        if v not in (None, "")
+        str(k).lower():
+        str(v).strip()
+        for k, v
+        in flatten(record).items()
+        if v not in (
+            None,
+            "",
+        )
     }
-
-    # --------------------------------------------------------
-    # IDENTIFICADORES DIRECTOS
-    # --------------------------------------------------------
 
     id_candidates = [
         "id_compra",
@@ -287,27 +361,44 @@ def make_record_key(record):
         "id_publicacion",
     ]
 
-    for candidate in id_candidates:
+    # --------------------------------------------------------
+    # IDENTIFICADOR DIRECTO
+    # --------------------------------------------------------
 
+    for candidate in (
+        id_candidates
+    ):
         if candidate in flattened:
             return (
                 f"{candidate}:"
                 f"{flattened[candidate]}"
             )
 
-    # Tambien buscamos por sufijo por si aparece anidado.
-    for candidate in id_candidates:
+    # --------------------------------------------------------
+    # IDENTIFICADOR ANIDADO
+    # --------------------------------------------------------
 
-        for key, value in flattened.items():
+    for candidate in (
+        id_candidates
+    ):
 
-            if key.endswith(candidate) and value:
+        for key, value in (
+            flattened.items()
+        ):
 
+            if (
+                key.endswith(
+                    candidate
+                )
+                and value
+            ):
                 return (
-                    f"{candidate}:{value}"
+                    f"{candidate}:"
+                    f"{value}"
                 )
 
     # --------------------------------------------------------
-    # CLAVE COMPUESTA
+    # FALLBACK COMPUESTO
     # --------------------------------------------------------
 
     fallback_values = []
@@ -323,28 +414,27 @@ def make_record_key(record):
 
     for keyword in keywords:
 
-        for key, value in flattened.items():
+        for key, value in (
+            flattened.items()
+        ):
 
             if (
                 keyword in key
                 and value
             ):
-
                 fallback_values.append(
-                    f"{keyword}:{value}"
+                    f"{keyword}:"
+                    f"{value}"
                 )
-
                 break
 
-    if len(fallback_values) >= 2:
+    if len(
+        fallback_values
+    ) >= 2:
 
         return "|".join(
             fallback_values
         )
-
-    # --------------------------------------------------------
-    # ULTIMO RECURSO
-    # --------------------------------------------------------
 
     return json.dumps(
         record,
@@ -357,32 +447,88 @@ def make_record_key(record):
 # VENTANAS
 # ============================================================
 
-def generate_windows(start_date, end_date):
-    current = start_date
+def generate_windows(
+    start_date,
+    end_date,
+):
+    current = (
+        start_date
+    )
 
-    while current <= end_date:
+    while (
+        current
+        <= end_date
+    ):
 
         window_end = min(
             current
             + timedelta(
-                days=WINDOW_DAYS - 1
+                days=(
+                    WINDOW_DAYS
+                    - 1
+                )
             ),
             end_date,
         )
 
-        yield current, window_end
+        yield (
+            current,
+            window_end,
+        )
 
         current = (
             window_end
-            + timedelta(days=1)
+            + timedelta(
+                days=1
+            )
         )
+
+
+# ============================================================
+# RETRY
+# ============================================================
+
+def retry_wait_seconds(
+    attempt,
+):
+    """
+    Backoff exponencial con jitter.
+
+    Intentos:
+    1 -> ~8 s
+    2 -> ~16 s
+    3 -> ~32 s
+    4 -> ~64 s
+    5 -> ~128 s
+    """
+
+    base = (
+        BASE_RETRY_SECONDS
+        * (
+            2
+            ** (
+                attempt
+                - 1
+            )
+        )
+    )
+
+    jitter = random.uniform(
+        0,
+        3,
+    )
+
+    return (
+        base
+        + jitter
+    )
 
 
 # ============================================================
 # DESCARGA DE UNA VENTANA
 # ============================================================
 
-def download_window(
+def download_window_once(
     session,
     start_date,
     end_date,
@@ -394,32 +540,45 @@ def download_window(
         publication_type,
     )
 
-    label = (
-        "LLAMADOS VIGENTES"
-        if publication_type == "lv"
-        else "TODOS LOS LLAMADOS"
-    )
-
-    print(
-        f"[{label}] "
-        f"{start_date:%d/%m/%Y} "
-        f"- {end_date:%d/%m/%Y}"
-    )
-
     response = session.get(
         BASE_URL,
         params=params,
-        timeout=TIMEOUT,
+        timeout=(
+            CONNECT_TIMEOUT,
+            READ_TIMEOUT,
+        ),
     )
+
+    # --------------------------------------------------------
+    # ERRORES TRANSITORIOS
+    # --------------------------------------------------------
+
+    if response.status_code in (
+        403,
+        429,
+        500,
+        502,
+        503,
+        504,
+    ):
+
+        raise RuntimeError(
+            "HTTP_TRANSIENT_"
+            f"{response.status_code}"
+        )
 
     response.raise_for_status()
 
     if not response.content:
+        raise RuntimeError(
+            "EMPTY_RESPONSE"
+        )
 
-        return []
+    # --------------------------------------------------------
+    # XML
+    # --------------------------------------------------------
 
     try:
-
         root = ET.fromstring(
             response.content
         )
@@ -427,35 +586,133 @@ def download_window(
     except ET.ParseError as exc:
 
         preview = (
-            response.text[:1000]
+            response.text[:500]
         )
 
         raise RuntimeError(
-            "ARCE no devolvio XML valido.\n"
+            "INVALID_XML: "
             f"{preview}"
         ) from exc
 
-    compra_nodes = find_compra_nodes(root)
+    compra_nodes = (
+        find_compra_nodes(
+            root
+        )
+    )
 
     records = []
 
-    for node in compra_nodes:
+    for node in (
+        compra_nodes
+    ):
 
-        record = xml_element_to_dict(
-            node
+        record = (
+            xml_element_to_dict(
+                node
+            )
         )
 
         if not record:
             continue
 
-        records.append(record)
-
-    print(
-        "  compras encontradas:",
-        len(records),
-    )
+        records.append(
+            record
+        )
 
     return records
+
+
+def download_window(
+    session,
+    start_date,
+    end_date,
+    publication_type,
+):
+    label = (
+        "LLAMADOS VIGENTES"
+        if publication_type
+        == "lv"
+        else "TODOS LOS LLAMADOS"
+    )
+
+    print(
+        f"[{label}] "
+        f"{start_date:%d/%m/%Y}"
+        f" - "
+        f"{end_date:%d/%m/%Y}"
+    )
+
+    last_error = None
+
+    for attempt in range(
+        1,
+        MAX_WINDOW_ATTEMPTS
+        + 1,
+    ):
+
+        try:
+
+            records = (
+                download_window_once(
+                    session,
+                    start_date,
+                    end_date,
+                    publication_type,
+                )
+            )
+
+            print(
+                "  compras encontradas:",
+                len(records),
+                f"(intento {attempt})",
+            )
+
+            return records
+
+        except (
+            requests.Timeout,
+            requests.ConnectionError,
+            RuntimeError,
+            requests.HTTPError,
+        ) as exc:
+
+            last_error = exc
+
+            print(
+                f"  intento "
+                f"{attempt}/"
+                f"{MAX_WINDOW_ATTEMPTS}"
+                f" fallo: "
+                f"{exc}",
+                file=sys.stderr,
+            )
+
+            if (
+                attempt
+                >= MAX_WINDOW_ATTEMPTS
+            ):
+                break
+
+            wait_seconds = (
+                retry_wait_seconds(
+                    attempt
+                )
+            )
+
+            print(
+                "  esperando "
+                f"{wait_seconds:.1f}s "
+                "antes de reintentar..."
+            )
+
+            time.sleep(
+                wait_seconds
+            )
+
+    raise RuntimeError(
+        "WINDOW_FAILED_AFTER_RETRIES: "
+        f"{last_error}"
+    )
 
 
 # ============================================================
@@ -471,22 +728,27 @@ def extract_publication_type(
     all_records = []
 
     windows_processed = 0
+    windows_with_records = 0
     failed_windows = 0
 
-    windows_with_records = 0
+    failed_window_details = []
 
-    for start, end in generate_windows(
-        start_date,
-        end_date,
+    for start, end in (
+        generate_windows(
+            start_date,
+            end_date,
+        )
     ):
 
         try:
 
-            records = download_window(
-                session,
-                start,
-                end,
-                publication_type,
+            records = (
+                download_window(
+                    session,
+                    start,
+                    end,
+                    publication_type,
+                )
             )
 
             all_records.extend(
@@ -502,11 +764,31 @@ def extract_publication_type(
 
             failed_windows += 1
 
+            detail = {
+                "publication_type":
+                    publication_type,
+                "start":
+                    start.strftime(
+                        "%Y-%m-%d"
+                    ),
+                "end":
+                    end.strftime(
+                        "%Y-%m-%d"
+                    ),
+                "error":
+                    str(exc),
+            }
+
+            failed_window_details.append(
+                detail
+            )
+
             print(
-                "ERROR "
+                "ERROR DEFINITIVO "
                 f"{publication_type} "
-                f"{start:%d/%m/%Y} "
-                f"- {end:%d/%m/%Y}: "
+                f"{start:%d/%m/%Y}"
+                " - "
+                f"{end:%d/%m/%Y}: "
                 f"{exc}",
                 file=sys.stderr,
             )
@@ -519,11 +801,15 @@ def extract_publication_type(
 
     for record in all_records:
 
-        key = make_record_key(
-            record
+        key = (
+            make_record_key(
+                record
+            )
         )
 
-        unique[key] = record
+        unique[key] = (
+            record
+        )
 
     # --------------------------------------------------------
     # CALIDAD
@@ -531,28 +817,32 @@ def extract_publication_type(
 
     records_with_real_content = 0
 
-    for record in unique.values():
+    for record in (
+        unique.values()
+    ):
 
-        if record_has_real_content(
-            record
+        if (
+            record_has_real_content(
+                record
+            )
         ):
             records_with_real_content += 1
 
     return {
-        "raw_records": all_records,
-        "unique": unique,
-        "windows_processed": (
-            windows_processed
-        ),
-        "windows_with_records": (
-            windows_with_records
-        ),
-        "failed_windows": (
-            failed_windows
-        ),
-        "records_with_real_content": (
-            records_with_real_content
-        ),
+        "raw_records":
+            all_records,
+        "unique":
+            unique,
+        "windows_processed":
+            windows_processed,
+        "windows_with_records":
+            windows_with_records,
+        "failed_windows":
+            failed_windows,
+        "failed_window_details":
+            failed_window_details,
+        "records_with_real_content":
+            records_with_real_content,
     }
 
 
@@ -573,48 +863,56 @@ def cross_validate(
     )
 
     missing_in_all = sorted(
-        lv_keys - all_keys
+        lv_keys
+        - all_keys
     )
 
     common = (
-        lv_keys & all_keys
+        lv_keys
+        & all_keys
     )
 
     return {
-        "common": common,
-        "missing_in_all": (
-            missing_in_all
-        ),
-        "lv_is_subset_of_all": (
-            len(missing_in_all) == 0
-        ),
+        "common":
+            common,
+        "missing_in_all":
+            missing_in_all,
+        "lv_is_subset_of_all":
+            (
+                len(
+                    missing_in_all
+                )
+                == 0
+            ),
     }
 
 
 # ============================================================
-# JSON
+# JSON TEMPORAL
 # ============================================================
 
-def write_json(records):
+def write_json_temp(
+    records,
+):
     payload = {
-        "generated_at": (
+        "generated_at":
             datetime.now(
                 timezone.utc
-            ).isoformat()
-        ),
-        "source": (
-            "Compras Estatales Uruguay / ARCE"
-        ),
-        "publication_type": (
-            "Llamados vigentes"
-        ),
-        "total_records": (
-            len(records)
-        ),
-        "data": records,
+            ).isoformat(),
+        "source":
+            (
+                "Compras Estatales "
+                "Uruguay / ARCE"
+            ),
+        "publication_type":
+            "Llamados vigentes",
+        "total_records":
+            len(records),
+        "data":
+            records,
     }
 
-    OUTPUT_JSON.write_text(
+    TEMP_JSON.write_text(
         json.dumps(
             payload,
             ensure_ascii=False,
@@ -625,18 +923,21 @@ def write_json(records):
 
 
 # ============================================================
-# CSV
+# CSV TEMPORAL
 # ============================================================
 
-def write_csv(records):
+def write_csv_temp(
+    records,
+):
     flat_records = [
         flatten(record)
-        for record in records
+        for record
+        in records
     ]
 
     if not flat_records:
 
-        OUTPUT_CSV.write_text(
+        TEMP_CSV.write_text(
             "sin_registros\n",
             encoding="utf-8",
         )
@@ -646,12 +947,14 @@ def write_csv(records):
     columns = sorted(
         {
             key
-            for record in flat_records
-            for key in record.keys()
+            for record
+            in flat_records
+            for key
+            in record.keys()
         }
     )
 
-    with OUTPUT_CSV.open(
+    with TEMP_CSV.open(
         "w",
         encoding="utf-8-sig",
         newline="",
@@ -664,50 +967,58 @@ def write_csv(records):
 
         writer.writeheader()
 
-        for record in flat_records:
-
+        for record in (
+            flat_records
+        ):
             writer.writerow(
                 record
             )
 
 
-def count_csv_records():
-    if not OUTPUT_CSV.exists():
-
+def count_temp_csv_records():
+    if not TEMP_CSV.exists():
         return 0
 
-    with OUTPUT_CSV.open(
+    with TEMP_CSV.open(
         "r",
         encoding="utf-8-sig",
         newline="",
     ) as file:
 
-        rows = list(
+        reader = (
             csv.reader(file)
         )
 
-    if len(rows) <= 1:
+        count = -1
 
-        return 0
+        for _ in reader:
+            count += 1
 
-    return len(rows) - 1
+    return max(
+        count,
+        0,
+    )
 
 
 # ============================================================
-# METADATA
+# METADATA TEMPORAL
 # ============================================================
 
-def write_metadata(
+def build_metadata(
     lv_result,
     all_result,
     cross_result,
 ):
     lv_unique_records = len(
-        lv_result["unique"]
+        lv_result[
+            "unique"
+        ]
     )
 
     all_unique_records = len(
-        all_result["unique"]
+        all_result[
+            "unique"
+        ]
     )
 
     json_records = (
@@ -715,7 +1026,7 @@ def write_metadata(
     )
 
     csv_records = (
-        count_csv_records()
+        count_temp_csv_records()
     )
 
     lv_content_records = (
@@ -730,22 +1041,24 @@ def write_metadata(
         ]
     )
 
-    # --------------------------------------------------------
-    # CONTROLES
-    # --------------------------------------------------------
-
     lv_xml_complete = (
         lv_result[
             "failed_windows"
-        ] == 0
-        and lv_unique_records > 0
+        ]
+        == 0
+        and
+        lv_unique_records
+        > 0
     )
 
     all_xml_complete = (
         all_result[
             "failed_windows"
-        ] == 0
-        and all_unique_records > 0
+        ]
+        == 0
+        and
+        all_unique_records
+        > 0
     )
 
     file_integrity = (
@@ -760,57 +1073,44 @@ def write_metadata(
         ]
     )
 
-    # NUEVO:
-    # Todos los registros vigentes tienen que contener
-    # informacion sustantiva.
     content_quality_complete = (
-        lv_unique_records > 0
-        and lv_content_records
+        lv_unique_records
+        > 0
+        and
+        lv_content_records
         == lv_unique_records
     )
 
     xml_double_validation = (
         lv_xml_complete
-        and all_xml_complete
-        and file_integrity
-        and cross_validation_match
+        and
+        all_xml_complete
+        and
+        file_integrity
+        and
+        cross_validation_match
     )
 
     coverage_complete = (
         xml_double_validation
-        and content_quality_complete
+        and
+        content_quality_complete
     )
-
-    # --------------------------------------------------------
-    # ESTADO
-    # --------------------------------------------------------
 
     if coverage_complete:
 
         validation_status = "OK"
 
         note = (
-            "Cobertura XML validada por doble "
-            "extraccion oficial ARCE. Todas las "
-            "ventanas fueron procesadas sin error, "
-            "los llamados vigentes estan contenidos "
-            "en el universo general, JSON y CSV "
-            "coinciden y todos los registros contienen "
-            "informacion sustantiva proveniente de "
-            "los atributos XML de compra."
-        )
-
-    elif xml_double_validation:
-
-        validation_status = (
-            "CONTENT_VALIDATION_ERROR"
-        )
-
-        note = (
-            "La cobertura XML y la integridad de "
-            "archivos son correctas, pero existen "
-            "registros sin informacion sustantiva. "
-            "No se certifica cobertura operativa."
+            "Cobertura XML validada por "
+            "doble extraccion oficial ARCE. "
+            "Todas las ventanas fueron "
+            "procesadas sin error, los "
+            "llamados vigentes estan "
+            "contenidos en el universo "
+            "general, JSON y CSV coinciden "
+            "y todos los registros contienen "
+            "informacion sustantiva."
         )
 
     else:
@@ -818,189 +1118,175 @@ def write_metadata(
         validation_status = "ERROR"
 
         note = (
-            "La extraccion presenta errores de "
-            "cobertura, integridad o validacion "
-            "cruzada."
+            "La extraccion presenta "
+            "ventanas fallidas, problemas "
+            "de integridad, validacion "
+            "cruzada o calidad de contenido. "
+            "El snapshot anterior se conserva."
         )
 
-    metadata = {
-        "extraction_timestamp": (
+    return {
+        "extraction_timestamp":
             datetime.now(
                 timezone.utc
-            ).isoformat()
-        ),
+            ).isoformat(),
 
-        "source": (
-            "Compras Estatales Uruguay / ARCE"
-        ),
+        "source":
+            (
+                "Compras Estatales "
+                "Uruguay / ARCE"
+            ),
 
-        "source_endpoint": (
-            BASE_URL
-        ),
+        "source_endpoint":
+            BASE_URL,
 
-        "start_date": (
+        "start_date":
             START_DATE.strftime(
                 "%Y-%m-%d"
-            )
-        ),
+            ),
 
-        # -----------------------------------------------
-        # LLAMADOS VIGENTES
-        # -----------------------------------------------
+        "max_window_attempts":
+            MAX_WINDOW_ATTEMPTS,
 
-        "lv_windows_processed": (
+        # LV
+        "lv_windows_processed":
             lv_result[
                 "windows_processed"
-            ]
-        ),
+            ],
 
-        "lv_windows_with_records": (
+        "lv_windows_with_records":
             lv_result[
                 "windows_with_records"
-            ]
-        ),
+            ],
 
-        "lv_failed_windows": (
+        "lv_failed_windows":
             lv_result[
                 "failed_windows"
-            ]
-        ),
+            ],
 
-        "lv_raw_records": len(
+        "lv_failed_window_details":
             lv_result[
-                "raw_records"
-            ]
-        ),
+                "failed_window_details"
+            ],
 
-        "lv_unique_records": (
-            lv_unique_records
-        ),
+        "lv_raw_records":
+            len(
+                lv_result[
+                    "raw_records"
+                ]
+            ),
 
-        "lv_records_with_real_content": (
-            lv_content_records
-        ),
+        "lv_unique_records":
+            lv_unique_records,
 
-        # -----------------------------------------------
-        # TODOS LOS LLAMADOS
-        # -----------------------------------------------
+        "lv_records_with_real_content":
+            lv_content_records,
 
-        "all_windows_processed": (
+        # ALL
+        "all_windows_processed":
             all_result[
                 "windows_processed"
-            ]
-        ),
+            ],
 
-        "all_windows_with_records": (
+        "all_windows_with_records":
             all_result[
                 "windows_with_records"
-            ]
-        ),
+            ],
 
-        "all_failed_windows": (
+        "all_failed_windows":
             all_result[
                 "failed_windows"
-            ]
-        ),
+            ],
 
-        "all_raw_records": len(
+        "all_failed_window_details":
             all_result[
-                "raw_records"
-            ]
-        ),
+                "failed_window_details"
+            ],
 
-        "all_unique_records": (
-            all_unique_records
-        ),
+        "all_raw_records":
+            len(
+                all_result[
+                    "raw_records"
+                ]
+            ),
 
-        "all_records_with_real_content": (
-            all_content_records
-        ),
+        "all_unique_records":
+            all_unique_records,
 
-        # -----------------------------------------------
-        # VALIDACION CRUZADA
-        # -----------------------------------------------
+        "all_records_with_real_content":
+            all_content_records,
 
-        "lv_records_found_in_all": len(
-            cross_result[
-                "common"
-            ]
-        ),
+        # CROSS
+        "lv_records_found_in_all":
+            len(
+                cross_result[
+                    "common"
+                ]
+            ),
 
-        "lv_records_missing_in_all": len(
-            cross_result[
-                "missing_in_all"
-            ]
-        ),
+        "lv_records_missing_in_all":
+            len(
+                cross_result[
+                    "missing_in_all"
+                ]
+            ),
 
-        "lv_is_subset_of_all": (
-            cross_validation_match
-        ),
+        "lv_is_subset_of_all":
+            cross_validation_match,
 
-        # -----------------------------------------------
-        # ARCHIVOS
-        # -----------------------------------------------
+        # FILES
+        "json_records":
+            json_records,
 
-        "json_records": (
-            json_records
-        ),
+        "csv_records":
+            csv_records,
 
-        "csv_records": (
-            csv_records
-        ),
+        "file_integrity":
+            file_integrity,
 
-        "file_integrity": (
-            file_integrity
-        ),
+        # VALIDATION
+        "lv_xml_complete":
+            lv_xml_complete,
 
-        # -----------------------------------------------
-        # CONTROLES
-        # -----------------------------------------------
+        "all_xml_complete":
+            all_xml_complete,
 
-        "lv_xml_complete": (
-            lv_xml_complete
-        ),
+        "cross_validation_match":
+            cross_validation_match,
 
-        "all_xml_complete": (
-            all_xml_complete
-        ),
+        "xml_double_validation":
+            xml_double_validation,
 
-        "cross_validation_match": (
-            cross_validation_match
-        ),
+        "content_quality_complete":
+            content_quality_complete,
 
-        "xml_double_validation": (
-            xml_double_validation
-        ),
+        "portal_total":
+            None,
 
-        "content_quality_complete": (
-            content_quality_complete
-        ),
+        "portal_reconciliation":
+            False,
 
-        "portal_total": None,
+        "coverage_complete":
+            coverage_complete,
 
-        "portal_reconciliation": False,
+        "coverage_basis":
+            (
+                "DOUBLE_OFFICIAL_XML_EXTRACTION"
+                "_PLUS_CONTENT_VALIDATION"
+            ),
 
-        # -----------------------------------------------
-        # RESULTADO
-        # -----------------------------------------------
+        "validation_status":
+            validation_status,
 
-        "coverage_complete": (
-            coverage_complete
-        ),
-
-        "coverage_basis": (
-            "DOUBLE_OFFICIAL_XML_EXTRACTION"
-            "_PLUS_CONTENT_VALIDATION"
-        ),
-
-        "validation_status": (
-            validation_status
-        ),
-
-        "note": note,
+        "note":
+            note,
     }
 
-    OUTPUT_METADATA.write_text(
+
+def write_metadata_temp(
+    metadata,
+):
+    TEMP_METADATA.write_text(
         json.dumps(
             metadata,
             ensure_ascii=False,
@@ -1011,42 +1297,48 @@ def write_metadata(
 
 
 # ============================================================
-# MOSTRAR EJEMPLO
+# PUBLICAR SNAPSHOT
 # ============================================================
 
-def print_sample_record(records):
+def publish_snapshot():
     """
-    Muestra en Actions una compra real para poder revisar
-    rapidamente si ahora llegaron organismo, objeto, fechas,
-    numero, etc.
+    Solo se llama si TODAS las validaciones
+    fueron exitosas.
     """
 
-    if not records:
-
-        return
-
-    print("")
-    print(
-        "===================================="
+    os.replace(
+        TEMP_JSON,
+        OUTPUT_JSON,
     )
 
-    print(
-        "EJEMPLO DE REGISTRO EXTRAIDO"
+    os.replace(
+        TEMP_CSV,
+        OUTPUT_CSV,
     )
 
-    print(
-        "===================================="
+    os.replace(
+        TEMP_METADATA,
+        OUTPUT_METADATA,
     )
 
-    sample = records[0]
 
-    print(
-        json.dumps(
-            sample,
-            ensure_ascii=False,
-            indent=2,
-        )[:5000]
-    )
+# ============================================================
+# LIMPIAR TEMPORALES
+# ============================================================
+
+def cleanup_temp_files():
+    for path in (
+        TEMP_JSON,
+        TEMP_CSV,
+        TEMP_METADATA,
+    ):
+
+        try:
+            if path.exists():
+                path.unlink()
+
+        except Exception:
+            pass
 
 
 # ============================================================
@@ -1054,6 +1346,8 @@ def print_sample_record(records):
 # ============================================================
 
 def main():
+    cleanup_temp_files()
+
     today = (
         datetime.now().date()
     )
@@ -1064,28 +1358,8 @@ def main():
         today.day,
     )
 
-    session = requests.Session()
-
-    session.headers.update(
-        {
-            "User-Agent": (
-                "Mozilla/5.0 "
-                "(Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 "
-                "(KHTML, like Gecko) "
-                "Chrome/130 Safari/537.36"
-            ),
-
-            "Accept": (
-                "application/xml,"
-                "text/xml,"
-                "*/*;q=0.8"
-            ),
-
-            "Accept-Language": (
-                "es-UY,es;q=0.9,en;q=0.8"
-            ),
-        }
+    session = (
+        create_session()
     )
 
     # ========================================================
@@ -1096,11 +1370,9 @@ def main():
     print(
         "===================================="
     )
-
     print(
         "EXTRACCION A - LLAMADOS VIGENTES"
     )
-
     print(
         "===================================="
     )
@@ -1134,11 +1406,34 @@ def main():
     )
 
     print(
-        "LV con contenido real:",
+        "LV fallidas:",
         lv_result[
-            "records_with_real_content"
+            "failed_windows"
         ],
     )
+
+    # Si LV falla, no tiene sentido continuar.
+    if (
+        lv_result[
+            "failed_windows"
+        ]
+        > 0
+    ):
+
+        print("")
+        print(
+            "ERROR: hubo ventanas "
+            "fallidas en llamados vigentes."
+        )
+
+        print(
+            "Se conserva el ultimo "
+            "snapshot valido."
+        )
+
+        cleanup_temp_files()
+
+        sys.exit(1)
 
     # ========================================================
     # B - TODOS LOS LLAMADOS
@@ -1148,11 +1443,9 @@ def main():
     print(
         "===================================="
     )
-
     print(
         "EXTRACCION B - TODOS LOS LLAMADOS"
     )
-
     print(
         "===================================="
     )
@@ -1185,6 +1478,35 @@ def main():
         ),
     )
 
+    print(
+        "ALL fallidas:",
+        all_result[
+            "failed_windows"
+        ],
+    )
+
+    if (
+        all_result[
+            "failed_windows"
+        ]
+        > 0
+    ):
+
+        print("")
+        print(
+            "ERROR: hubo ventanas "
+            "fallidas en todos los llamados."
+        )
+
+        print(
+            "Se conserva el ultimo "
+            "snapshot valido."
+        )
+
+        cleanup_temp_files()
+
+        sys.exit(1)
+
     # ========================================================
     # VALIDACION CRUZADA
     # ========================================================
@@ -1204,11 +1526,9 @@ def main():
     print(
         "===================================="
     )
-
     print(
         "VALIDACION CRUZADA"
     )
-
     print(
         "===================================="
     )
@@ -1231,8 +1551,24 @@ def main():
         ),
     )
 
+    if not (
+        cross_result[
+            "lv_is_subset_of_all"
+        ]
+    ):
+
+        print(
+            "ERROR: existen llamados "
+            "vigentes que no aparecen "
+            "en todos los llamados."
+        )
+
+        cleanup_temp_files()
+
+        sys.exit(1)
+
     # ========================================================
-    # ARCHIVOS
+    # ARCHIVOS TEMPORALES
     # ========================================================
 
     records = list(
@@ -1241,55 +1577,6 @@ def main():
         ].values()
     )
 
-    write_json(
-        records
-    )
-
-    write_csv(
-        records
-    )
-
-    write_metadata(
-        lv_result=lv_result,
-        all_result=all_result,
-        cross_result=cross_result,
-    )
-
-    # Mostramos una compra para inspeccion.
-    print_sample_record(
-        records
-    )
-
-    # ========================================================
-    # ERRORES DUROS
-    # ========================================================
-
-    if (
-        lv_result[
-            "failed_windows"
-        ] > 0
-    ):
-
-        print(
-            "ERROR: hubo ventanas fallidas "
-            "en llamados vigentes."
-        )
-
-        sys.exit(1)
-
-    if (
-        all_result[
-            "failed_windows"
-        ] > 0
-    ):
-
-        print(
-            "ERROR: hubo ventanas fallidas "
-            "en todos los llamados."
-        )
-
-        sys.exit(1)
-
     if not records:
 
         print(
@@ -1297,86 +1584,119 @@ def main():
             "llamados vigentes."
         )
 
-        sys.exit(1)
-
-    if not cross_result[
-        "lv_is_subset_of_all"
-    ]:
-
-        print(
-            "ERROR: existen llamados vigentes "
-            "que no aparecen en el universo "
-            "de todos los llamados."
-        )
-
-        print(
-            "Primeros faltantes:"
-        )
-
-        for key in (
-            cross_result[
-                "missing_in_all"
-            ][:20]
-        ):
-
-            print(
-                "-",
-                key,
-            )
+        cleanup_temp_files()
 
         sys.exit(1)
 
-    if (
-        lv_result[
-            "records_with_real_content"
+    write_json_temp(
+        records
+    )
+
+    write_csv_temp(
+        records
+    )
+
+    metadata = (
+        build_metadata(
+            lv_result,
+            all_result,
+            cross_result,
+        )
+    )
+
+    write_metadata_temp(
+        metadata
+    )
+
+    # ========================================================
+    # VALIDACION FINAL
+    # ========================================================
+
+    if not (
+        metadata[
+            "coverage_complete"
         ]
-        != len(records)
     ):
 
         print(
-            "ERROR: existen registros vigentes "
-            "sin contenido sustantivo."
+            "ERROR: la validacion "
+            "final no fue satisfactoria."
         )
+
+        print(
+            json.dumps(
+                metadata,
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
+
+        cleanup_temp_files()
 
         sys.exit(1)
 
     # ========================================================
-    # OK
+    # PUBLICAR
     # ========================================================
+
+    publish_snapshot()
 
     print("")
     print(
         "===================================="
     )
-
     print(
         "EXTRACCION FINALIZADA OK"
     )
-
     print(
         "===================================="
     )
 
     print(
-        "latest.json:",
-        len(records),
-        "registros",
+        "LV:",
+        metadata[
+            "lv_unique_records"
+        ],
     )
 
     print(
-        "latest.csv:",
-        count_csv_records(),
-        "registros",
+        "ALL:",
+        metadata[
+            "all_unique_records"
+        ],
     )
 
     print(
-        "Contenido XML:",
-        "OK",
+        "JSON:",
+        metadata[
+            "json_records"
+        ],
     )
 
     print(
-        "Doble validacion:",
-        "OK",
+        "CSV:",
+        metadata[
+            "csv_records"
+        ],
+    )
+
+    print(
+        "Coverage complete:",
+        metadata[
+            "coverage_complete"
+        ],
+    )
+
+    print(
+        "Validation status:",
+        metadata[
+            "validation_status"
+        ],
+    )
+
+    print("")
+    print(
+        "Snapshot nuevo publicado."
     )
 
 
