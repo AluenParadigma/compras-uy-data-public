@@ -1,7 +1,6 @@
 import csv
 import json
 import os
-import random
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -9,8 +8,6 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
 
 
 # ============================================================
@@ -34,15 +31,31 @@ START_DATE = datetime(2024, 1, 1)
 
 WINDOW_DAYS = 10
 
-CONNECT_TIMEOUT = 30
-READ_TIMEOUT = 120
+CONNECT_TIMEOUT = 15
+READ_TIMEOUT = 60
 
-MAX_WINDOW_ATTEMPTS = 5
+# Solo dos intentos por ventana.
+MAX_WINDOW_ATTEMPTS = 2
 
-BASE_RETRY_SECONDS = 8
+# Espera entre intento 1 y 2.
+RETRY_WAIT_SECONDS = 8
 
-# ARCE puede devolver campos muy grandes en XML/CSV.
+# Pequeña pausa entre consultas para no golpear ARCE.
+REQUEST_PAUSE_SECONDS = 0.5
+
 csv.field_size_limit(sys.maxsize)
+
+
+# ============================================================
+# LOG
+# ============================================================
+
+def log(*args):
+    print(*args, flush=True)
+
+
+def log_error(*args):
+    print(*args, file=sys.stderr, flush=True)
 
 
 # ============================================================
@@ -52,38 +65,10 @@ csv.field_size_limit(sys.maxsize)
 def create_session():
     session = requests.Session()
 
-    retry = Retry(
-        total=3,
-        connect=3,
-        read=3,
-        status=3,
-        backoff_factor=2,
-        status_forcelist=[
-            429,
-            500,
-            502,
-            503,
-            504,
-        ],
-        allowed_methods=["GET"],
-        raise_on_status=False,
-    )
-
-    adapter = HTTPAdapter(
-        max_retries=retry,
-        pool_connections=10,
-        pool_maxsize=10,
-    )
-
-    session.mount(
-        "https://",
-        adapter,
-    )
-
-    session.mount(
-        "http://",
-        adapter,
-    )
+    # IMPORTANTE:
+    # No usamos Retry/HTTPAdapter.
+    # Así evitamos reintentos ocultos que antes multiplicaban
+    # enormemente el tiempo total de ejecución.
 
     session.headers.update(
         {
@@ -100,9 +85,7 @@ def create_session():
                 "application/xhtml+xml,"
                 "*/*;q=0.8"
             ),
-            "Accept-Language": (
-                "es-UY,es;q=0.9,en;q=0.8"
-            ),
+            "Accept-Language": "es-UY,es;q=0.9,en;q=0.8",
             "Connection": "keep-alive",
         }
     )
@@ -111,14 +94,10 @@ def create_session():
 
 
 # ============================================================
-# PARAMETROS
+# PARAMETROS ARCE
 # ============================================================
 
-def build_params(
-    start_date,
-    end_date,
-    publication_type,
-):
+def build_params(start_date, end_date, publication_type):
     return {
         "tipo_publicacion": publication_type,
         "tipo_compra": "",
@@ -147,61 +126,30 @@ def normalize_tag(tag):
 def xml_element_to_dict(element):
     result = {}
 
-    # --------------------------------------------------------
-    # ATRIBUTOS XML
-    # --------------------------------------------------------
-
     for key, value in element.attrib.items():
-        result[
-            normalize_tag(key)
-        ] = value
+        result[normalize_tag(key)] = value
 
-    # --------------------------------------------------------
-    # TEXTO
-    # --------------------------------------------------------
-
-    text = (
-        element.text or ""
-    ).strip()
+    text = (element.text or "").strip()
 
     if text:
         result["_text"] = text
 
-    # --------------------------------------------------------
-    # HIJOS
-    # --------------------------------------------------------
-
     for child in list(element):
-        key = normalize_tag(
-            child.tag
-        )
+        key = normalize_tag(child.tag)
 
-        child_value = (
-            xml_element_to_dict(
-                child
-            )
-        )
+        child_value = xml_element_to_dict(child)
 
         if not child_value:
             child_value = None
 
         if key in result:
-            if not isinstance(
-                result[key],
-                list,
-            ):
-                result[key] = [
-                    result[key]
-                ]
+            if not isinstance(result[key], list):
+                result[key] = [result[key]]
 
-            result[key].append(
-                child_value
-            )
+            result[key].append(child_value)
 
         else:
-            result[key] = (
-                child_value
-            )
+            result[key] = child_value
 
     return result
 
@@ -210,14 +158,10 @@ def find_compra_nodes(root):
     compras = []
 
     for element in root.iter():
-        tag = normalize_tag(
-            element.tag
-        ).lower()
+        tag = normalize_tag(element.tag).lower()
 
         if tag == "compra":
-            compras.append(
-                element
-            )
+            compras.append(element)
 
     return compras
 
@@ -226,11 +170,7 @@ def find_compra_nodes(root):
 # FLATTEN
 # ============================================================
 
-def flatten(
-    data,
-    parent_key="",
-    separator="_",
-):
+def flatten(data, parent_key="", separator="_"):
     items = {}
 
     if isinstance(data, dict):
@@ -238,17 +178,13 @@ def flatten(
         for key, value in data.items():
 
             new_key = (
-                f"{parent_key}"
-                f"{separator}"
-                f"{key}"
+                f"{parent_key}{separator}{key}"
                 if parent_key
                 else key
             )
 
-            if isinstance(
-                value,
-                dict,
-            ):
+            if isinstance(value, dict):
+
                 items.update(
                     flatten(
                         value,
@@ -257,65 +193,48 @@ def flatten(
                     )
                 )
 
-            elif isinstance(
-                value,
-                list,
-            ):
-                items[
-                    new_key
-                ] = json.dumps(
+            elif isinstance(value, list):
+
+                items[new_key] = json.dumps(
                     value,
                     ensure_ascii=False,
                 )
 
             elif value is None:
+
                 items[new_key] = ""
 
             else:
-                items[
-                    new_key
-                ] = value
+
+                items[new_key] = value
 
     else:
-        items[
-            parent_key
-        ] = data
+
+        items[parent_key] = data
 
     return items
 
 
 # ============================================================
-# CALIDAD
+# CONTROL DE CONTENIDO
 # ============================================================
 
-def count_non_empty_scalar_fields(
-    record,
-):
-    flattened = flatten(
-        record
-    )
+def count_non_empty_scalar_fields(record):
+    flattened = flatten(record)
 
     count = 0
 
-    for value in (
-        flattened.values()
-    ):
+    for value in flattened.values():
 
         if value is None:
             continue
 
-        text = str(
-            value
-        ).strip()
+        text = str(value).strip()
 
         if not text:
             continue
 
-        if text in (
-            "[]",
-            "{}",
-            "null",
-        ):
+        if text in ("[]", "{}", "null"):
             continue
 
         count += 1
@@ -323,15 +242,8 @@ def count_non_empty_scalar_fields(
     return count
 
 
-def record_has_real_content(
-    record,
-):
-    return (
-        count_non_empty_scalar_fields(
-            record
-        )
-        >= 3
-    )
+def record_has_real_content(record):
+    return count_non_empty_scalar_fields(record) >= 3
 
 
 # ============================================================
@@ -339,15 +251,11 @@ def record_has_real_content(
 # ============================================================
 
 def make_record_key(record):
+
     flattened = {
-        str(k).lower():
-        str(v).strip()
-        for k, v
-        in flatten(record).items()
-        if v not in (
-            None,
-            "",
-        )
+        str(k).lower(): str(v).strip()
+        for k, v in flatten(record).items()
+        if v not in (None, "")
     }
 
     id_candidates = [
@@ -361,45 +269,25 @@ def make_record_key(record):
         "id_publicacion",
     ]
 
-    # --------------------------------------------------------
-    # IDENTIFICADOR DIRECTO
-    # --------------------------------------------------------
+    for candidate in id_candidates:
 
-    for candidate in (
-        id_candidates
-    ):
         if candidate in flattened:
+
             return (
                 f"{candidate}:"
                 f"{flattened[candidate]}"
             )
 
-    # --------------------------------------------------------
-    # IDENTIFICADOR ANIDADO
-    # --------------------------------------------------------
+    for candidate in id_candidates:
 
-    for candidate in (
-        id_candidates
-    ):
+        for key, value in flattened.items():
 
-        for key, value in (
-            flattened.items()
-        ):
+            if key.endswith(candidate) and value:
 
-            if (
-                key.endswith(
-                    candidate
-                )
-                and value
-            ):
                 return (
                     f"{candidate}:"
                     f"{value}"
                 )
-
-    # --------------------------------------------------------
-    # FALLBACK COMPUESTO
-    # --------------------------------------------------------
 
     fallback_values = []
 
@@ -414,27 +302,19 @@ def make_record_key(record):
 
     for keyword in keywords:
 
-        for key, value in (
-            flattened.items()
-        ):
+        for key, value in flattened.items():
 
-            if (
-                keyword in key
-                and value
-            ):
+            if keyword in key and value:
+
                 fallback_values.append(
-                    f"{keyword}:"
-                    f"{value}"
+                    f"{keyword}:{value}"
                 )
+
                 break
 
-    if len(
-        fallback_values
-    ) >= 2:
+    if len(fallback_values) >= 2:
 
-        return "|".join(
-            fallback_values
-        )
+        return "|".join(fallback_values)
 
     return json.dumps(
         record,
@@ -447,88 +327,33 @@ def make_record_key(record):
 # VENTANAS
 # ============================================================
 
-def generate_windows(
-    start_date,
-    end_date,
-):
-    current = (
-        start_date
-    )
+def generate_windows(start_date, end_date):
 
-    while (
-        current
-        <= end_date
-    ):
+    current = start_date
+
+    while current <= end_date:
 
         window_end = min(
             current
             + timedelta(
-                days=(
-                    WINDOW_DAYS
-                    - 1
-                )
+                days=WINDOW_DAYS - 1
             ),
             end_date,
         )
 
-        yield (
-            current,
-            window_end,
-        )
+        yield current, window_end
 
         current = (
             window_end
-            + timedelta(
-                days=1
-            )
+            + timedelta(days=1)
         )
 
 
 # ============================================================
-# RETRY
+# REQUEST
 # ============================================================
 
-def retry_wait_seconds(
-    attempt,
-):
-    """
-    Backoff exponencial con jitter.
-
-    Intentos:
-    1 -> ~8 s
-    2 -> ~16 s
-    3 -> ~32 s
-    4 -> ~64 s
-    5 -> ~128 s
-    """
-
-    base = (
-        BASE_RETRY_SECONDS
-        * (
-            2
-            ** (
-                attempt
-                - 1
-            )
-        )
-    )
-
-    jitter = random.uniform(
-        0,
-        3,
-    )
-
-    return (
-        base
-        + jitter
-    )
-
-
-# ============================================================
-# DESCARGA DE UNA VENTANA
-# ============================================================
-
-def download_window_once(
+def request_xml(
     session,
     start_date,
     end_date,
@@ -549,36 +374,31 @@ def download_window_once(
         ),
     )
 
-    # --------------------------------------------------------
-    # ERRORES TRANSITORIOS
-    # --------------------------------------------------------
-
-    if response.status_code in (
-        403,
-        429,
-        500,
-        502,
-        503,
-        504,
-    ):
-
+    if response.status_code == 403:
         raise RuntimeError(
-            "HTTP_TRANSIENT_"
-            f"{response.status_code}"
+            "HTTP 403 Forbidden"
+        )
+
+    if response.status_code == 429:
+        raise RuntimeError(
+            "HTTP 429 Too Many Requests"
+        )
+
+    if response.status_code >= 500:
+        raise RuntimeError(
+            f"HTTP {response.status_code} "
+            "Server Error"
         )
 
     response.raise_for_status()
 
     if not response.content:
         raise RuntimeError(
-            "EMPTY_RESPONSE"
+            "Respuesta vacia de ARCE"
         )
 
-    # --------------------------------------------------------
-    # XML
-    # --------------------------------------------------------
-
     try:
+
         root = ET.fromstring(
             response.content
         )
@@ -586,41 +406,103 @@ def download_window_once(
     except ET.ParseError as exc:
 
         preview = (
-            response.text[:500]
+            response.text[:300]
         )
 
         raise RuntimeError(
-            "INVALID_XML: "
-            f"{preview}"
+            "Respuesta no XML. "
+            f"Inicio de respuesta: {preview}"
         ) from exc
 
-    compra_nodes = (
-        find_compra_nodes(
-            root
-        )
+    return root
+
+
+# ============================================================
+# HEALTH CHECK
+# ============================================================
+
+def health_check(session):
+    """
+    Antes de recorrer las ~100 ventanas comprobamos
+    que ARCE realmente este respondiendo.
+
+    Si ARCE esta bloqueando con 403, timeout, etc.,
+    abortamos antes de iniciar la extraccion completa.
+    """
+
+    log("")
+    log("====================================")
+    log("HEALTH CHECK ARCE")
+    log("====================================")
+
+    today = datetime.now().date()
+
+    start = datetime(
+        today.year,
+        today.month,
+        today.day,
     )
 
-    records = []
-
-    for node in (
-        compra_nodes
+    for attempt in range(
+        1,
+        MAX_WINDOW_ATTEMPTS + 1,
     ):
 
-        record = (
-            xml_element_to_dict(
-                node
+        try:
+
+            root = request_xml(
+                session=session,
+                start_date=start,
+                end_date=start,
+                publication_type="lv",
             )
-        )
 
-        if not record:
-            continue
+            # No importa si hoy hay 0 compras.
+            # Lo importante es haber recibido XML valido.
 
-        records.append(
-            record
-        )
+            nodes = find_compra_nodes(root)
 
-    return records
+            log(
+                "ARCE responde correctamente.",
+                "Compras encontradas hoy:",
+                len(nodes),
+            )
 
+            return True
+
+        except Exception as exc:
+
+            log_error(
+                f"Health check intento "
+                f"{attempt}/"
+                f"{MAX_WINDOW_ATTEMPTS}: "
+                f"{exc}"
+            )
+
+            if (
+                attempt
+                < MAX_WINDOW_ATTEMPTS
+            ):
+
+                log(
+                    f"Esperando "
+                    f"{RETRY_WAIT_SECONDS}s..."
+                )
+
+                time.sleep(
+                    RETRY_WAIT_SECONDS
+                )
+
+    raise RuntimeError(
+        "ARCE no supera el health check. "
+        "Se aborta antes de comenzar "
+        "la extraccion completa."
+    )
+
+
+# ============================================================
+# DESCARGAR UNA VENTANA
+# ============================================================
 
 def download_window(
     session,
@@ -628,17 +510,17 @@ def download_window(
     end_date,
     publication_type,
 ):
+
     label = (
-        "LLAMADOS VIGENTES"
-        if publication_type
-        == "lv"
-        else "TODOS LOS LLAMADOS"
+        "LV"
+        if publication_type == "lv"
+        else "ALL"
     )
 
-    print(
+    log(
         f"[{label}] "
         f"{start_date:%d/%m/%Y}"
-        f" - "
+        " - "
         f"{end_date:%d/%m/%Y}"
     )
 
@@ -646,25 +528,43 @@ def download_window(
 
     for attempt in range(
         1,
-        MAX_WINDOW_ATTEMPTS
-        + 1,
+        MAX_WINDOW_ATTEMPTS + 1,
     ):
 
         try:
 
-            records = (
-                download_window_once(
-                    session,
-                    start_date,
-                    end_date,
-                    publication_type,
-                )
+            root = request_xml(
+                session,
+                start_date,
+                end_date,
+                publication_type,
             )
 
-            print(
-                "  compras encontradas:",
+            compra_nodes = (
+                find_compra_nodes(root)
+            )
+
+            records = []
+
+            for node in compra_nodes:
+
+                record = (
+                    xml_element_to_dict(
+                        node
+                    )
+                )
+
+                if record:
+                    records.append(record)
+
+            log(
+                "  compras:",
                 len(records),
-                f"(intento {attempt})",
+                f"| intento {attempt}"
+            )
+
+            time.sleep(
+                REQUEST_PAUSE_SECONDS
             )
 
             return records
@@ -672,51 +572,46 @@ def download_window(
         except (
             requests.Timeout,
             requests.ConnectionError,
-            RuntimeError,
             requests.HTTPError,
+            RuntimeError,
         ) as exc:
 
             last_error = exc
 
-            print(
+            log_error(
                 f"  intento "
                 f"{attempt}/"
-                f"{MAX_WINDOW_ATTEMPTS}"
-                f" fallo: "
-                f"{exc}",
-                file=sys.stderr,
+                f"{MAX_WINDOW_ATTEMPTS} "
+                f"fallo: {exc}"
             )
 
             if (
                 attempt
-                >= MAX_WINDOW_ATTEMPTS
+                < MAX_WINDOW_ATTEMPTS
             ):
-                break
 
-            wait_seconds = (
-                retry_wait_seconds(
-                    attempt
+                log(
+                    f"  reintento en "
+                    f"{RETRY_WAIT_SECONDS}s..."
                 )
-            )
 
-            print(
-                "  esperando "
-                f"{wait_seconds:.1f}s "
-                "antes de reintentar..."
-            )
-
-            time.sleep(
-                wait_seconds
-            )
+                time.sleep(
+                    RETRY_WAIT_SECONDS
+                )
 
     raise RuntimeError(
-        "WINDOW_FAILED_AFTER_RETRIES: "
-        f"{last_error}"
+        f"Ventana {label} "
+        f"{start_date:%Y-%m-%d}"
+        " - "
+        f"{end_date:%Y-%m-%d} "
+        "fallo luego de "
+        f"{MAX_WINDOW_ATTEMPTS} intentos. "
+        f"Ultimo error: {last_error}"
     )
 
 
 # ============================================================
-# EXTRACCION COMPLETA
+# EXTRACCION
 # ============================================================
 
 def extract_publication_type(
@@ -725,122 +620,87 @@ def extract_publication_type(
     start_date,
     end_date,
 ):
+
     all_records = []
 
     windows_processed = 0
     windows_with_records = 0
-    failed_windows = 0
 
-    failed_window_details = []
-
-    for start, end in (
+    windows = list(
         generate_windows(
             start_date,
             end_date,
         )
+    )
+
+    total_windows = len(windows)
+
+    label = (
+        "LV"
+        if publication_type == "lv"
+        else "ALL"
+    )
+
+    for index, (start, end) in enumerate(
+        windows,
+        start=1,
     ):
 
-        try:
+        log(
+            f"{label} ventana "
+            f"{index}/{total_windows}"
+        )
 
-            records = (
-                download_window(
-                    session,
-                    start,
-                    end,
-                    publication_type,
-                )
-            )
+        # IMPORTANTE:
+        # si una sola ventana falla de manera definitiva,
+        # abortamos inmediatamente.
+        #
+        # No tiene sentido recorrer las restantes porque
+        # el snapshot ya no podria certificarse como completo.
 
-            all_records.extend(
-                records
-            )
+        records = download_window(
+            session,
+            start,
+            end,
+            publication_type,
+        )
 
-            windows_processed += 1
+        all_records.extend(records)
 
-            if records:
-                windows_with_records += 1
+        windows_processed += 1
 
-        except Exception as exc:
-
-            failed_windows += 1
-
-            detail = {
-                "publication_type":
-                    publication_type,
-                "start":
-                    start.strftime(
-                        "%Y-%m-%d"
-                    ),
-                "end":
-                    end.strftime(
-                        "%Y-%m-%d"
-                    ),
-                "error":
-                    str(exc),
-            }
-
-            failed_window_details.append(
-                detail
-            )
-
-            print(
-                "ERROR DEFINITIVO "
-                f"{publication_type} "
-                f"{start:%d/%m/%Y}"
-                " - "
-                f"{end:%d/%m/%Y}: "
-                f"{exc}",
-                file=sys.stderr,
-            )
-
-    # --------------------------------------------------------
-    # DEDUPLICACION
-    # --------------------------------------------------------
+        if records:
+            windows_with_records += 1
 
     unique = {}
 
     for record in all_records:
 
-        key = (
-            make_record_key(
-                record
-            )
-        )
-
-        unique[key] = (
+        key = make_record_key(
             record
         )
 
-    # --------------------------------------------------------
-    # CALIDAD
-    # --------------------------------------------------------
+        unique[key] = record
 
-    records_with_real_content = 0
-
-    for record in (
-        unique.values()
-    ):
-
-        if (
-            record_has_real_content(
-                record
-            )
-        ):
-            records_with_real_content += 1
+    records_with_real_content = sum(
+        1
+        for record
+        in unique.values()
+        if record_has_real_content(
+            record
+        )
+    )
 
     return {
-        "raw_records":
-            all_records,
-        "unique":
-            unique,
+        "raw_records": all_records,
+        "unique": unique,
         "windows_processed":
             windows_processed,
+        "windows_expected":
+            total_windows,
         "windows_with_records":
             windows_with_records,
-        "failed_windows":
-            failed_windows,
-        "failed_window_details":
-            failed_window_details,
+        "failed_windows": 0,
         "records_with_real_content":
             records_with_real_content,
     }
@@ -854,6 +714,7 @@ def cross_validate(
     lv_unique,
     all_unique,
 ):
+
     lv_keys = set(
         lv_unique.keys()
     )
@@ -863,47 +724,52 @@ def cross_validate(
     )
 
     missing_in_all = sorted(
-        lv_keys
-        - all_keys
+        lv_keys - all_keys
     )
 
     common = (
-        lv_keys
-        & all_keys
+        lv_keys & all_keys
     )
 
     return {
-        "common":
-            common,
+        "common": common,
         "missing_in_all":
             missing_in_all,
         "lv_is_subset_of_all":
-            (
-                len(
-                    missing_in_all
-                )
-                == 0
-            ),
+            len(missing_in_all) == 0,
     }
 
 
 # ============================================================
-# JSON TEMPORAL
+# ARCHIVOS TEMPORALES
 # ============================================================
 
-def write_json_temp(
-    records,
-):
+def cleanup_temp_files():
+
+    for path in (
+        TEMP_JSON,
+        TEMP_CSV,
+        TEMP_METADATA,
+    ):
+
+        try:
+
+            if path.exists():
+                path.unlink()
+
+        except Exception:
+            pass
+
+
+def write_json_temp(records):
+
     payload = {
         "generated_at":
             datetime.now(
                 timezone.utc
             ).isoformat(),
         "source":
-            (
-                "Compras Estatales "
-                "Uruguay / ARCE"
-            ),
+            "Compras Estatales Uruguay / ARCE",
         "publication_type":
             "Llamados vigentes",
         "total_records":
@@ -922,35 +788,24 @@ def write_json_temp(
     )
 
 
-# ============================================================
-# CSV TEMPORAL
-# ============================================================
+def write_csv_temp(records):
 
-def write_csv_temp(
-    records,
-):
     flat_records = [
         flatten(record)
-        for record
-        in records
+        for record in records
     ]
 
     if not flat_records:
 
-        TEMP_CSV.write_text(
-            "sin_registros\n",
-            encoding="utf-8",
+        raise RuntimeError(
+            "No hay registros para CSV"
         )
-
-        return
 
     columns = sorted(
         {
             key
-            for record
-            in flat_records
-            for key
-            in record.keys()
+            for record in flat_records
+            for key in record.keys()
         }
     )
 
@@ -967,17 +822,12 @@ def write_csv_temp(
 
         writer.writeheader()
 
-        for record in (
-            flat_records
-        ):
-            writer.writerow(
-                record
-            )
+        for record in flat_records:
+
+            writer.writerow(record)
 
 
 def count_temp_csv_records():
-    if not TEMP_CSV.exists():
-        return 0
 
     with TEMP_CSV.open(
         "r",
@@ -985,23 +835,17 @@ def count_temp_csv_records():
         newline="",
     ) as file:
 
-        reader = (
-            csv.reader(file)
+        reader = csv.reader(file)
+
+        next(reader, None)
+
+        return sum(
+            1 for _ in reader
         )
-
-        count = -1
-
-        for _ in reader:
-            count += 1
-
-    return max(
-        count,
-        0,
-    )
 
 
 # ============================================================
-# METADATA TEMPORAL
+# METADATA
 # ============================================================
 
 def build_metadata(
@@ -1009,16 +853,13 @@ def build_metadata(
     all_result,
     cross_result,
 ):
+
     lv_unique_records = len(
-        lv_result[
-            "unique"
-        ]
+        lv_result["unique"]
     )
 
     all_unique_records = len(
-        all_result[
-            "unique"
-        ]
+        all_result["unique"]
     )
 
     json_records = (
@@ -1029,42 +870,36 @@ def build_metadata(
         count_temp_csv_records()
     )
 
-    lv_content_records = (
-        lv_result[
-            "records_with_real_content"
-        ]
-    )
-
-    all_content_records = (
-        all_result[
-            "records_with_real_content"
-        ]
-    )
-
     lv_xml_complete = (
         lv_result[
-            "failed_windows"
+            "windows_processed"
         ]
-        == 0
+        ==
+        lv_result[
+            "windows_expected"
+        ]
         and
-        lv_unique_records
-        > 0
+        lv_unique_records > 0
     )
 
     all_xml_complete = (
         all_result[
-            "failed_windows"
+            "windows_processed"
         ]
-        == 0
+        ==
+        all_result[
+            "windows_expected"
+        ]
         and
-        all_unique_records
-        > 0
+        all_unique_records > 0
     )
 
     file_integrity = (
         json_records
-        == csv_records
-        == lv_unique_records
+        ==
+        csv_records
+        ==
+        lv_unique_records
     )
 
     cross_validation_match = (
@@ -1074,11 +909,13 @@ def build_metadata(
     )
 
     content_quality_complete = (
-        lv_unique_records
-        > 0
+        lv_unique_records > 0
         and
-        lv_content_records
-        == lv_unique_records
+        lv_result[
+            "records_with_real_content"
+        ]
+        ==
+        lv_unique_records
     )
 
     xml_double_validation = (
@@ -1086,9 +923,9 @@ def build_metadata(
         and
         all_xml_complete
         and
-        file_integrity
-        and
         cross_validation_match
+        and
+        file_integrity
     )
 
     coverage_complete = (
@@ -1097,34 +934,6 @@ def build_metadata(
         content_quality_complete
     )
 
-    if coverage_complete:
-
-        validation_status = "OK"
-
-        note = (
-            "Cobertura XML validada por "
-            "doble extraccion oficial ARCE. "
-            "Todas las ventanas fueron "
-            "procesadas sin error, los "
-            "llamados vigentes estan "
-            "contenidos en el universo "
-            "general, JSON y CSV coinciden "
-            "y todos los registros contienen "
-            "informacion sustantiva."
-        )
-
-    else:
-
-        validation_status = "ERROR"
-
-        note = (
-            "La extraccion presenta "
-            "ventanas fallidas, problemas "
-            "de integridad, validacion "
-            "cruzada o calidad de contenido. "
-            "El snapshot anterior se conserva."
-        )
-
     return {
         "extraction_timestamp":
             datetime.now(
@@ -1132,10 +941,7 @@ def build_metadata(
             ).isoformat(),
 
         "source":
-            (
-                "Compras Estatales "
-                "Uruguay / ARCE"
-            ),
+            "Compras Estatales Uruguay / ARCE",
 
         "source_endpoint":
             BASE_URL,
@@ -1145,13 +951,20 @@ def build_metadata(
                 "%Y-%m-%d"
             ),
 
+        "window_days":
+            WINDOW_DAYS,
+
         "max_window_attempts":
             MAX_WINDOW_ATTEMPTS,
 
-        # LV
         "lv_windows_processed":
             lv_result[
                 "windows_processed"
+            ],
+
+        "lv_windows_expected":
+            lv_result[
+                "windows_expected"
             ],
 
         "lv_windows_with_records":
@@ -1160,14 +973,7 @@ def build_metadata(
             ],
 
         "lv_failed_windows":
-            lv_result[
-                "failed_windows"
-            ],
-
-        "lv_failed_window_details":
-            lv_result[
-                "failed_window_details"
-            ],
+            0,
 
         "lv_raw_records":
             len(
@@ -1180,12 +986,18 @@ def build_metadata(
             lv_unique_records,
 
         "lv_records_with_real_content":
-            lv_content_records,
+            lv_result[
+                "records_with_real_content"
+            ],
 
-        # ALL
         "all_windows_processed":
             all_result[
                 "windows_processed"
+            ],
+
+        "all_windows_expected":
+            all_result[
+                "windows_expected"
             ],
 
         "all_windows_with_records":
@@ -1194,14 +1006,7 @@ def build_metadata(
             ],
 
         "all_failed_windows":
-            all_result[
-                "failed_windows"
-            ],
-
-        "all_failed_window_details":
-            all_result[
-                "failed_window_details"
-            ],
+            0,
 
         "all_raw_records":
             len(
@@ -1214,9 +1019,10 @@ def build_metadata(
             all_unique_records,
 
         "all_records_with_real_content":
-            all_content_records,
+            all_result[
+                "records_with_real_content"
+            ],
 
-        # CROSS
         "lv_records_found_in_all":
             len(
                 cross_result[
@@ -1234,7 +1040,6 @@ def build_metadata(
         "lv_is_subset_of_all":
             cross_validation_match,
 
-        # FILES
         "json_records":
             json_records,
 
@@ -1244,7 +1049,6 @@ def build_metadata(
         "file_integrity":
             file_integrity,
 
-        # VALIDATION
         "lv_xml_complete":
             lv_xml_complete,
 
@@ -1276,16 +1080,34 @@ def build_metadata(
             ),
 
         "validation_status":
-            validation_status,
+            (
+                "OK"
+                if coverage_complete
+                else "ERROR"
+            ),
 
         "note":
-            note,
+            (
+                "Cobertura XML validada por "
+                "doble extraccion oficial ARCE. "
+                "Todas las ventanas fueron "
+                "procesadas correctamente, "
+                "los llamados vigentes estan "
+                "contenidos en el universo "
+                "general, JSON y CSV coinciden "
+                "y todos los registros poseen "
+                "contenido sustantivo."
+                if coverage_complete
+                else
+                "La validacion no fue "
+                "satisfactoria. Se conserva "
+                "el ultimo snapshot valido."
+            ),
     }
 
 
-def write_metadata_temp(
-    metadata,
-):
+def write_metadata_temp(metadata):
+
     TEMP_METADATA.write_text(
         json.dumps(
             metadata,
@@ -1297,14 +1119,10 @@ def write_metadata_temp(
 
 
 # ============================================================
-# PUBLICAR SNAPSHOT
+# PUBLICAR
 # ============================================================
 
 def publish_snapshot():
-    """
-    Solo se llama si TODAS las validaciones
-    fueron exitosas.
-    """
 
     os.replace(
         TEMP_JSON,
@@ -1323,381 +1141,279 @@ def publish_snapshot():
 
 
 # ============================================================
-# LIMPIAR TEMPORALES
-# ============================================================
-
-def cleanup_temp_files():
-    for path in (
-        TEMP_JSON,
-        TEMP_CSV,
-        TEMP_METADATA,
-    ):
-
-        try:
-            if path.exists():
-                path.unlink()
-
-        except Exception:
-            pass
-
-
-# ============================================================
 # MAIN
 # ============================================================
 
 def main():
+
     cleanup_temp_files()
 
-    today = (
-        datetime.now().date()
-    )
+    session = create_session()
 
-    end_date = datetime(
-        today.year,
-        today.month,
-        today.day,
-    )
+    try:
 
-    session = (
-        create_session()
-    )
+        # ----------------------------------------------------
+        # HEALTH CHECK
+        # ----------------------------------------------------
 
-    # ========================================================
-    # A - LLAMADOS VIGENTES
-    # ========================================================
+        health_check(session)
 
-    print("")
-    print(
-        "===================================="
-    )
-    print(
-        "EXTRACCION A - LLAMADOS VIGENTES"
-    )
-    print(
-        "===================================="
-    )
+        today = datetime.now().date()
 
-    lv_result = (
-        extract_publication_type(
+        end_date = datetime(
+            today.year,
+            today.month,
+            today.day,
+        )
+
+        # ----------------------------------------------------
+        # LV
+        # ----------------------------------------------------
+
+        log("")
+        log("====================================")
+        log("EXTRACCION A - LLAMADOS VIGENTES")
+        log("====================================")
+
+        lv_result = extract_publication_type(
             session=session,
             publication_type="lv",
             start_date=START_DATE,
             end_date=end_date,
         )
-    )
 
-    print("")
-    print(
-        "LV crudos:",
-        len(
-            lv_result[
-                "raw_records"
-            ]
-        ),
-    )
-
-    print(
-        "LV unicos:",
-        len(
-            lv_result[
-                "unique"
-            ]
-        ),
-    )
-
-    print(
-        "LV fallidas:",
-        lv_result[
-            "failed_windows"
-        ],
-    )
-
-    # Si LV falla, no tiene sentido continuar.
-    if (
-        lv_result[
-            "failed_windows"
-        ]
-        > 0
-    ):
-
-        print("")
-        print(
-            "ERROR: hubo ventanas "
-            "fallidas en llamados vigentes."
+        log("")
+        log(
+            "LV crudos:",
+            len(
+                lv_result[
+                    "raw_records"
+                ]
+            ),
         )
 
-        print(
-            "Se conserva el ultimo "
-            "snapshot valido."
+        log(
+            "LV unicos:",
+            len(
+                lv_result[
+                    "unique"
+                ]
+            ),
         )
 
-        cleanup_temp_files()
+        log(
+            "LV con contenido real:",
+            lv_result[
+                "records_with_real_content"
+            ],
+        )
 
-        sys.exit(1)
+        # ----------------------------------------------------
+        # ALL
+        # ----------------------------------------------------
 
-    # ========================================================
-    # B - TODOS LOS LLAMADOS
-    # ========================================================
+        log("")
+        log("====================================")
+        log("EXTRACCION B - TODOS LOS LLAMADOS")
+        log("====================================")
 
-    print("")
-    print(
-        "===================================="
-    )
-    print(
-        "EXTRACCION B - TODOS LOS LLAMADOS"
-    )
-    print(
-        "===================================="
-    )
-
-    all_result = (
-        extract_publication_type(
+        all_result = extract_publication_type(
             session=session,
             publication_type="l",
             start_date=START_DATE,
             end_date=end_date,
         )
-    )
 
-    print("")
-    print(
-        "ALL crudos:",
-        len(
-            all_result[
-                "raw_records"
-            ]
-        ),
-    )
-
-    print(
-        "ALL unicos:",
-        len(
-            all_result[
-                "unique"
-            ]
-        ),
-    )
-
-    print(
-        "ALL fallidas:",
-        all_result[
-            "failed_windows"
-        ],
-    )
-
-    if (
-        all_result[
-            "failed_windows"
-        ]
-        > 0
-    ):
-
-        print("")
-        print(
-            "ERROR: hubo ventanas "
-            "fallidas en todos los llamados."
+        log("")
+        log(
+            "ALL crudos:",
+            len(
+                all_result[
+                    "raw_records"
+                ]
+            ),
         )
 
-        print(
-            "Se conserva el ultimo "
-            "snapshot valido."
+        log(
+            "ALL unicos:",
+            len(
+                all_result[
+                    "unique"
+                ]
+            ),
         )
 
-        cleanup_temp_files()
+        # ----------------------------------------------------
+        # CROSS VALIDATION
+        # ----------------------------------------------------
 
-        sys.exit(1)
+        cross_result = cross_validate(
+            lv_result["unique"],
+            all_result["unique"],
+        )
 
-    # ========================================================
-    # VALIDACION CRUZADA
-    # ========================================================
+        log("")
+        log("====================================")
+        log("VALIDACION CRUZADA")
+        log("====================================")
 
-    cross_result = (
-        cross_validate(
+        log(
+            "LV encontrados en ALL:",
+            len(
+                cross_result[
+                    "common"
+                ]
+            ),
+        )
+
+        log(
+            "LV faltantes en ALL:",
+            len(
+                cross_result[
+                    "missing_in_all"
+                ]
+            ),
+        )
+
+        if not cross_result[
+            "lv_is_subset_of_all"
+        ]:
+
+            raise RuntimeError(
+                "Existen llamados vigentes "
+                "que no aparecen en ALL."
+            )
+
+        # ----------------------------------------------------
+        # ARCHIVOS TEMPORALES
+        # ----------------------------------------------------
+
+        records = list(
             lv_result[
                 "unique"
-            ],
-            all_result[
-                "unique"
-            ],
-        )
-    )
-
-    print("")
-    print(
-        "===================================="
-    )
-    print(
-        "VALIDACION CRUZADA"
-    )
-    print(
-        "===================================="
-    )
-
-    print(
-        "LV encontrados en ALL:",
-        len(
-            cross_result[
-                "common"
-            ]
-        ),
-    )
-
-    print(
-        "LV faltantes en ALL:",
-        len(
-            cross_result[
-                "missing_in_all"
-            ]
-        ),
-    )
-
-    if not (
-        cross_result[
-            "lv_is_subset_of_all"
-        ]
-    ):
-
-        print(
-            "ERROR: existen llamados "
-            "vigentes que no aparecen "
-            "en todos los llamados."
+            ].values()
         )
 
-        cleanup_temp_files()
+        if not records:
 
-        sys.exit(1)
+            raise RuntimeError(
+                "ARCE devolvio cero "
+                "llamados vigentes."
+            )
 
-    # ========================================================
-    # ARCHIVOS TEMPORALES
-    # ========================================================
+        write_json_temp(records)
 
-    records = list(
-        lv_result[
-            "unique"
-        ].values()
-    )
+        write_csv_temp(records)
 
-    if not records:
-
-        print(
-            "ERROR: no se obtuvieron "
-            "llamados vigentes."
-        )
-
-        cleanup_temp_files()
-
-        sys.exit(1)
-
-    write_json_temp(
-        records
-    )
-
-    write_csv_temp(
-        records
-    )
-
-    metadata = (
-        build_metadata(
+        metadata = build_metadata(
             lv_result,
             all_result,
             cross_result,
         )
-    )
 
-    write_metadata_temp(
-        metadata
-    )
+        write_metadata_temp(
+            metadata
+        )
 
-    # ========================================================
-    # VALIDACION FINAL
-    # ========================================================
+        # ----------------------------------------------------
+        # VALIDACION FINAL
+        # ----------------------------------------------------
 
-    if not (
-        metadata[
+        if not metadata[
             "coverage_complete"
-        ]
-    ):
+        ]:
 
-        print(
-            "ERROR: la validacion "
-            "final no fue satisfactoria."
-        )
-
-        print(
-            json.dumps(
-                metadata,
-                ensure_ascii=False,
-                indent=2,
+            raise RuntimeError(
+                "La validacion final "
+                "del snapshot fallo."
             )
+
+        # ----------------------------------------------------
+        # PUBLICACION ATOMICA
+        # ----------------------------------------------------
+
+        publish_snapshot()
+
+        log("")
+        log("====================================")
+        log("EXTRACCION FINALIZADA OK")
+        log("====================================")
+
+        log(
+            "LV:",
+            metadata[
+                "lv_unique_records"
+            ],
         )
+
+        log(
+            "ALL:",
+            metadata[
+                "all_unique_records"
+            ],
+        )
+
+        log(
+            "JSON:",
+            metadata[
+                "json_records"
+            ],
+        )
+
+        log(
+            "CSV:",
+            metadata[
+                "csv_records"
+            ],
+        )
+
+        log(
+            "Coverage complete:",
+            metadata[
+                "coverage_complete"
+            ],
+        )
+
+        log(
+            "Validation status:",
+            metadata[
+                "validation_status"
+            ],
+        )
+
+        log("")
+        log(
+            "Snapshot nuevo publicado."
+        )
+
+    except Exception as exc:
 
         cleanup_temp_files()
 
+        log_error("")
+        log_error(
+            "===================================="
+        )
+
+        log_error(
+            "EXTRACCION ABORTADA"
+        )
+
+        log_error(
+            "===================================="
+        )
+
+        log_error(
+            str(exc)
+        )
+
+        log_error("")
+        log_error(
+            "El ultimo snapshot valido "
+            "queda intacto."
+        )
+
         sys.exit(1)
-
-    # ========================================================
-    # PUBLICAR
-    # ========================================================
-
-    publish_snapshot()
-
-    print("")
-    print(
-        "===================================="
-    )
-    print(
-        "EXTRACCION FINALIZADA OK"
-    )
-    print(
-        "===================================="
-    )
-
-    print(
-        "LV:",
-        metadata[
-            "lv_unique_records"
-        ],
-    )
-
-    print(
-        "ALL:",
-        metadata[
-            "all_unique_records"
-        ],
-    )
-
-    print(
-        "JSON:",
-        metadata[
-            "json_records"
-        ],
-    )
-
-    print(
-        "CSV:",
-        metadata[
-            "csv_records"
-        ],
-    )
-
-    print(
-        "Coverage complete:",
-        metadata[
-            "coverage_complete"
-        ],
-    )
-
-    print(
-        "Validation status:",
-        metadata[
-            "validation_status"
-        ],
-    )
-
-    print("")
-    print(
-        "Snapshot nuevo publicado."
-    )
 
 
 if __name__ == "__main__":
