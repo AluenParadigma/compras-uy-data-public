@@ -1,23 +1,22 @@
+import asyncio
 import csv
 import json
 import os
+import re
 import sys
-import time
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from pathlib import Path
-import xml.etree.ElementTree as ET
+from urllib.parse import urljoin, urlparse
 
-import requests
+from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 
 
-# ============================================================
-# CONFIGURACION
-# ============================================================
+BASE_URL = "https://www.comprasestatales.gub.uy"
 
-BASE_URL = (
-    "https://www.comprasestatales.gub.uy/"
-    "comprasenlinea/jboss/generarReporte"
-)
+START_URLS = [
+    f"{BASE_URL}/consultas/buscar/reset/1/tipo-pub/VIG",
+    f"{BASE_URL}/consultas/buscar",
+]
 
 OUTPUT_JSON = Path("latest.json")
 OUTPUT_CSV = Path("latest.csv")
@@ -27,28 +26,15 @@ TEMP_JSON = Path("latest.tmp.json")
 TEMP_CSV = Path("latest.tmp.csv")
 TEMP_METADATA = Path("metadata.tmp.json")
 
-START_DATE = datetime(2024, 1, 1)
+NAV_TIMEOUT = 60000
 
-WINDOW_DAYS = 10
+# Pausa pequeña para no sobrecargar ARCE.
+PAGE_PAUSE_SECONDS = 0.35
+DETAIL_PAUSE_SECONDS = 0.30
 
-CONNECT_TIMEOUT = 15
-READ_TIMEOUT = 60
+# Cantidad máxima de intentos por página.
+MAX_ATTEMPTS = 3
 
-# Solo dos intentos por ventana.
-MAX_WINDOW_ATTEMPTS = 2
-
-# Espera entre intento 1 y 2.
-RETRY_WAIT_SECONDS = 8
-
-# Pequeña pausa entre consultas para no golpear ARCE.
-REQUEST_PAUSE_SECONDS = 0.5
-
-csv.field_size_limit(sys.maxsize)
-
-
-# ============================================================
-# LOG
-# ============================================================
 
 def log(*args):
     print(*args, flush=True)
@@ -58,718 +44,789 @@ def log_error(*args):
     print(*args, file=sys.stderr, flush=True)
 
 
-# ============================================================
-# SESION HTTP
-# ============================================================
+def clean_text(value):
+    if value is None:
+        return ""
 
-def create_session():
-    session = requests.Session()
+    return re.sub(r"\s+", " ", value).strip()
 
-    # IMPORTANTE:
-    # No usamos Retry/HTTPAdapter.
-    # Así evitamos reintentos ocultos que antes multiplicaban
-    # enormemente el tiempo total de ejecución.
 
-    session.headers.update(
-        {
-            "User-Agent": (
-                "Mozilla/5.0 "
-                "(Windows NT 10.0; Win64; x64) "
-                "AppleWebKit/537.36 "
-                "(KHTML, like Gecko) "
-                "Chrome/130.0 Safari/537.36"
-            ),
-            "Accept": (
-                "application/xml,"
-                "text/xml,"
-                "application/xhtml+xml,"
-                "*/*;q=0.8"
-            ),
-            "Accept-Language": "es-UY,es;q=0.9,en;q=0.8",
-            "Connection": "keep-alive",
-        }
+def absolute_url(href):
+    return urljoin(BASE_URL, href)
+
+
+def extract_detail_id(url):
+    match = re.search(
+        r"/consultas/detalle/mostrar-llamado/\d+/id/(\d+)",
+        url,
+        re.I,
     )
 
-    return session
+    return match.group(1) if match else None
 
 
-# ============================================================
-# PARAMETROS ARCE
-# ============================================================
-
-def build_params(start_date, end_date, publication_type):
-    return {
-        "tipo_publicacion": publication_type,
-        "tipo_compra": "",
-        "anio_inicial": start_date.strftime("%Y"),
-        "mes_inicial": start_date.strftime("%m"),
-        "dia_inicial": start_date.strftime("%d"),
-        "anio_final": end_date.strftime("%Y"),
-        "mes_final": end_date.strftime("%m"),
-        "dia_final": end_date.strftime("%d"),
-        "hora_inicial": "00",
-        "hora_final": "23",
-    }
-
-
-# ============================================================
-# XML
-# ============================================================
-
-def normalize_tag(tag):
-    if "}" in tag:
-        return tag.split("}", 1)[1]
-
-    return tag
-
-
-def xml_element_to_dict(element):
-    result = {}
-
-    for key, value in element.attrib.items():
-        result[normalize_tag(key)] = value
-
-    text = (element.text or "").strip()
-
-    if text:
-        result["_text"] = text
-
-    for child in list(element):
-        key = normalize_tag(child.tag)
-
-        child_value = xml_element_to_dict(child)
-
-        if not child_value:
-            child_value = None
-
-        if key in result:
-            if not isinstance(result[key], list):
-                result[key] = [result[key]]
-
-            result[key].append(child_value)
-
-        else:
-            result[key] = child_value
-
-    return result
-
-
-def find_compra_nodes(root):
-    compras = []
-
-    for element in root.iter():
-        tag = normalize_tag(element.tag).lower()
-
-        if tag == "compra":
-            compras.append(element)
-
-    return compras
-
-
-# ============================================================
-# FLATTEN
-# ============================================================
-
-def flatten(data, parent_key="", separator="_"):
-    items = {}
-
-    if isinstance(data, dict):
-
-        for key, value in data.items():
-
-            new_key = (
-                f"{parent_key}{separator}{key}"
-                if parent_key
-                else key
-            )
-
-            if isinstance(value, dict):
-
-                items.update(
-                    flatten(
-                        value,
-                        new_key,
-                        separator,
-                    )
-                )
-
-            elif isinstance(value, list):
-
-                items[new_key] = json.dumps(
-                    value,
-                    ensure_ascii=False,
-                )
-
-            elif value is None:
-
-                items[new_key] = ""
-
-            else:
-
-                items[new_key] = value
-
-    else:
-
-        items[parent_key] = data
-
-    return items
-
-
-# ============================================================
-# CONTROL DE CONTENIDO
-# ============================================================
-
-def count_non_empty_scalar_fields(record):
-    flattened = flatten(record)
-
-    count = 0
-
-    for value in flattened.values():
-
-        if value is None:
-            continue
-
-        text = str(value).strip()
-
-        if not text:
-            continue
-
-        if text in ("[]", "{}", "null"):
-            continue
-
-        count += 1
-
-    return count
-
-
-def record_has_real_content(record):
-    return count_non_empty_scalar_fields(record) >= 3
-
-
-# ============================================================
-# IDENTIFICADOR
-# ============================================================
-
-def make_record_key(record):
-
-    flattened = {
-        str(k).lower(): str(v).strip()
-        for k, v in flatten(record).items()
-        if v not in (None, "")
-    }
-
-    id_candidates = [
-        "id_compra",
-        "idcompra",
-        "id_llamado",
-        "idllamado",
-        "nro_compra",
-        "numero_compra",
-        "num_compra",
-        "id_publicacion",
-    ]
-
-    for candidate in id_candidates:
-
-        if candidate in flattened:
-
-            return (
-                f"{candidate}:"
-                f"{flattened[candidate]}"
-            )
-
-    for candidate in id_candidates:
-
-        for key, value in flattened.items():
-
-            if key.endswith(candidate) and value:
-
-                return (
-                    f"{candidate}:"
-                    f"{value}"
-                )
-
-    fallback_values = []
-
-    keywords = [
-        "tipo_compra",
-        "nro_compra",
-        "numero_compra",
-        "anio",
-        "inciso",
-        "unidad_ejecutora",
-    ]
-
-    for keyword in keywords:
-
-        for key, value in flattened.items():
-
-            if keyword in key and value:
-
-                fallback_values.append(
-                    f"{keyword}:{value}"
-                )
-
-                break
-
-    if len(fallback_values) >= 2:
-
-        return "|".join(fallback_values)
-
-    return json.dumps(
-        record,
-        sort_keys=True,
-        ensure_ascii=False,
-    )
-
-
-# ============================================================
-# VENTANAS
-# ============================================================
-
-def generate_windows(start_date, end_date):
-
-    current = start_date
-
-    while current <= end_date:
-
-        window_end = min(
-            current
-            + timedelta(
-                days=WINDOW_DAYS - 1
-            ),
-            end_date,
-        )
-
-        yield current, window_end
-
-        current = (
-            window_end
-            + timedelta(days=1)
-        )
-
-
-# ============================================================
-# REQUEST
-# ============================================================
-
-def request_xml(
-    session,
-    start_date,
-    end_date,
-    publication_type,
-):
-    params = build_params(
-        start_date,
-        end_date,
-        publication_type,
-    )
-
-    response = session.get(
-        BASE_URL,
-        params=params,
-        timeout=(
-            CONNECT_TIMEOUT,
-            READ_TIMEOUT,
-        ),
-    )
-
-    if response.status_code == 403:
-        raise RuntimeError(
-            "HTTP 403 Forbidden"
-        )
-
-    if response.status_code == 429:
-        raise RuntimeError(
-            "HTTP 429 Too Many Requests"
-        )
-
-    if response.status_code >= 500:
-        raise RuntimeError(
-            f"HTTP {response.status_code} "
-            "Server Error"
-        )
-
-    response.raise_for_status()
-
-    if not response.content:
-        raise RuntimeError(
-            "Respuesta vacia de ARCE"
-        )
-
-    try:
-
-        root = ET.fromstring(
-            response.content
-        )
-
-    except ET.ParseError as exc:
-
-        preview = (
-            response.text[:300]
-        )
-
-        raise RuntimeError(
-            "Respuesta no XML. "
-            f"Inicio de respuesta: {preview}"
-        ) from exc
-
-    return root
-
-
-# ============================================================
-# HEALTH CHECK
-# ============================================================
-
-def health_check(session):
+def parse_datetime(text):
     """
-    Antes de recorrer las ~100 ventanas comprobamos
-    que ARCE realmente este respondiendo.
-
-    Si ARCE esta bloqueando con 403, timeout, etc.,
-    abortamos antes de iniciar la extraccion completa.
+    Devuelve el texto normalizado.
+    No convertimos la fecha para evitar errores de timezone.
     """
 
-    log("")
-    log("====================================")
-    log("HEALTH CHECK ARCE")
-    log("====================================")
+    if not text:
+        return ""
 
-    today = datetime.now().date()
-
-    start = datetime(
-        today.year,
-        today.month,
-        today.day,
-    )
-
-    for attempt in range(
-        1,
-        MAX_WINDOW_ATTEMPTS + 1,
-    ):
-
-        try:
-
-            root = request_xml(
-                session=session,
-                start_date=start,
-                end_date=start,
-                publication_type="lv",
-            )
-
-            # No importa si hoy hay 0 compras.
-            # Lo importante es haber recibido XML valido.
-
-            nodes = find_compra_nodes(root)
-
-            log(
-                "ARCE responde correctamente.",
-                "Compras encontradas hoy:",
-                len(nodes),
-            )
-
-            return True
-
-        except Exception as exc:
-
-            log_error(
-                f"Health check intento "
-                f"{attempt}/"
-                f"{MAX_WINDOW_ATTEMPTS}: "
-                f"{exc}"
-            )
-
-            if (
-                attempt
-                < MAX_WINDOW_ATTEMPTS
-            ):
-
-                log(
-                    f"Esperando "
-                    f"{RETRY_WAIT_SECONDS}s..."
-                )
-
-                time.sleep(
-                    RETRY_WAIT_SECONDS
-                )
-
-    raise RuntimeError(
-        "ARCE no supera el health check. "
-        "Se aborta antes de comenzar "
-        "la extraccion completa."
+    return clean_text(
+        text.replace("hs", "")
     )
 
 
-# ============================================================
-# DESCARGAR UNA VENTANA
-# ============================================================
-
-def download_window(
-    session,
-    start_date,
-    end_date,
-    publication_type,
-):
-
-    label = (
-        "LV"
-        if publication_type == "lv"
-        else "ALL"
+def extract_regex(text, pattern):
+    match = re.search(
+        pattern,
+        text,
+        flags=re.I | re.S,
     )
 
-    log(
-        f"[{label}] "
-        f"{start_date:%d/%m/%Y}"
-        " - "
-        f"{end_date:%d/%m/%Y}"
-    )
+    if not match:
+        return ""
 
+    return clean_text(match.group(1))
+
+
+async def goto_with_retry(page, url, label):
     last_error = None
 
-    for attempt in range(
-        1,
-        MAX_WINDOW_ATTEMPTS + 1,
-    ):
+    for attempt in range(1, MAX_ATTEMPTS + 1):
 
         try:
-
-            root = request_xml(
-                session,
-                start_date,
-                end_date,
-                publication_type,
+            response = await page.goto(
+                url,
+                wait_until="domcontentloaded",
+                timeout=NAV_TIMEOUT,
             )
 
-            compra_nodes = (
-                find_compra_nodes(root)
-            )
-
-            records = []
-
-            for node in compra_nodes:
-
-                record = (
-                    xml_element_to_dict(
-                        node
-                    )
+            if response is None:
+                raise RuntimeError(
+                    "Navegacion sin respuesta HTTP"
                 )
 
-                if record:
-                    records.append(record)
+            status = response.status
 
-            log(
-                "  compras:",
-                len(records),
-                f"| intento {attempt}"
-            )
+            if status in (403, 429, 500, 502, 503, 504):
+                raise RuntimeError(
+                    f"HTTP {status}"
+                )
 
-            time.sleep(
-                REQUEST_PAUSE_SECONDS
-            )
+            if status >= 400:
+                raise RuntimeError(
+                    f"HTTP {status}"
+                )
 
-            return records
+            await page.wait_for_timeout(500)
 
-        except (
-            requests.Timeout,
-            requests.ConnectionError,
-            requests.HTTPError,
-            RuntimeError,
-        ) as exc:
+            return response
 
+        except Exception as exc:
             last_error = exc
 
             log_error(
-                f"  intento "
-                f"{attempt}/"
-                f"{MAX_WINDOW_ATTEMPTS} "
-                f"fallo: {exc}"
+                f"{label}: intento "
+                f"{attempt}/{MAX_ATTEMPTS} fallo: {exc}"
             )
 
-            if (
-                attempt
-                < MAX_WINDOW_ATTEMPTS
-            ):
-
-                log(
-                    f"  reintento en "
-                    f"{RETRY_WAIT_SECONDS}s..."
-                )
-
-                time.sleep(
-                    RETRY_WAIT_SECONDS
+            if attempt < MAX_ATTEMPTS:
+                await asyncio.sleep(
+                    2 * attempt
                 )
 
     raise RuntimeError(
-        f"Ventana {label} "
-        f"{start_date:%Y-%m-%d}"
-        " - "
-        f"{end_date:%Y-%m-%d} "
-        "fallo luego de "
-        f"{MAX_WINDOW_ATTEMPTS} intentos. "
+        f"{label}: fallo luego de "
+        f"{MAX_ATTEMPTS} intentos. "
         f"Ultimo error: {last_error}"
     )
 
 
-# ============================================================
-# EXTRACCION
-# ============================================================
+async def find_working_start_url(page):
+    log("")
+    log("====================================")
+    log("HEALTH CHECK NUEVA WEB ARCE")
+    log("====================================")
 
-def extract_publication_type(
-    session,
-    publication_type,
-    start_date,
-    end_date,
-):
+    errors = []
 
-    all_records = []
-
-    windows_processed = 0
-    windows_with_records = 0
-
-    windows = list(
-        generate_windows(
-            start_date,
-            end_date,
-        )
-    )
-
-    total_windows = len(windows)
-
-    label = (
-        "LV"
-        if publication_type == "lv"
-        else "ALL"
-    )
-
-    for index, (start, end) in enumerate(
-        windows,
-        start=1,
-    ):
-
-        log(
-            f"{label} ventana "
-            f"{index}/{total_windows}"
-        )
-
-        # IMPORTANTE:
-        # si una sola ventana falla de manera definitiva,
-        # abortamos inmediatamente.
-        #
-        # No tiene sentido recorrer las restantes porque
-        # el snapshot ya no podria certificarse como completo.
-
-        records = download_window(
-            session,
-            start,
-            end,
-            publication_type,
-        )
-
-        all_records.extend(records)
-
-        windows_processed += 1
-
-        if records:
-            windows_with_records += 1
-
-    unique = {}
-
-    for record in all_records:
-
-        key = make_record_key(
-            record
-        )
-
-        unique[key] = record
-
-    records_with_real_content = sum(
-        1
-        for record
-        in unique.values()
-        if record_has_real_content(
-            record
-        )
-    )
-
-    return {
-        "raw_records": all_records,
-        "unique": unique,
-        "windows_processed":
-            windows_processed,
-        "windows_expected":
-            total_windows,
-        "windows_with_records":
-            windows_with_records,
-        "failed_windows": 0,
-        "records_with_real_content":
-            records_with_real_content,
-    }
-
-
-# ============================================================
-# VALIDACION CRUZADA
-# ============================================================
-
-def cross_validate(
-    lv_unique,
-    all_unique,
-):
-
-    lv_keys = set(
-        lv_unique.keys()
-    )
-
-    all_keys = set(
-        all_unique.keys()
-    )
-
-    missing_in_all = sorted(
-        lv_keys - all_keys
-    )
-
-    common = (
-        lv_keys & all_keys
-    )
-
-    return {
-        "common": common,
-        "missing_in_all":
-            missing_in_all,
-        "lv_is_subset_of_all":
-            len(missing_in_all) == 0,
-    }
-
-
-# ============================================================
-# ARCHIVOS TEMPORALES
-# ============================================================
-
-def cleanup_temp_files():
-
-    for path in (
-        TEMP_JSON,
-        TEMP_CSV,
-        TEMP_METADATA,
-    ):
+    for url in START_URLS:
 
         try:
+            log("Probando:", url)
 
-            if path.exists():
-                path.unlink()
+            await goto_with_retry(
+                page,
+                url,
+                "health-check",
+            )
 
-        except Exception:
-            pass
+            body = clean_text(
+                await page.locator("body").inner_text()
+            )
+
+            if (
+                "Llamados vigentes" not in body
+                and "Se encontraron" not in body
+            ):
+                raise RuntimeError(
+                    "La pagina no parece ser "
+                    "la consulta de llamados vigentes."
+                )
+
+            log("Nueva interfaz ARCE accesible.")
+
+            return page.url
+
+        except Exception as exc:
+            errors.append(
+                f"{url}: {exc}"
+            )
+
+    raise RuntimeError(
+        "Ninguna URL de consulta ARCE funciono. "
+        + " | ".join(errors)
+    )
 
 
-def write_json_temp(records):
+async def get_portal_total(page):
+    body = clean_text(
+        await page.locator("body").inner_text()
+    )
+
+    match = re.search(
+        r"Se encontraron\s+([\d\.]+)\s+resultados",
+        body,
+        re.I,
+    )
+
+    if not match:
+        raise RuntimeError(
+            "No se pudo encontrar el contador "
+            "'Se encontraron X resultados'."
+        )
+
+    number = match.group(1).replace(".", "")
+
+    return int(number)
+
+
+async def collect_detail_links_from_page(page):
+    links = {}
+
+    locator = page.locator(
+        "a[href*='/consultas/detalle/mostrar-llamado/']"
+    )
+
+    count = await locator.count()
+
+    for i in range(count):
+        element = locator.nth(i)
+
+        href = await element.get_attribute("href")
+
+        if not href:
+            continue
+
+        url = absolute_url(href)
+
+        detail_id = extract_detail_id(url)
+
+        if not detail_id:
+            continue
+
+        title = clean_text(
+            await element.inner_text()
+        )
+
+        if not title:
+            continue
+
+        # El mismo link puede aparecer más de una vez.
+        links[detail_id] = {
+            "detail_id": detail_id,
+            "detail_url": url,
+            "titulo_listado": title,
+        }
+
+    return links
+
+
+async def collect_pagination_links(page):
+    """
+    No suponemos cuántos resultados entran por página.
+    Seguimos los links de paginación que expone ARCE.
+    """
+
+    result = set()
+
+    locator = page.locator("a[href]")
+
+    count = await locator.count()
+
+    for i in range(count):
+        element = locator.nth(i)
+
+        href = await element.get_attribute("href")
+
+        if not href:
+            continue
+
+        if "/page/" not in href:
+            continue
+
+        if "/consultas/" not in href:
+            continue
+
+        url = absolute_url(href)
+
+        parsed = urlparse(url)
+
+        if parsed.netloc != urlparse(BASE_URL).netloc:
+            continue
+
+        # Evitamos páginas de detalle.
+        if "/detalle/" in url:
+            continue
+
+        result.add(url)
+
+    return result
+
+
+async def crawl_all_search_pages(page, start_url):
+    log("")
+    log("====================================")
+    log("PAGINACION DE LLAMADOS VIGENTES")
+    log("====================================")
+
+    await goto_with_retry(
+        page,
+        start_url,
+        "pagina-inicial",
+    )
+
+    portal_total = await get_portal_total(page)
+
+    log(
+        "Total informado por ARCE:",
+        portal_total,
+    )
+
+    queue = [page.url]
+    visited = set()
+
+    detail_links = {}
+
+    while queue:
+        current = queue.pop(0)
+
+        if current in visited:
+            continue
+
+        visited.add(current)
+
+        log(
+            f"Pagina de resultados "
+            f"{len(visited)}: {current}"
+        )
+
+        await goto_with_retry(
+            page,
+            current,
+            "pagina-resultados",
+        )
+
+        current_links = (
+            await collect_detail_links_from_page(
+                page
+            )
+        )
+
+        before = len(detail_links)
+
+        detail_links.update(
+            current_links
+        )
+
+        after = len(detail_links)
+
+        log(
+            "  llamados nuevos:",
+            after - before,
+            "| acumulados:",
+            after,
+            "/",
+            portal_total,
+        )
+
+        pagination = (
+            await collect_pagination_links(
+                page
+            )
+        )
+
+        for url in sorted(pagination):
+            if (
+                url not in visited
+                and url not in queue
+            ):
+                queue.append(url)
+
+        await asyncio.sleep(
+            PAGE_PAUSE_SECONDS
+        )
+
+    return (
+        portal_total,
+        detail_links,
+        visited,
+    )
+
+
+def first_meaningful_line_after(lines, target):
+    try:
+        index = lines.index(target)
+    except ValueError:
+        return ""
+
+    for line in lines[index + 1:]:
+        value = clean_text(line)
+
+        if not value:
+            continue
+
+        if value.startswith(
+            "Recepción de ofertas hasta:"
+        ):
+            return ""
+
+        return value
+
+    return ""
+
+
+async def extract_detail(page, seed):
+    url = seed["detail_url"]
+
+    await goto_with_retry(
+        page,
+        url,
+        f"detalle-{seed['detail_id']}",
+    )
+
+    body_text = await page.locator(
+        "body"
+    ).inner_text()
+
+    body_text = body_text.replace(
+        "\xa0",
+        " ",
+    )
+
+    lines = [
+        clean_text(line)
+        for line in body_text.splitlines()
+        if clean_text(line)
+    ]
+
+    # -------------------------------------------------------
+    # TITULO
+    # -------------------------------------------------------
+
+    title = ""
+
+    h2 = page.locator("h2")
+
+    if await h2.count() > 0:
+        title = clean_text(
+            await h2.first.inner_text()
+        )
+
+    if not title:
+        title = seed[
+            "titulo_listado"
+        ]
+
+    # -------------------------------------------------------
+    # OBJETO
+    # -------------------------------------------------------
+
+    objeto = first_meaningful_line_after(
+        lines,
+        title,
+    )
+
+    # -------------------------------------------------------
+    # FECHAS
+    # -------------------------------------------------------
+
+    cierre = extract_regex(
+        body_text,
+        r"Recepci[oó]n de ofertas hasta:\s*"
+        r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
+        r"\s+[0-9]{2}:[0-9]{2})",
+    )
+
+    publicacion = extract_regex(
+        body_text,
+        r"Fecha Publicaci[oó]n:\s*"
+        r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
+        r"\s+[0-9]{2}:[0-9]{2})",
+    )
+
+    if not publicacion:
+        publicacion = extract_regex(
+            body_text,
+            r"Publicado:\s*"
+            r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
+            r"\s+[0-9]{2}:[0-9]{2})",
+        )
+
+    ultima_modificacion = extract_regex(
+        body_text,
+        r"[UÚ]ltima Modificaci[oó]n:\s*"
+        r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
+        r"\s+[0-9]{2}:[0-9]{2})",
+    )
+
+    acto_apertura = extract_regex(
+        body_text,
+        r"Acto de Apertura:\s*"
+        r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
+        r"\s+[0-9]{2}:[0-9]{2})",
+    )
+
+    # -------------------------------------------------------
+    # ITEMS
+    # -------------------------------------------------------
+
+    items = []
+
+    item_pattern = re.compile(
+        r"Ítem\s*N[º°]?\s*(\d+)\s+(.+?)"
+        r"(?:\s+\(C[oó]d\.\s*Art[ií]culo\s*"
+        r"([^)]+)\))?$",
+        re.I,
+    )
+
+    for line in lines:
+        if not line.lower().startswith(
+            ("ítem", "item")
+        ):
+            continue
+
+        match = item_pattern.search(line)
+
+        if match:
+            items.append(
+                {
+                    "numero":
+                        clean_text(
+                            match.group(1)
+                        ),
+                    "descripcion":
+                        clean_text(
+                            match.group(2)
+                        ),
+                    "codigo_articulo":
+                        clean_text(
+                            match.group(3) or ""
+                        ),
+                }
+            )
+
+    # -------------------------------------------------------
+    # ADJUNTOS
+    # -------------------------------------------------------
+
+    attachments = []
+
+    anchors = page.locator(
+        "a[href]"
+    )
+
+    anchor_count = await anchors.count()
+
+    for i in range(anchor_count):
+        anchor = anchors.nth(i)
+
+        href = await anchor.get_attribute(
+            "href"
+        )
+
+        if not href:
+            continue
+
+        text = clean_text(
+            await anchor.inner_text()
+        )
+
+        full_url = absolute_url(href)
+
+        href_lower = href.lower()
+
+        if (
+            ".pdf" in href_lower
+            or "/pliegos/" in href_lower
+            or "/aclaraciones/" in href_lower
+        ):
+            attachments.append(
+                {
+                    "texto": text,
+                    "url": full_url,
+                }
+            )
+
+    # eliminar duplicados
+    unique_attachments = []
+    attachment_seen = set()
+
+    for item in attachments:
+        key = item["url"]
+
+        if key in attachment_seen:
+            continue
+
+        attachment_seen.add(key)
+
+        unique_attachments.append(
+            item
+        )
+
+    # -------------------------------------------------------
+    # APERTURA ELECTRONICA
+    # -------------------------------------------------------
+
+    apertura_electronica = (
+        "Apertura electrónica"
+        in body_text
+        or
+        "Apertura electronica"
+        in body_text
+    )
+
+    # -------------------------------------------------------
+    # INFORMACION PARA ANALISIS SEMANTICO
+    # -------------------------------------------------------
+
+    semantic_parts = [
+        title,
+        objeto,
+    ]
+
+    semantic_parts.extend(
+        item["descripcion"]
+        for item in items
+    )
+
+    semantic_text = clean_text(
+        " | ".join(
+            value
+            for value in semantic_parts
+            if value
+        )
+    )
+
+    return {
+        "id": seed["detail_id"],
+        "titulo": title,
+        "objeto": objeto,
+        "fecha_publicacion":
+            parse_datetime(publicacion),
+        "ultima_modificacion":
+            parse_datetime(
+                ultima_modificacion
+            ),
+        "recepcion_ofertas_hasta":
+            parse_datetime(cierre),
+        "acto_apertura":
+            parse_datetime(
+                acto_apertura
+            ),
+        "apertura_electronica":
+            apertura_electronica,
+        "items": items,
+        "adjuntos":
+            unique_attachments,
+        "semantic_text":
+            semantic_text,
+        "url_oficial":
+            url,
+    }
+
+
+async def extract_all_details(
+    context,
+    detail_links,
+):
+    log("")
+    log("====================================")
+    log("DETALLE DE CADA LLAMADO")
+    log("====================================")
+
+    # Una sola página evita bombardear el servidor.
+    page = await context.new_page()
+
+    records = []
+
+    seeds = list(
+        detail_links.values()
+    )
+
+    total = len(seeds)
+
+    failures = []
+
+    for index, seed in enumerate(
+        seeds,
+        start=1,
+    ):
+        log(
+            f"Detalle {index}/{total} "
+            f"- ID {seed['detail_id']}"
+        )
+
+        try:
+            record = await extract_detail(
+                page,
+                seed,
+            )
+
+            records.append(record)
+
+        except Exception as exc:
+            log_error(
+                f"ERROR detalle "
+                f"{seed['detail_id']}: "
+                f"{exc}"
+            )
+
+            failures.append(
+                {
+                    "id":
+                        seed["detail_id"],
+                    "url":
+                        seed["detail_url"],
+                    "error":
+                        str(exc),
+                }
+            )
+
+        await asyncio.sleep(
+            DETAIL_PAUSE_SECONDS
+        )
+
+    await page.close()
+
+    return records, failures
+
+
+def validate_records(
+    portal_total,
+    detail_links,
+    records,
+    failures,
+):
+    unique_ids = {
+        record["id"]
+        for record in records
+    }
+
+    list_unique = len(
+        detail_links
+    )
+
+    detail_unique = len(
+        unique_ids
+    )
+
+    list_matches_portal = (
+        list_unique
+        == portal_total
+    )
+
+    details_match_portal = (
+        detail_unique
+        == portal_total
+    )
+
+    no_detail_failures = (
+        len(failures)
+        == 0
+    )
+
+    all_have_title = all(
+        bool(
+            record.get(
+                "titulo"
+            )
+        )
+        for record in records
+    )
+
+    all_have_url = all(
+        bool(
+            record.get(
+                "url_oficial"
+            )
+        )
+        for record in records
+    )
+
+    coverage_complete = all(
+        [
+            portal_total > 0,
+            list_matches_portal,
+            details_match_portal,
+            no_detail_failures,
+            all_have_title,
+            all_have_url,
+        ]
+    )
+
+    return {
+        "portal_total":
+            portal_total,
+        "list_unique_records":
+            list_unique,
+        "detail_unique_records":
+            detail_unique,
+        "detail_failures":
+            len(failures),
+        "list_matches_portal":
+            list_matches_portal,
+        "details_match_portal":
+            details_match_portal,
+        "all_have_title":
+            all_have_title,
+        "all_have_url":
+            all_have_url,
+        "coverage_complete":
+            coverage_complete,
+    }
+
+
+def write_temp_files(
+    records,
+    validation,
+    search_pages_count,
+    failures,
+):
+    timestamp = datetime.now(
+        timezone.utc
+    ).isoformat()
 
     payload = {
         "generated_at":
-            datetime.now(
-                timezone.utc
-            ).isoformat(),
+            timestamp,
         "source":
             "Compras Estatales Uruguay / ARCE",
+        "source_url":
+            f"{BASE_URL}/consultas/",
         "publication_type":
             "Llamados vigentes",
         "total_records":
@@ -787,27 +844,20 @@ def write_json_temp(records):
         encoding="utf-8",
     )
 
-
-def write_csv_temp(records):
-
-    flat_records = [
-        flatten(record)
-        for record in records
+    csv_columns = [
+        "id",
+        "titulo",
+        "objeto",
+        "fecha_publicacion",
+        "ultima_modificacion",
+        "recepcion_ofertas_hasta",
+        "acto_apertura",
+        "apertura_electronica",
+        "items",
+        "adjuntos",
+        "semantic_text",
+        "url_oficial",
     ]
-
-    if not flat_records:
-
-        raise RuntimeError(
-            "No hay registros para CSV"
-        )
-
-    columns = sorted(
-        {
-            key
-            for record in flat_records
-            for key in record.keys()
-        }
-    )
 
     with TEMP_CSV.open(
         "w",
@@ -817,296 +867,143 @@ def write_csv_temp(records):
 
         writer = csv.DictWriter(
             file,
-            fieldnames=columns,
+            fieldnames=csv_columns,
         )
 
         writer.writeheader()
 
-        for record in flat_records:
+        for record in records:
+            row = record.copy()
 
-            writer.writerow(record)
+            row["items"] = json.dumps(
+                row["items"],
+                ensure_ascii=False,
+            )
 
+            row["adjuntos"] = json.dumps(
+                row["adjuntos"],
+                ensure_ascii=False,
+            )
 
-def count_temp_csv_records():
+            writer.writerow(row)
 
-    with TEMP_CSV.open(
-        "r",
-        encoding="utf-8-sig",
-        newline="",
-    ) as file:
-
-        reader = csv.reader(file)
-
-        next(reader, None)
-
-        return sum(
-            1 for _ in reader
-        )
-
-
-# ============================================================
-# METADATA
-# ============================================================
-
-def build_metadata(
-    lv_result,
-    all_result,
-    cross_result,
-):
-
-    lv_unique_records = len(
-        lv_result["unique"]
-    )
-
-    all_unique_records = len(
-        all_result["unique"]
-    )
-
-    json_records = (
-        lv_unique_records
-    )
-
-    csv_records = (
-        count_temp_csv_records()
-    )
-
-    lv_xml_complete = (
-        lv_result[
-            "windows_processed"
-        ]
-        ==
-        lv_result[
-            "windows_expected"
-        ]
-        and
-        lv_unique_records > 0
-    )
-
-    all_xml_complete = (
-        all_result[
-            "windows_processed"
-        ]
-        ==
-        all_result[
-            "windows_expected"
-        ]
-        and
-        all_unique_records > 0
-    )
-
-    file_integrity = (
-        json_records
-        ==
-        csv_records
-        ==
-        lv_unique_records
-    )
-
-    cross_validation_match = (
-        cross_result[
-            "lv_is_subset_of_all"
-        ]
-    )
-
-    content_quality_complete = (
-        lv_unique_records > 0
-        and
-        lv_result[
-            "records_with_real_content"
-        ]
-        ==
-        lv_unique_records
-    )
-
-    xml_double_validation = (
-        lv_xml_complete
-        and
-        all_xml_complete
-        and
-        cross_validation_match
-        and
-        file_integrity
-    )
-
-    coverage_complete = (
-        xml_double_validation
-        and
-        content_quality_complete
-    )
-
-    return {
+    metadata = {
         "extraction_timestamp":
-            datetime.now(
-                timezone.utc
-            ).isoformat(),
+            timestamp,
 
         "source":
             "Compras Estatales Uruguay / ARCE",
 
-        "source_endpoint":
-            BASE_URL,
+        "source_url":
+            f"{BASE_URL}/consultas/",
 
-        "start_date":
-            START_DATE.strftime(
-                "%Y-%m-%d"
-            ),
+        "extraction_method":
+            "PLAYWRIGHT_PORTAL_HTML",
 
-        "window_days":
-            WINDOW_DAYS,
-
-        "max_window_attempts":
-            MAX_WINDOW_ATTEMPTS,
-
-        "lv_windows_processed":
-            lv_result[
-                "windows_processed"
-            ],
-
-        "lv_windows_expected":
-            lv_result[
-                "windows_expected"
-            ],
-
-        "lv_windows_with_records":
-            lv_result[
-                "windows_with_records"
-            ],
-
-        "lv_failed_windows":
-            0,
-
-        "lv_raw_records":
-            len(
-                lv_result[
-                    "raw_records"
-                ]
-            ),
-
-        "lv_unique_records":
-            lv_unique_records,
-
-        "lv_records_with_real_content":
-            lv_result[
-                "records_with_real_content"
-            ],
-
-        "all_windows_processed":
-            all_result[
-                "windows_processed"
-            ],
-
-        "all_windows_expected":
-            all_result[
-                "windows_expected"
-            ],
-
-        "all_windows_with_records":
-            all_result[
-                "windows_with_records"
-            ],
-
-        "all_failed_windows":
-            0,
-
-        "all_raw_records":
-            len(
-                all_result[
-                    "raw_records"
-                ]
-            ),
-
-        "all_unique_records":
-            all_unique_records,
-
-        "all_records_with_real_content":
-            all_result[
-                "records_with_real_content"
-            ],
-
-        "lv_records_found_in_all":
-            len(
-                cross_result[
-                    "common"
-                ]
-            ),
-
-        "lv_records_missing_in_all":
-            len(
-                cross_result[
-                    "missing_in_all"
-                ]
-            ),
-
-        "lv_is_subset_of_all":
-            cross_validation_match,
-
-        "json_records":
-            json_records,
-
-        "csv_records":
-            csv_records,
-
-        "file_integrity":
-            file_integrity,
-
-        "lv_xml_complete":
-            lv_xml_complete,
-
-        "all_xml_complete":
-            all_xml_complete,
-
-        "cross_validation_match":
-            cross_validation_match,
-
-        "xml_double_validation":
-            xml_double_validation,
-
-        "content_quality_complete":
-            content_quality_complete,
+        "publication_type":
+            "VIG",
 
         "portal_total":
-            None,
+            validation["portal_total"],
+
+        "search_pages_processed":
+            search_pages_count,
+
+        "list_unique_records":
+            validation[
+                "list_unique_records"
+            ],
+
+        "detail_unique_records":
+            validation[
+                "detail_unique_records"
+            ],
+
+        "json_records":
+            len(records),
+
+        "csv_records":
+            len(records),
+
+        "detail_failures":
+            validation[
+                "detail_failures"
+            ],
+
+        "list_matches_portal":
+            validation[
+                "list_matches_portal"
+            ],
+
+        "details_match_portal":
+            validation[
+                "details_match_portal"
+            ],
 
         "portal_reconciliation":
-            False,
+            (
+                validation[
+                    "list_matches_portal"
+                ]
+                and
+                validation[
+                    "details_match_portal"
+                ]
+            ),
+
+        "file_integrity":
+            (
+                len(records)
+                ==
+                validation[
+                    "detail_unique_records"
+                ]
+            ),
+
+        "content_quality_complete":
+            (
+                validation[
+                    "all_have_title"
+                ]
+                and
+                validation[
+                    "all_have_url"
+                ]
+            ),
 
         "coverage_complete":
-            coverage_complete,
+            validation[
+                "coverage_complete"
+            ],
 
         "coverage_basis":
             (
-                "DOUBLE_OFFICIAL_XML_EXTRACTION"
-                "_PLUS_CONTENT_VALIDATION"
+                "PORTAL_HTML_PAGINATION"
+                "_PLUS_DETAIL_VALIDATION"
             ),
 
         "validation_status":
             (
                 "OK"
-                if coverage_complete
+                if validation[
+                    "coverage_complete"
+                ]
                 else "ERROR"
             ),
 
+        "failed_details":
+            failures,
+
         "note":
             (
-                "Cobertura XML validada por "
-                "doble extraccion oficial ARCE. "
-                "Todas las ventanas fueron "
-                "procesadas correctamente, "
-                "los llamados vigentes estan "
-                "contenidos en el universo "
-                "general, JSON y CSV coinciden "
-                "y todos los registros poseen "
-                "contenido sustantivo."
-                if coverage_complete
-                else
-                "La validacion no fue "
-                "satisfactoria. Se conserva "
-                "el ultimo snapshot valido."
+                "Cobertura validada contra el "
+                "contador visible de llamados "
+                "vigentes del portal ARCE. "
+                "Se recorrieron todas las paginas "
+                "de resultados y se recupero el "
+                "detalle de cada identificador."
             ),
     }
-
-
-def write_metadata_temp(metadata):
 
     TEMP_METADATA.write_text(
         json.dumps(
@@ -1117,13 +1014,10 @@ def write_metadata_temp(metadata):
         encoding="utf-8",
     )
 
+    return metadata
 
-# ============================================================
-# PUBLICAR
-# ============================================================
 
 def publish_snapshot():
-
     os.replace(
         TEMP_JSON,
         OUTPUT_JSON,
@@ -1140,273 +1034,187 @@ def publish_snapshot():
     )
 
 
-# ============================================================
-# MAIN
-# ============================================================
+def cleanup_temp():
+    for path in (
+        TEMP_JSON,
+        TEMP_CSV,
+        TEMP_METADATA,
+    ):
+        if path.exists():
+            try:
+                path.unlink()
+            except Exception:
+                pass
 
-def main():
 
-    cleanup_temp_files()
-
-    session = create_session()
+async def main():
+    cleanup_temp()
 
     try:
+        async with async_playwright() as p:
 
-        # ----------------------------------------------------
-        # HEALTH CHECK
-        # ----------------------------------------------------
-
-        health_check(session)
-
-        today = datetime.now().date()
-
-        end_date = datetime(
-            today.year,
-            today.month,
-            today.day,
-        )
-
-        # ----------------------------------------------------
-        # LV
-        # ----------------------------------------------------
-
-        log("")
-        log("====================================")
-        log("EXTRACCION A - LLAMADOS VIGENTES")
-        log("====================================")
-
-        lv_result = extract_publication_type(
-            session=session,
-            publication_type="lv",
-            start_date=START_DATE,
-            end_date=end_date,
-        )
-
-        log("")
-        log(
-            "LV crudos:",
-            len(
-                lv_result[
-                    "raw_records"
-                ]
-            ),
-        )
-
-        log(
-            "LV unicos:",
-            len(
-                lv_result[
-                    "unique"
-                ]
-            ),
-        )
-
-        log(
-            "LV con contenido real:",
-            lv_result[
-                "records_with_real_content"
-            ],
-        )
-
-        # ----------------------------------------------------
-        # ALL
-        # ----------------------------------------------------
-
-        log("")
-        log("====================================")
-        log("EXTRACCION B - TODOS LOS LLAMADOS")
-        log("====================================")
-
-        all_result = extract_publication_type(
-            session=session,
-            publication_type="l",
-            start_date=START_DATE,
-            end_date=end_date,
-        )
-
-        log("")
-        log(
-            "ALL crudos:",
-            len(
-                all_result[
-                    "raw_records"
-                ]
-            ),
-        )
-
-        log(
-            "ALL unicos:",
-            len(
-                all_result[
-                    "unique"
-                ]
-            ),
-        )
-
-        # ----------------------------------------------------
-        # CROSS VALIDATION
-        # ----------------------------------------------------
-
-        cross_result = cross_validate(
-            lv_result["unique"],
-            all_result["unique"],
-        )
-
-        log("")
-        log("====================================")
-        log("VALIDACION CRUZADA")
-        log("====================================")
-
-        log(
-            "LV encontrados en ALL:",
-            len(
-                cross_result[
-                    "common"
-                ]
-            ),
-        )
-
-        log(
-            "LV faltantes en ALL:",
-            len(
-                cross_result[
-                    "missing_in_all"
-                ]
-            ),
-        )
-
-        if not cross_result[
-            "lv_is_subset_of_all"
-        ]:
-
-            raise RuntimeError(
-                "Existen llamados vigentes "
-                "que no aparecen en ALL."
+            browser = await p.chromium.launch(
+                headless=True,
+                args=[
+                    "--disable-blink-features=AutomationControlled",
+                    "--no-sandbox",
+                ],
             )
 
-        # ----------------------------------------------------
-        # ARCHIVOS TEMPORALES
-        # ----------------------------------------------------
+            context = await browser.new_context(
+                locale="es-UY",
+                timezone_id="America/Montevideo",
+                viewport={
+                    "width": 1440,
+                    "height": 1000,
+                },
+                user_agent=(
+                    "Mozilla/5.0 "
+                    "(Windows NT 10.0; Win64; x64) "
+                    "AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) "
+                    "Chrome/130.0.0.0 "
+                    "Safari/537.36"
+                ),
+            )
 
-        records = list(
-            lv_result[
-                "unique"
-            ].values()
-        )
+            page = await context.new_page()
 
-        if not records:
+            start_url = (
+                await find_working_start_url(
+                    page
+                )
+            )
 
-            raise RuntimeError(
-                "ARCE devolvio cero "
+            (
+                portal_total,
+                detail_links,
+                visited_pages,
+            ) = await crawl_all_search_pages(
+                page,
+                start_url,
+            )
+
+            log("")
+            log(
+                "Portal informa:",
+                portal_total,
+            )
+
+            log(
+                "IDs unicos encontrados:",
+                len(detail_links),
+            )
+
+            # Si la lista ya no coincide, no hacemos
+            # cientos de requests de detalle.
+            if (
+                len(detail_links)
+                != portal_total
+            ):
+                raise RuntimeError(
+                    "La paginacion no coincide con "
+                    "el contador del portal: "
+                    f"{len(detail_links)} "
+                    f"!= {portal_total}"
+                )
+
+            records, failures = (
+                await extract_all_details(
+                    context,
+                    detail_links,
+                )
+            )
+
+            validation = validate_records(
+                portal_total,
+                detail_links,
+                records,
+                failures,
+            )
+
+            metadata = write_temp_files(
+                records,
+                validation,
+                len(visited_pages),
+                failures,
+            )
+
+            log("")
+            log("====================================")
+            log("VALIDACION FINAL")
+            log("====================================")
+
+            log(
+                "Portal total:",
+                metadata["portal_total"],
+            )
+
+            log(
+                "Listado:",
+                metadata[
+                    "list_unique_records"
+                ],
+            )
+
+            log(
+                "Detalles:",
+                metadata[
+                    "detail_unique_records"
+                ],
+            )
+
+            log(
+                "Fallos detalle:",
+                metadata[
+                    "detail_failures"
+                ],
+            )
+
+            log(
+                "Coverage complete:",
+                metadata[
+                    "coverage_complete"
+                ],
+            )
+
+            if not metadata[
+                "coverage_complete"
+            ]:
+                raise RuntimeError(
+                    "La validacion de cobertura "
+                    "del nuevo portal ARCE fallo."
+                )
+
+            publish_snapshot()
+
+            log("")
+            log("====================================")
+            log("SNAPSHOT PUBLICADO OK")
+            log("====================================")
+
+            log(
+                f"{metadata['portal_total']}/"
+                f"{metadata['portal_total']} "
                 "llamados vigentes."
             )
 
-        write_json_temp(records)
-
-        write_csv_temp(records)
-
-        metadata = build_metadata(
-            lv_result,
-            all_result,
-            cross_result,
-        )
-
-        write_metadata_temp(
-            metadata
-        )
-
-        # ----------------------------------------------------
-        # VALIDACION FINAL
-        # ----------------------------------------------------
-
-        if not metadata[
-            "coverage_complete"
-        ]:
-
-            raise RuntimeError(
-                "La validacion final "
-                "del snapshot fallo."
-            )
-
-        # ----------------------------------------------------
-        # PUBLICACION ATOMICA
-        # ----------------------------------------------------
-
-        publish_snapshot()
-
-        log("")
-        log("====================================")
-        log("EXTRACCION FINALIZADA OK")
-        log("====================================")
-
-        log(
-            "LV:",
-            metadata[
-                "lv_unique_records"
-            ],
-        )
-
-        log(
-            "ALL:",
-            metadata[
-                "all_unique_records"
-            ],
-        )
-
-        log(
-            "JSON:",
-            metadata[
-                "json_records"
-            ],
-        )
-
-        log(
-            "CSV:",
-            metadata[
-                "csv_records"
-            ],
-        )
-
-        log(
-            "Coverage complete:",
-            metadata[
-                "coverage_complete"
-            ],
-        )
-
-        log(
-            "Validation status:",
-            metadata[
-                "validation_status"
-            ],
-        )
-
-        log("")
-        log(
-            "Snapshot nuevo publicado."
-        )
+            await browser.close()
 
     except Exception as exc:
-
-        cleanup_temp_files()
+        cleanup_temp()
 
         log_error("")
         log_error(
             "===================================="
         )
-
         log_error(
             "EXTRACCION ABORTADA"
         )
-
         log_error(
             "===================================="
         )
-
-        log_error(
-            str(exc)
-        )
-
+        log_error(str(exc))
         log_error("")
         log_error(
             "El ultimo snapshot valido "
@@ -1417,4 +1225,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
