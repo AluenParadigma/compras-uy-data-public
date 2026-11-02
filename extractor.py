@@ -17,7 +17,6 @@ from playwright.async_api import async_playwright
 
 BASE_URL = "https://www.comprasestatales.gub.uy"
 
-# Esta es la ruta que queremos usar siempre.
 START_URL = (
     f"{BASE_URL}/consultas/buscar/"
     "reset/1/tipo-pub/VIG"
@@ -31,12 +30,16 @@ TEMP_JSON = Path("latest.tmp.json")
 TEMP_CSV = Path("latest.tmp.csv")
 TEMP_METADATA = Path("metadata.tmp.json")
 
-NAV_TIMEOUT = 60000
+# La navegacion inicial no espera DOMContentLoaded completo.
+NAV_TIMEOUT = 30000
+
+# Espera especifica para que aparezca el contenido util.
+CONTENT_TIMEOUT = 45000
 
 PAGE_PAUSE_SECONDS = 0.35
 DETAIL_PAUSE_SECONDS = 0.30
 
-MAX_ATTEMPTS = 3
+MAX_ATTEMPTS = 2
 
 
 # ============================================================
@@ -112,10 +115,9 @@ async def goto_with_retry(page, url, label):
         MAX_ATTEMPTS + 1,
     ):
         try:
-
             response = await page.goto(
                 url,
-                wait_until="domcontentloaded",
+                wait_until="commit",
                 timeout=NAV_TIMEOUT,
             )
 
@@ -143,12 +145,15 @@ async def goto_with_retry(page, url, label):
                     f"HTTP {status}"
                 )
 
-            await page.wait_for_timeout(500)
+            # Solo esperamos que exista el body.
+            await page.wait_for_selector(
+                "body",
+                timeout=CONTENT_TIMEOUT,
+            )
 
             return response
 
         except Exception as exc:
-
             last_error = exc
 
             log_error(
@@ -159,13 +164,36 @@ async def goto_with_retry(page, url, label):
 
             if attempt < MAX_ATTEMPTS:
                 await asyncio.sleep(
-                    2 * attempt
+                    3 * attempt
                 )
 
     raise RuntimeError(
         f"{label}: fallo luego de "
         f"{MAX_ATTEMPTS} intentos. "
         f"Ultimo error: {last_error}"
+    )
+
+
+async def wait_for_search_content(page):
+    """
+    Espera solo el contenido necesario del listado,
+    no la carga completa de todos los recursos.
+    """
+
+    await page.wait_for_function(
+        """
+        () => {
+            const text = document.body
+                ? document.body.innerText
+                : '';
+
+            return (
+                text.includes('Se encontraron') ||
+                text.includes('Llamados vigentes')
+            );
+        }
+        """,
+        timeout=CONTENT_TIMEOUT,
     )
 
 
@@ -190,6 +218,18 @@ async def health_check(page):
         "health-check",
     )
 
+    try:
+        await wait_for_search_content(
+            page
+        )
+
+    except Exception as exc:
+        raise RuntimeError(
+            "La pagina abrio pero no cargo "
+            "el contenido de llamados vigentes "
+            "dentro del tiempo esperado."
+        ) from exc
+
     final_url = page.url
 
     log(
@@ -197,23 +237,20 @@ async def health_check(page):
         final_url,
     )
 
-    # Nunca permitimos RSS.
     if "/consultas/rss/" in final_url:
         raise RuntimeError(
             "ARCE redirigio el health check "
-            "a RSS, lo cual no es valido: "
+            "a RSS: "
             f"{final_url}"
         )
 
-    # Debe seguir siendo la busqueda.
     if "/consultas/buscar/" not in final_url:
         raise RuntimeError(
             "La URL final no corresponde "
-            "a la busqueda de llamados: "
+            "a /consultas/buscar/: "
             f"{final_url}"
         )
 
-    # Debe seguir siendo VIG.
     if "/tipo-pub/VIG" not in final_url:
         raise RuntimeError(
             "La URL final no corresponde "
@@ -227,17 +264,14 @@ async def health_check(page):
         ).inner_text()
     )
 
-    if "Llamados vigentes" not in body:
+    if (
+        "Llamados vigentes" not in body
+        and
+        "Se encontraron" not in body
+    ):
         raise RuntimeError(
             "La pagina no contiene "
-            "'Llamados vigentes'."
-        )
-
-    if "Se encontraron" not in body:
-        raise RuntimeError(
-            "La pagina de llamados vigentes "
-            "no contiene el contador "
-            "'Se encontraron X resultados'."
+            "el listado esperado."
         )
 
     log(
@@ -253,7 +287,7 @@ async def health_check(page):
 
 
 # ============================================================
-# TOTAL PORTAL
+# TOTAL DEL PORTAL
 # ============================================================
 
 async def get_portal_total(page):
@@ -294,7 +328,6 @@ async def collect_detail_links_from_page(page):
     count = await locator.count()
 
     for i in range(count):
-
         element = locator.nth(i)
 
         href = await element.get_attribute(
@@ -322,15 +355,11 @@ async def collect_detail_links_from_page(page):
         if not title:
             title = f"Llamado {detail_id}"
 
-        links[
-            detail_id
-        ] = {
+        links[detail_id] = {
             "detail_id":
                 detail_id,
-
             "detail_url":
                 url,
-
             "titulo_listado":
                 title,
         }
@@ -344,8 +373,8 @@ async def collect_detail_links_from_page(page):
 
 async def collect_pagination_links(page):
     """
-    Sigue solamente paginas de resultados
-    de llamados vigentes.
+    Solo sigue paginas de resultados de VIG.
+    Excluye RSS, ALL, detalle y otras rutas.
     """
 
     result = set()
@@ -357,7 +386,6 @@ async def collect_pagination_links(page):
     count = await locator.count()
 
     for i in range(count):
-
         element = locator.nth(i)
 
         href = await element.get_attribute(
@@ -382,27 +410,21 @@ async def collect_pagination_links(page):
         ):
             continue
 
-        # Nunca RSS.
         if "/consultas/rss/" in url:
             continue
 
-        # Nunca detalles.
         if "/detalle/" in url:
             continue
 
-        # Solo buscar.
         if "/consultas/buscar/" not in url:
             continue
 
-        # Solo vigentes.
         if "/tipo-pub/VIG" not in url:
             continue
 
-        # Nunca ALL.
         if "/tipo-pub/ALL" in url:
             continue
 
-        # Debe ser pagina numerada.
         if not re.search(
             r"/page/\d+(?:/|$)",
             url,
@@ -434,6 +456,17 @@ async def crawl_all_search_pages(
         start_url,
         "pagina-inicial",
     )
+
+    try:
+        await wait_for_search_content(
+            page
+        )
+
+    except Exception as exc:
+        raise RuntimeError(
+            "La pagina inicial abrio pero "
+            "no cargo el listado de vigentes."
+        ) from exc
 
     final_start_url = page.url
 
@@ -478,14 +511,13 @@ async def crawl_all_search_pages(
     detail_links = {}
 
     while queue:
-
         current = queue.pop(0)
 
         if current in visited:
             continue
 
         # ----------------------------------------------------
-        # CONTROL FUERTE DE URL
+        # CONTROL DE URL
         # ----------------------------------------------------
 
         if "/consultas/rss/" in current:
@@ -532,9 +564,20 @@ async def crawl_all_search_pages(
             "pagina-resultados",
         )
 
+        try:
+            await wait_for_search_content(
+                page
+            )
+
+        except Exception as exc:
+            raise RuntimeError(
+                "La pagina de resultados "
+                "no cargo el contenido esperado: "
+                f"{current}"
+            ) from exc
+
         final_url = page.url
 
-        # Control de redireccion.
         if "/consultas/rss/" in final_url:
             raise RuntimeError(
                 "ARCE redirigio a RSS: "
@@ -556,7 +599,7 @@ async def crawl_all_search_pages(
             )
 
         # ----------------------------------------------------
-        # DETALLES
+        # DETALLES DEL LISTADO
         # ----------------------------------------------------
 
         current_links = (
@@ -599,7 +642,6 @@ async def crawl_all_search_pages(
         for url in sorted(
             pagination
         ):
-
             if "/consultas/rss/" in url:
                 continue
 
@@ -650,6 +692,12 @@ async def extract_detail(
         f"detalle-{seed['detail_id']}",
     )
 
+    # Esperamos solo a que exista body.
+    await page.wait_for_selector(
+        "body",
+        timeout=CONTENT_TIMEOUT,
+    )
+
     body_text = (
         await page.locator(
             "body"
@@ -683,13 +731,11 @@ async def extract_detail(
         "h2",
         "h3",
     ):
-
         locator = page.locator(
             selector
         )
 
         if await locator.count() > 0:
-
             candidate = clean_text(
                 await locator.first.inner_text()
             )
@@ -699,7 +745,6 @@ async def extract_detail(
                 break
 
     if not title:
-
         title = seed[
             "titulo_listado"
         ]
@@ -715,9 +760,7 @@ async def extract_detail(
     )
 
     if not objeto:
-
         try:
-
             index = lines.index(
                 title
             )
@@ -726,7 +769,6 @@ async def extract_detail(
                 index + 1:
                 index + 8
             ]:
-
                 lower = line.lower()
 
                 if (
@@ -766,7 +808,6 @@ async def extract_detail(
     )
 
     if not publicacion:
-
         publicacion = extract_regex(
             body_text,
             r"Publicado:\s*"
@@ -801,7 +842,6 @@ async def extract_detail(
     )
 
     for line in lines:
-
         if not line.lower().startswith(
             ("ítem", "item")
         ):
@@ -812,19 +852,16 @@ async def extract_detail(
         )
 
         if match:
-
             items.append(
                 {
                     "numero":
                         clean_text(
                             match.group(1)
                         ),
-
                     "descripcion":
                         clean_text(
                             match.group(2)
                         ),
-
                     "codigo_articulo":
                         clean_text(
                             match.group(3)
@@ -850,7 +887,6 @@ async def extract_detail(
     for i in range(
         anchor_count
     ):
-
         anchor = anchors.nth(
             i
         )
@@ -889,23 +925,19 @@ async def extract_detail(
             or
             "/aclaraciones/" in href_lower
         ):
-
             attachments.append(
                 {
                     "texto":
                         text,
-
                     "url":
                         full_url,
                 }
             )
 
     unique_attachments = []
-
     seen_attachments = set()
 
     for attachment in attachments:
-
         key = attachment[
             "url"
         ]
@@ -1007,7 +1039,7 @@ async def extract_detail(
 
 
 # ============================================================
-# TODOS LOS DETALLES
+# EXTRAER TODOS LOS DETALLES
 # ============================================================
 
 async def extract_all_details(
@@ -1022,7 +1054,6 @@ async def extract_all_details(
     page = await context.new_page()
 
     records = []
-
     failures = []
 
     seeds = list(
@@ -1037,14 +1068,12 @@ async def extract_all_details(
         seeds,
         start=1,
     ):
-
         log(
             f"Detalle {index}/{total} "
             f"- ID {seed['detail_id']}"
         )
 
         try:
-
             record = await extract_detail(
                 page,
                 seed,
@@ -1055,7 +1084,6 @@ async def extract_all_details(
             )
 
         except Exception as exc:
-
             log_error(
                 f"ERROR detalle "
                 f"{seed['detail_id']}: "
@@ -1068,12 +1096,10 @@ async def extract_all_details(
                         seed[
                             "detail_id"
                         ],
-
                     "url":
                         seed[
                             "detail_url"
                         ],
-
                     "error":
                         str(exc),
                 }
@@ -1223,18 +1249,14 @@ def validate_records(
 # ============================================================
 
 def cleanup_temp():
-
     for path in (
         TEMP_JSON,
         TEMP_CSV,
         TEMP_METADATA,
     ):
-
         try:
-
             if path.exists():
                 path.unlink()
-
         except Exception:
             pass
 
@@ -1309,7 +1331,6 @@ def write_temp_files(
         writer.writeheader()
 
         for record in records:
-
             row = record.copy()
 
             row["items"] = json.dumps(
@@ -1440,7 +1461,7 @@ def write_temp_files(
                 "Cobertura validada contra "
                 "el contador visible del portal "
                 "ARCE. Se procesaron solamente "
-                "las paginas /consultas/buscar/ "
+                "paginas /consultas/buscar/ "
                 "con tipo-pub/VIG."
             ),
     }
@@ -1462,7 +1483,6 @@ def write_temp_files(
 # ============================================================
 
 def publish_snapshot():
-
     os.replace(
         TEMP_JSON,
         OUTPUT_JSON,
@@ -1484,13 +1504,11 @@ def publish_snapshot():
 # ============================================================
 
 async def main():
-
     cleanup_temp()
 
     browser = None
 
     try:
-
         async with async_playwright() as p:
 
             browser = (
@@ -1540,7 +1558,7 @@ async def main():
                 )
             )
 
-            # Listado
+            # Listado completo
             (
                 portal_total,
                 detail_links,
@@ -1567,7 +1585,6 @@ async def main():
                 len(detail_links)
                 != portal_total
             ):
-
                 raise RuntimeError(
                     "La paginacion no coincide "
                     "con el contador del portal: "
@@ -1661,7 +1678,6 @@ async def main():
             if not metadata[
                 "coverage_complete"
             ]:
-
                 raise RuntimeError(
                     "La validacion final "
                     "de cobertura fallo."
@@ -1689,7 +1705,6 @@ async def main():
             await browser.close()
 
     except Exception as exc:
-
         cleanup_temp()
 
         log_error("")
