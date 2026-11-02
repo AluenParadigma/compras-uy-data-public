@@ -1,6 +1,7 @@
 import asyncio
 import csv
 import json
+import math
 import os
 import re
 import sys
@@ -33,12 +34,16 @@ TEMP_METADATA = Path("metadata.tmp.json")
 NAV_TIMEOUT = 30000
 CONTENT_TIMEOUT = 45000
 
-PAGE_PAUSE_SECONDS = 0.50
-DETAIL_PAUSE_SECONDS = 0.30
+PAGE_PAUSE_SECONDS = 0.40
+DETAIL_PAUSE_SECONDS = 0.25
 
 MAX_ATTEMPTS = 2
 
-# Control de seguridad para evitar loops infinitos.
+# Por lo que muestra el portal, hay 20 enlaces visibles
+# por página, aunque algunos pueden estar duplicados.
+EXPECTED_PAGE_LINKS = 20
+
+# Barrera de seguridad.
 MAX_SEARCH_PAGES = 200
 
 
@@ -71,18 +76,18 @@ def absolute_url(href):
 
 def extract_detail_id(url):
     """
-    Intenta recuperar el ID usando varios formatos posibles
-    de URL del nuevo portal ARCE.
+    Acepta IDs numericos y alfanumericos:
+    1302291
+    i504650
+    etc.
     """
 
     if not url:
         return None
 
     patterns = [
-        r"/id/(\d+)(?:/|$|\?)",
-        r"[?&]id=(\d+)",
-        r"/mostrar-llamado/\d+/id/(\d+)",
-        r"/mostrar-llamado/(\d+)(?:/|$|\?)",
+        r"/id/([^/?#]+)",
+        r"[?&]id=([^&#]+)",
     ]
 
     for pattern in patterns:
@@ -119,6 +124,27 @@ def extract_regex(text, pattern):
 
     return clean_text(
         match.group(1)
+    )
+
+
+def build_page_url(page_number):
+    """
+    Construye directamente la URL paginada.
+
+    Pagina 1:
+      /consultas/buscar/reset/1/tipo-pub/VIG
+
+    Pagina 2:
+      /consultas/buscar/page/2/reset/1/tipo-pub/VIG
+    """
+
+    if page_number <= 1:
+        return START_URL
+
+    return (
+        f"{BASE_URL}/consultas/buscar/"
+        f"page/{page_number}/"
+        "reset/1/tipo-pub/VIG"
     )
 
 
@@ -193,10 +219,6 @@ async def goto_with_retry(page, url, label):
 
 
 async def wait_for_search_content(page):
-    """
-    Espera solamente el contenido necesario del buscador.
-    """
-
     await page.wait_for_function(
         """
         () => {
@@ -216,8 +238,8 @@ async def wait_for_search_content(page):
 
 async def wait_for_results_stable(page):
     """
-    Espera a que los enlaces de detalle de la pagina
-    se estabilicen antes de procesarla.
+    Espera a que el numero de links de detalle
+    deje de cambiar.
     """
 
     selector = (
@@ -257,14 +279,6 @@ async def wait_for_results_stable(page):
             "El listado no termino de cargar "
             "ningun llamado."
         )
-
-    log(
-        "  aviso: el listado no termino "
-        "de estabilizarse completamente; "
-        "se continua con",
-        last_count,
-        "enlaces."
-    )
 
     return last_count
 
@@ -326,29 +340,8 @@ async def health_check(page):
             f"{final_url}"
         )
 
-    body = clean_text(
-        await page.locator(
-            "body"
-        ).inner_text()
-    )
-
-    if (
-        "Llamados vigentes" not in body
-        and
-        "Se encontraron" not in body
-    ):
-        raise RuntimeError(
-            "La pagina no contiene "
-            "el listado esperado."
-        )
-
     log(
         "Nueva interfaz ARCE accesible."
-    )
-
-    log(
-        "Pagina VIG confirmada:",
-        final_url,
     )
 
     return final_url
@@ -388,10 +381,7 @@ async def get_portal_total(page):
 
 async def collect_detail_links_from_page(page):
     """
-    Recupera los llamados de la pagina actual.
-
-    El selector es deliberadamente amplio porque ARCE
-    actualmente expone mas de un formato de URL.
+    Usa la URL completa como base y acepta IDs alfanumericos.
     """
 
     links = {}
@@ -417,11 +407,14 @@ async def collect_detail_links_from_page(page):
             href
         )
 
-        # Diagnostico util durante estas primeras corridas.
-        log(
-            "    detalle href:",
-            url,
-        )
+        if (
+            "/consultas/detalle/"
+            not in url
+            and
+            "mostrar-llamado"
+            not in url
+        ):
+            continue
 
         detail_id = extract_detail_id(
             url
@@ -429,7 +422,7 @@ async def collect_detail_links_from_page(page):
 
         if not detail_id:
             log(
-                "    aviso: no pude obtener ID de:",
+                "  aviso: URL sin ID interpretable:",
                 url,
             )
             continue
@@ -439,7 +432,6 @@ async def collect_detail_links_from_page(page):
         )
 
         if not title:
-            # Intentamos recuperar texto del contenedor.
             try:
                 title = clean_text(
                     await element.locator(
@@ -450,8 +442,13 @@ async def collect_detail_links_from_page(page):
                 title = ""
 
         if not title:
-            title = f"Llamado {detail_id}"
+            title = (
+                f"Llamado {detail_id}"
+            )
 
+        # Usamos el ID alfanumerico como clave.
+        # Si el mismo llamado aparece dos veces,
+        # queda automaticamente deduplicado.
         links[detail_id] = {
             "detail_id":
                 detail_id,
@@ -467,138 +464,7 @@ async def collect_detail_links_from_page(page):
 
 
 # ============================================================
-# PAGINACION
-# ============================================================
-
-async def find_next_button(page):
-    """
-    Busca el control de pagina siguiente sin asumir
-    que ARCE utilice /page/N en el href.
-    """
-
-    selectors = [
-        "a:has-text('Siguiente')",
-        "button:has-text('Siguiente')",
-        "a[rel='next']",
-        "button[rel='next']",
-        "li.next a",
-        "li.next button",
-        "a.next",
-        "button.next",
-        ".pagination a:has-text('›')",
-        ".pagination button:has-text('›')",
-        ".pagination a:has-text('»')",
-        ".pagination button:has-text('»')",
-    ]
-
-    for selector in selectors:
-        locator = page.locator(
-            selector
-        )
-
-        count = await locator.count()
-
-        for i in range(count):
-            candidate = locator.nth(i)
-
-            try:
-                if not await candidate.is_visible():
-                    continue
-
-                if not await candidate.is_enabled():
-                    continue
-
-                candidate_class = (
-                    await candidate.get_attribute(
-                        "class"
-                    )
-                    or ""
-                ).lower()
-
-                aria_disabled = (
-                    await candidate.get_attribute(
-                        "aria-disabled"
-                    )
-                    or ""
-                ).lower()
-
-                parent_class = ""
-
-                try:
-                    parent_class = (
-                        await candidate.locator(
-                            "xpath=.."
-                        ).get_attribute(
-                            "class"
-                        )
-                        or ""
-                    ).lower()
-                except Exception:
-                    pass
-
-                if (
-                    "disabled" in candidate_class
-                    or
-                    "disabled" in parent_class
-                    or
-                    aria_disabled == "true"
-                ):
-                    continue
-
-                return candidate
-
-            except Exception:
-                continue
-
-    return None
-
-
-async def wait_until_page_changes(
-    page,
-    previous_ids,
-):
-    """
-    Después de pulsar Siguiente espera a que cambie
-    realmente el conjunto de llamados.
-    """
-
-    for _ in range(40):
-        await page.wait_for_timeout(
-            500
-        )
-
-        try:
-            await wait_for_search_content(
-                page
-            )
-        except Exception:
-            pass
-
-        new_links = (
-            await collect_detail_links_from_page(
-                page
-            )
-        )
-
-        new_ids = set(
-            new_links.keys()
-        )
-
-        if (
-            new_ids
-            and
-            new_ids != previous_ids
-        ):
-            return new_links
-
-    raise RuntimeError(
-        "Se hizo click en Siguiente "
-        "pero el listado no cambio."
-    )
-
-
-# ============================================================
-# CRAWL LISTADO COMPLETO
+# CRAWL DE TODAS LAS PAGINAS
 # ============================================================
 
 async def crawl_all_search_pages(
@@ -624,29 +490,6 @@ async def crawl_all_search_pages(
         page
     )
 
-    final_url = page.url
-
-    if "/consultas/rss/" in final_url:
-        raise RuntimeError(
-            "La pagina inicial termino "
-            "en RSS: "
-            f"{final_url}"
-        )
-
-    if "/consultas/buscar/" not in final_url:
-        raise RuntimeError(
-            "La pagina inicial no es "
-            "una busqueda: "
-            f"{final_url}"
-        )
-
-    if "/tipo-pub/VIG" not in final_url:
-        raise RuntimeError(
-            "La pagina inicial no "
-            "corresponde a VIG: "
-            f"{final_url}"
-        )
-
     portal_total = (
         await get_portal_total(
             page
@@ -660,27 +503,56 @@ async def crawl_all_search_pages(
 
     detail_links = {}
 
-    page_number = 1
+    previous_page_ids = None
 
-    previous_signature = None
+    page_number = 1
 
     while True:
 
         if page_number > MAX_SEARCH_PAGES:
             raise RuntimeError(
-                "Se alcanzo el maximo de paginas "
-                "permitidas sin completar el total."
+                "Se alcanzo MAX_SEARCH_PAGES "
+                "sin completar el total."
             )
+
+        page_url = build_page_url(
+            page_number
+        )
+
+        log("")
+        log(
+            f"Pagina de resultados "
+            f"{page_number}: "
+            f"{page_url}"
+        )
+
+        await goto_with_retry(
+            page,
+            page_url,
+            f"pagina-{page_number}",
+        )
+
+        await wait_for_search_content(
+            page
+        )
 
         await wait_for_results_stable(
             page
         )
 
-        log("")
-        log(
-            f"Pagina de resultados {page_number}:",
-            page.url,
-        )
+        final_url = page.url
+
+        if "/consultas/rss/" in final_url:
+            raise RuntimeError(
+                "ARCE redirigio a RSS: "
+                f"{final_url}"
+            )
+
+        if "/tipo-pub/VIG" not in final_url:
+            raise RuntimeError(
+                "ARCE redirigio fuera de VIG: "
+                f"{final_url}"
+            )
 
         current_links = (
             await collect_detail_links_from_page(
@@ -688,16 +560,36 @@ async def crawl_all_search_pages(
             )
         )
 
-        if not current_links:
-            raise RuntimeError(
-                "La pagina actual no contiene "
-                "llamados interpretables."
-            )
+        current_ids = set(
+            current_links.keys()
+        )
 
         log(
-            "  links de detalle interpretados:",
-            len(current_links),
+            "  IDs unicos en esta pagina:",
+            len(current_ids),
         )
+
+        if not current_ids:
+            raise RuntimeError(
+                f"La pagina {page_number} "
+                "no contiene llamados interpretables."
+            )
+
+        # Si pagina 2 devuelve exactamente lo mismo
+        # que pagina 1, la forma de URL cambio y abortamos.
+        if (
+            previous_page_ids is not None
+            and
+            current_ids
+            == previous_page_ids
+        ):
+            raise RuntimeError(
+                f"La pagina {page_number} "
+                "devuelve los mismos IDs "
+                "que la pagina anterior. "
+                "La URL de paginacion no "
+                "esta siendo interpretada por ARCE."
+            )
 
         before = len(
             detail_links
@@ -711,18 +603,18 @@ async def crawl_all_search_pages(
             detail_links
         )
 
+        nuevos = (
+            after - before
+        )
+
         log(
             "  llamados nuevos:",
-            after - before,
+            nuevos,
             "| acumulados:",
             after,
             "/",
             portal_total,
         )
-
-        # ----------------------------------------------------
-        # FINALIZACION
-        # ----------------------------------------------------
 
         if after == portal_total:
             log(
@@ -732,94 +624,21 @@ async def crawl_all_search_pages(
 
         if after > portal_total:
             raise RuntimeError(
-                "Se extrajeron mas IDs que "
-                "el total informado por ARCE: "
+                "Se encontraron mas llamados "
+                "que el total informado: "
                 f"{after} > {portal_total}"
             )
 
-        # ----------------------------------------------------
-        # EVITAR LOOPS
-        # ----------------------------------------------------
-
-        current_signature = tuple(
-            sorted(
-                current_links.keys()
-            )
-        )
-
-        if (
-            previous_signature is not None
-            and
-            current_signature
-            == previous_signature
-        ):
+        # Si una pagina no agrega absolutamente nada,
+        # hay un problema de paginacion.
+        if nuevos == 0:
             raise RuntimeError(
-                "La pagina actual contiene "
-                "exactamente los mismos llamados "
-                "que la pagina anterior."
+                f"La pagina {page_number} "
+                "no agrego ningun llamado nuevo."
             )
 
-        previous_signature = (
-            current_signature
-        )
-
-        # ----------------------------------------------------
-        # BUSCAR SIGUIENTE
-        # ----------------------------------------------------
-
-        next_button = (
-            await find_next_button(
-                page
-            )
-        )
-
-        if next_button is None:
-            raise RuntimeError(
-                "No se encontro un control "
-                "habilitado para avanzar a "
-                "la pagina siguiente. "
-                f"Acumulados: {after}/{portal_total}"
-            )
-
-        href = (
-            await next_button.get_attribute(
-                "href"
-            )
-        )
-
-        text = clean_text(
-            await next_button.inner_text()
-        )
-
-        log(
-            "  control siguiente:",
-            text or "(sin texto)",
-            "| href:",
-            href or "(sin href)",
-        )
-
-        previous_ids = set(
-            current_links.keys()
-        )
-
-        log(
-            "  avanzando a pagina",
-            page_number + 1,
-        )
-
-        try:
-            await next_button.click(
-                timeout=15000
-            )
-        except Exception as exc:
-            raise RuntimeError(
-                "No se pudo hacer click "
-                "en el control Siguiente."
-            ) from exc
-
-        await wait_until_page_changes(
-            page,
-            previous_ids,
+        previous_page_ids = (
+            current_ids
         )
 
         page_number += 1
@@ -910,7 +729,7 @@ async def extract_detail(
         ]
 
     # --------------------------------------------------------
-    # OBJETO
+    # OBJETO / DESCRIPCION
     # --------------------------------------------------------
 
     objeto = extract_regex(
@@ -927,7 +746,7 @@ async def extract_detail(
 
             for line in lines[
                 index + 1:
-                index + 10
+                index + 12
             ]:
                 lower = line.lower()
 
@@ -1006,6 +825,7 @@ async def extract_detail(
     )
 
     for line in lines:
+
         if not line.lower().startswith(
             ("ítem", "item")
         ):
@@ -1235,6 +1055,7 @@ async def extract_all_details(
         seeds,
         start=1,
     ):
+
         log(
             f"Detalle {index}/{total} "
             f"- ID {seed['detail_id']}"
@@ -1418,6 +1239,7 @@ def validate_records(
 # ============================================================
 
 def cleanup_temp():
+
     for path in (
         TEMP_JSON,
         TEMP_CSV,
@@ -1439,10 +1261,6 @@ def write_temp_files(
     timestamp = datetime.now(
         timezone.utc
     ).isoformat()
-
-    # --------------------------------------------------------
-    # JSON
-    # --------------------------------------------------------
 
     payload = {
         "generated_at":
@@ -1472,10 +1290,6 @@ def write_temp_files(
         ),
         encoding="utf-8",
     )
-
-    # --------------------------------------------------------
-    # CSV
-    # --------------------------------------------------------
 
     csv_columns = [
         "id",
@@ -1521,10 +1335,6 @@ def write_temp_files(
             writer.writerow(
                 row
             )
-
-    # --------------------------------------------------------
-    # METADATA
-    # --------------------------------------------------------
 
     metadata = {
         "extraction_timestamp":
@@ -1618,8 +1428,8 @@ def write_temp_files(
 
         "coverage_basis":
             (
-                "PORTAL_HTML_BROWSER_PAGINATION"
-                "_PLUS_DETAIL_VALIDATION"
+                "PORTAL_HTML_DIRECT_PAGE"
+                "_PAGINATION_PLUS_DETAIL_VALIDATION"
             ),
 
         "validation_status":
@@ -1638,9 +1448,9 @@ def write_temp_files(
             (
                 "Cobertura validada contra "
                 "el contador visible del portal "
-                "ARCE. La paginacion se recorre "
-                "mediante los controles visibles "
-                "del navegador y se recupera "
+                "ARCE. Se recorrieron directamente "
+                "las paginas numeradas de "
+                "llamados vigentes y se obtuvo "
                 "el detalle de cada llamado."
             ),
     }
@@ -1662,6 +1472,7 @@ def write_temp_files(
 # ============================================================
 
 def publish_snapshot():
+
     os.replace(
         TEMP_JSON,
         OUTPUT_JSON,
@@ -1683,6 +1494,7 @@ def publish_snapshot():
 # ============================================================
 
 async def main():
+
     cleanup_temp()
 
     browser = None
@@ -1724,18 +1536,12 @@ async def main():
 
             page = await context.new_page()
 
-            # ------------------------------------------------
-            # HEALTH CHECK
-            # ------------------------------------------------
-
+            # Health check
             start_url = await health_check(
                 page
             )
 
-            # ------------------------------------------------
-            # LISTADO COMPLETO
-            # ------------------------------------------------
-
+            # Listado completo
             (
                 portal_total,
                 detail_links,
@@ -1769,10 +1575,7 @@ async def main():
                     f"!= {portal_total}"
                 )
 
-            # ------------------------------------------------
-            # DETALLES
-            # ------------------------------------------------
-
+            # Detalles
             (
                 records,
                 failures,
@@ -1781,10 +1584,7 @@ async def main():
                 detail_links,
             )
 
-            # ------------------------------------------------
-            # VALIDACION
-            # ------------------------------------------------
-
+            # Validacion
             validation = validate_records(
                 portal_total,
                 detail_links,
@@ -1860,10 +1660,6 @@ async def main():
                     "de cobertura fallo."
                 )
 
-            # ------------------------------------------------
-            # PUBLICAR
-            # ------------------------------------------------
-
             publish_snapshot()
 
             log("")
@@ -1886,6 +1682,7 @@ async def main():
             await browser.close()
 
     except Exception as exc:
+
         cleanup_temp()
 
         log_error("")
