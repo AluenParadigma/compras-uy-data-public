@@ -30,10 +30,7 @@ TEMP_JSON = Path("latest.tmp.json")
 TEMP_CSV = Path("latest.tmp.csv")
 TEMP_METADATA = Path("metadata.tmp.json")
 
-# La navegacion inicial no espera DOMContentLoaded completo.
 NAV_TIMEOUT = 30000
-
-# Espera especifica para que aparezca el contenido util.
 CONTENT_TIMEOUT = 45000
 
 PAGE_PAUSE_SECONDS = 0.35
@@ -145,7 +142,6 @@ async def goto_with_retry(page, url, label):
                     f"HTTP {status}"
                 )
 
-            # Solo esperamos que exista el body.
             await page.wait_for_selector(
                 "body",
                 timeout=CONTENT_TIMEOUT,
@@ -175,11 +171,6 @@ async def goto_with_retry(page, url, label):
 
 
 async def wait_for_search_content(page):
-    """
-    Espera solo el contenido necesario del listado,
-    no la carga completa de todos los recursos.
-    """
-
     await page.wait_for_function(
         """
         () => {
@@ -195,6 +186,61 @@ async def wait_for_search_content(page):
         """,
         timeout=CONTENT_TIMEOUT,
     )
+
+
+async def wait_for_results_stable(page):
+    """
+    Espera a que el listado termine de renderizarse.
+
+    Consideramos estable cuando la cantidad de enlaces
+    de detalle permanece igual durante varias mediciones.
+    """
+
+    selector = (
+        "a[href*='/consultas/detalle/mostrar-llamado/']"
+    )
+
+    last_count = -1
+    stable_rounds = 0
+
+    for _ in range(20):
+        count = await page.locator(
+            selector
+        ).count()
+
+        log(
+            "  enlaces de llamados visibles:",
+            count,
+        )
+
+        if count > 0 and count == last_count:
+            stable_rounds += 1
+        else:
+            stable_rounds = 0
+
+        if stable_rounds >= 3:
+            return count
+
+        last_count = count
+
+        await page.wait_for_timeout(
+            1000
+        )
+
+    if last_count <= 0:
+        raise RuntimeError(
+            "El listado no termino de cargar "
+            "ningun llamado."
+        )
+
+    log(
+        "  aviso: listado no se estabilizo "
+        "completamente; se continua con",
+        last_count,
+        "enlaces."
+    )
+
+    return last_count
 
 
 # ============================================================
@@ -223,11 +269,15 @@ async def health_check(page):
             page
         )
 
+        await wait_for_results_stable(
+            page
+        )
+
     except Exception as exc:
         raise RuntimeError(
             "La pagina abrio pero no cargo "
-            "el contenido de llamados vigentes "
-            "dentro del tiempo esperado."
+            "completamente el listado de "
+            "llamados vigentes."
         ) from exc
 
     final_url = page.url
@@ -462,6 +512,10 @@ async def crawl_all_search_pages(
             page
         )
 
+        await wait_for_results_stable(
+            page
+        )
+
     except Exception as exc:
         raise RuntimeError(
             "La pagina inicial abrio pero "
@@ -569,10 +623,14 @@ async def crawl_all_search_pages(
                 page
             )
 
+            await wait_for_results_stable(
+                page
+            )
+
         except Exception as exc:
             raise RuntimeError(
                 "La pagina de resultados "
-                "no cargo el contenido esperado: "
+                "no cargo completamente: "
                 f"{current}"
             ) from exc
 
@@ -639,6 +697,19 @@ async def crawl_all_search_pages(
             )
         )
 
+        log(
+            "  paginas siguientes detectadas:",
+            len(pagination),
+        )
+
+        for pagination_url in sorted(
+            pagination
+        ):
+            log(
+                "   ->",
+                pagination_url,
+            )
+
         for url in sorted(
             pagination
         ):
@@ -692,7 +763,6 @@ async def extract_detail(
         f"detalle-{seed['detail_id']}",
     )
 
-    # Esperamos solo a que exista body.
     await page.wait_for_selector(
         "body",
         timeout=CONTENT_TIMEOUT,
@@ -1271,7 +1341,6 @@ def write_temp_files(
         timezone.utc
     ).isoformat()
 
-    # JSON
     payload = {
         "generated_at":
             timestamp,
@@ -1301,7 +1370,6 @@ def write_temp_files(
         encoding="utf-8",
     )
 
-    # CSV
     csv_columns = [
         "id",
         "titulo",
@@ -1347,7 +1415,6 @@ def write_temp_files(
                 row
             )
 
-    # metadata
     metadata = {
         "extraction_timestamp":
             timestamp,
@@ -1551,14 +1618,12 @@ async def main():
                 await context.new_page()
             )
 
-            # Health check
             start_url = (
                 await health_check(
                     page
                 )
             )
 
-            # Listado completo
             (
                 portal_total,
                 detail_links,
@@ -1592,7 +1657,6 @@ async def main():
                     f"!= {portal_total}"
                 )
 
-            # Detalles
             (
                 records,
                 failures,
@@ -1601,7 +1665,6 @@ async def main():
                 detail_links,
             )
 
-            # Validacion
             validation = (
                 validate_records(
                     portal_total,
