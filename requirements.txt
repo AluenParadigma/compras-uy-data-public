@@ -1,3 +1,1 @@
-requests
-pandas
-lxml
+playwright==1.55.0
