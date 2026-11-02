@@ -8,14 +8,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
+from playwright.async_api import async_playwright
 
+
+# ============================================================
+# CONFIGURACION
+# ============================================================
 
 BASE_URL = "https://www.comprasestatales.gub.uy"
 
 START_URLS = [
     f"{BASE_URL}/consultas/buscar/reset/1/tipo-pub/VIG",
-    f"{BASE_URL}/consultas/buscar",
+    f"{BASE_URL}/consultas/",
 ]
 
 OUTPUT_JSON = Path("latest.json")
@@ -28,13 +32,15 @@ TEMP_METADATA = Path("metadata.tmp.json")
 
 NAV_TIMEOUT = 60000
 
-# Pausa pequeña para no sobrecargar ARCE.
 PAGE_PAUSE_SECONDS = 0.35
 DETAIL_PAUSE_SECONDS = 0.30
 
-# Cantidad máxima de intentos por página.
 MAX_ATTEMPTS = 3
 
+
+# ============================================================
+# LOG
+# ============================================================
 
 def log(*args):
     print(*args, flush=True)
@@ -43,6 +49,10 @@ def log(*args):
 def log_error(*args):
     print(*args, file=sys.stderr, flush=True)
 
+
+# ============================================================
+# HELPERS
+# ============================================================
 
 def clean_text(value):
     if value is None:
@@ -66,11 +76,6 @@ def extract_detail_id(url):
 
 
 def parse_datetime(text):
-    """
-    Devuelve el texto normalizado.
-    No convertimos la fecha para evitar errores de timezone.
-    """
-
     if not text:
         return ""
 
@@ -89,15 +94,24 @@ def extract_regex(text, pattern):
     if not match:
         return ""
 
-    return clean_text(match.group(1))
+    return clean_text(
+        match.group(1)
+    )
 
+
+# ============================================================
+# NAVEGACION
+# ============================================================
 
 async def goto_with_retry(page, url, label):
     last_error = None
 
-    for attempt in range(1, MAX_ATTEMPTS + 1):
-
+    for attempt in range(
+        1,
+        MAX_ATTEMPTS + 1,
+    ):
         try:
+
             response = await page.goto(
                 url,
                 wait_until="domcontentloaded",
@@ -111,7 +125,14 @@ async def goto_with_retry(page, url, label):
 
             status = response.status
 
-            if status in (403, 429, 500, 502, 503, 504):
+            if status in (
+                403,
+                429,
+                500,
+                502,
+                503,
+                504,
+            ):
                 raise RuntimeError(
                     f"HTTP {status}"
                 )
@@ -126,14 +147,17 @@ async def goto_with_retry(page, url, label):
             return response
 
         except Exception as exc:
+
             last_error = exc
 
             log_error(
                 f"{label}: intento "
-                f"{attempt}/{MAX_ATTEMPTS} fallo: {exc}"
+                f"{attempt}/{MAX_ATTEMPTS} "
+                f"fallo: {exc}"
             )
 
             if attempt < MAX_ATTEMPTS:
+
                 await asyncio.sleep(
                     2 * attempt
                 )
@@ -144,6 +168,10 @@ async def goto_with_retry(page, url, label):
         f"Ultimo error: {last_error}"
     )
 
+
+# ============================================================
+# HEALTH CHECK
+# ============================================================
 
 async def find_working_start_url(page):
     log("")
@@ -156,7 +184,11 @@ async def find_working_start_url(page):
     for url in START_URLS:
 
         try:
-            log("Probando:", url)
+
+            log(
+                "Probando:",
+                url,
+            )
 
             await goto_with_retry(
                 page,
@@ -165,36 +197,90 @@ async def find_working_start_url(page):
             )
 
             body = clean_text(
-                await page.locator("body").inner_text()
+                await page.locator(
+                    "body"
+                ).inner_text()
             )
 
             if (
+                "Se encontraron" not in body
+                and
                 "Llamados vigentes" not in body
-                and "Se encontraron" not in body
             ):
                 raise RuntimeError(
-                    "La pagina no parece ser "
-                    "la consulta de llamados vigentes."
+                    "La pagina no parece "
+                    "corresponder al listado "
+                    "de llamados."
                 )
 
-            log("Nueva interfaz ARCE accesible.")
+            # Buscamos una URL VIG real en la pagina.
+            vig_links = page.locator(
+                "a[href*='/tipo-pub/VIG']"
+            )
 
-            return page.url
+            count = await vig_links.count()
+
+            if count > 0:
+
+                href = await vig_links.nth(
+                    0
+                ).get_attribute("href")
+
+                if href:
+
+                    vig_url = absolute_url(
+                        href
+                    )
+
+                    log(
+                        "Nueva interfaz ARCE "
+                        "accesible."
+                    )
+
+                    log(
+                        "URL VIG detectada:",
+                        vig_url,
+                    )
+
+                    return vig_url
+
+            # Si ya estamos directamente en VIG.
+            if "/tipo-pub/VIG" in page.url:
+
+                log(
+                    "Nueva interfaz ARCE "
+                    "accesible."
+                )
+
+                return page.url
+
+            raise RuntimeError(
+                "No se encontro una URL "
+                "de llamados vigentes."
+            )
 
         except Exception as exc:
+
             errors.append(
                 f"{url}: {exc}"
             )
 
     raise RuntimeError(
-        "Ninguna URL de consulta ARCE funciono. "
+        "Ninguna URL de consulta ARCE "
+        "funciono correctamente. "
         + " | ".join(errors)
     )
 
 
+# ============================================================
+# TOTAL DEL PORTAL
+# ============================================================
+
 async def get_portal_total(page):
     body = clean_text(
-        await page.locator("body").inner_text()
+        await page.locator(
+            "body"
+        ).inner_text()
     )
 
     match = re.search(
@@ -209,10 +295,17 @@ async def get_portal_total(page):
             "'Se encontraron X resultados'."
         )
 
-    number = match.group(1).replace(".", "")
+    number = (
+        match.group(1)
+        .replace(".", "")
+    )
 
     return int(number)
 
+
+# ============================================================
+# LINKS A DETALLES
+# ============================================================
 
 async def collect_detail_links_from_page(page):
     links = {}
@@ -224,16 +317,23 @@ async def collect_detail_links_from_page(page):
     count = await locator.count()
 
     for i in range(count):
+
         element = locator.nth(i)
 
-        href = await element.get_attribute("href")
+        href = await element.get_attribute(
+            "href"
+        )
 
         if not href:
             continue
 
-        url = absolute_url(href)
+        url = absolute_url(
+            href
+        )
 
-        detail_id = extract_detail_id(url)
+        detail_id = extract_detail_id(
+            url
+        )
 
         if not detail_id:
             continue
@@ -243,61 +343,115 @@ async def collect_detail_links_from_page(page):
         )
 
         if not title:
-            continue
+            title = f"Llamado {detail_id}"
 
-        # El mismo link puede aparecer más de una vez.
-        links[detail_id] = {
-            "detail_id": detail_id,
-            "detail_url": url,
-            "titulo_listado": title,
+        links[
+            detail_id
+        ] = {
+            "detail_id":
+                detail_id,
+            "detail_url":
+                url,
+            "titulo_listado":
+                title,
         }
 
     return links
 
 
+# ============================================================
+# PAGINACION
+# ============================================================
+
 async def collect_pagination_links(page):
     """
-    No suponemos cuántos resultados entran por página.
-    Seguimos los links de paginación que expone ARCE.
+    Recupera EXCLUSIVAMENTE paginas de resultados
+    correspondientes a llamados vigentes.
+
+    Nunca sigue:
+    - RSS
+    - ALL
+    - detalles
+    - otras consultas
     """
 
     result = set()
 
-    locator = page.locator("a[href]")
+    locator = page.locator(
+        "a[href]"
+    )
 
     count = await locator.count()
 
     for i in range(count):
+
         element = locator.nth(i)
 
-        href = await element.get_attribute("href")
+        href = await element.get_attribute(
+            "href"
+        )
 
         if not href:
             continue
 
-        if "/page/" not in href:
+        url = absolute_url(
+            href
+        )
+
+        parsed = urlparse(
+            url
+        )
+
+        # Solo el dominio oficial.
+        if (
+            parsed.netloc
+            !=
+            urlparse(BASE_URL).netloc
+        ):
             continue
 
-        if "/consultas/" not in href:
+        # Nunca RSS.
+        if "/consultas/rss/" in url:
             continue
 
-        url = absolute_url(href)
-
-        parsed = urlparse(url)
-
-        if parsed.netloc != urlparse(BASE_URL).netloc:
-            continue
-
-        # Evitamos páginas de detalle.
+        # Nunca detalles.
         if "/detalle/" in url:
             continue
 
-        result.add(url)
+        # Solo resultados de busqueda.
+        if "/consultas/buscar/" not in url:
+            continue
+
+        # Solo VIG.
+        if "/tipo-pub/VIG" not in url:
+            continue
+
+        # Nunca ALL.
+        if "/tipo-pub/ALL" in url:
+            continue
+
+        # Tiene que ser pagina numerada.
+        if not re.search(
+            r"/page/\d+(?:/|$)",
+            url,
+        ):
+            continue
+
+        result.add(
+            url
+        )
 
     return result
 
 
-async def crawl_all_search_pages(page, start_url):
+# ============================================================
+# CRAWL LISTADO
+# ============================================================
+
+async def crawl_all_search_pages(
+    page,
+    start_url,
+):
     log("")
     log("====================================")
     log("PAGINACION DE LLAMADOS VIGENTES")
@@ -309,29 +463,115 @@ async def crawl_all_search_pages(page, start_url):
         "pagina-inicial",
     )
 
-    portal_total = await get_portal_total(page)
+    # La URL siempre debe terminar siendo VIG.
+    if "/tipo-pub/VIG" not in page.url:
+
+        vig_links = page.locator(
+            "a[href*='/tipo-pub/VIG']"
+        )
+
+        count = await vig_links.count()
+
+        if count == 0:
+            raise RuntimeError(
+                "No se pudo entrar en "
+                "llamados vigentes."
+            )
+
+        href = await vig_links.nth(
+            0
+        ).get_attribute(
+            "href"
+        )
+
+        start_url = absolute_url(
+            href
+        )
+
+        await goto_with_retry(
+            page,
+            start_url,
+            "pagina-vigentes",
+        )
+
+    if "/tipo-pub/VIG" not in page.url:
+        raise RuntimeError(
+            "La pagina inicial no corresponde "
+            "a tipo-pub/VIG: "
+            f"{page.url}"
+        )
+
+    portal_total = (
+        await get_portal_total(
+            page
+        )
+    )
 
     log(
         "Total informado por ARCE:",
         portal_total,
     )
 
-    queue = [page.url]
+    queue = [
+        page.url
+    ]
+
     visited = set()
 
     detail_links = {}
 
     while queue:
+
         current = queue.pop(0)
 
         if current in visited:
             continue
 
-        visited.add(current)
+        # ----------------------------------------------------
+        # BARRERAS DE SEGURIDAD
+        # ----------------------------------------------------
+
+        if "/tipo-pub/VIG" not in current:
+
+            raise RuntimeError(
+                "El crawler intento salir "
+                "de llamados vigentes: "
+                f"{current}"
+            )
+
+        if "/consultas/rss/" in current:
+
+            raise RuntimeError(
+                "El crawler intento "
+                "entrar en RSS: "
+                f"{current}"
+            )
+
+        if "/tipo-pub/ALL" in current:
+
+            raise RuntimeError(
+                "El crawler intento "
+                "entrar en ALL: "
+                f"{current}"
+            )
+
+        if "/consultas/buscar/" not in current:
+
+            raise RuntimeError(
+                "El crawler intento "
+                "entrar en una ruta "
+                "no permitida: "
+                f"{current}"
+            )
+
+        visited.add(
+            current
+        )
 
         log(
             f"Pagina de resultados "
-            f"{len(visited)}: {current}"
+            f"{len(visited)}: "
+            f"{current}"
         )
 
         await goto_with_retry(
@@ -340,19 +580,46 @@ async def crawl_all_search_pages(page, start_url):
             "pagina-resultados",
         )
 
+        # Verificamos que la redireccion no haya cambiado
+        # la consulta.
+        final_url = page.url
+
+        if "/tipo-pub/VIG" not in final_url:
+
+            raise RuntimeError(
+                "ARCE redirigio fuera "
+                "de llamados vigentes: "
+                f"{final_url}"
+            )
+
+        if "/consultas/rss/" in final_url:
+
+            raise RuntimeError(
+                "ARCE redirigio a RSS: "
+                f"{final_url}"
+            )
+
+        # ----------------------------------------------------
+        # DETALLES
+        # ----------------------------------------------------
+
         current_links = (
             await collect_detail_links_from_page(
                 page
             )
         )
 
-        before = len(detail_links)
+        before = len(
+            detail_links
+        )
 
         detail_links.update(
             current_links
         )
 
-        after = len(detail_links)
+        after = len(
+            detail_links
+        )
 
         log(
             "  llamados nuevos:",
@@ -363,18 +630,41 @@ async def crawl_all_search_pages(page, start_url):
             portal_total,
         )
 
+        # ----------------------------------------------------
+        # PAGINACION
+        # ----------------------------------------------------
+
         pagination = (
             await collect_pagination_links(
                 page
             )
         )
 
-        for url in sorted(pagination):
+        for url in sorted(
+            pagination
+        ):
+
+            # Segunda barrera de seguridad.
+            if "/consultas/buscar/" not in url:
+                continue
+
+            if "/tipo-pub/VIG" not in url:
+                continue
+
+            if "/consultas/rss/" in url:
+                continue
+
+            if "/tipo-pub/ALL" in url:
+                continue
+
             if (
                 url not in visited
-                and url not in queue
+                and
+                url not in queue
             ):
-                queue.append(url)
+                queue.append(
+                    url
+                )
 
         await asyncio.sleep(
             PAGE_PAUSE_SECONDS
@@ -387,30 +677,17 @@ async def crawl_all_search_pages(page, start_url):
     )
 
 
-def first_meaningful_line_after(lines, target):
-    try:
-        index = lines.index(target)
-    except ValueError:
-        return ""
+# ============================================================
+# EXTRAER DETALLE
+# ============================================================
 
-    for line in lines[index + 1:]:
-        value = clean_text(line)
-
-        if not value:
-            continue
-
-        if value.startswith(
-            "Recepción de ofertas hasta:"
-        ):
-            return ""
-
-        return value
-
-    return ""
-
-
-async def extract_detail(page, seed):
-    url = seed["detail_url"]
+async def extract_detail(
+    page,
+    seed,
+):
+    url = seed[
+        "detail_url"
+    ]
 
     await goto_with_retry(
         page,
@@ -418,110 +695,170 @@ async def extract_detail(page, seed):
         f"detalle-{seed['detail_id']}",
     )
 
-    body_text = await page.locator(
-        "body"
-    ).inner_text()
+    body_text = (
+        await page.locator(
+            "body"
+        ).inner_text()
+    )
 
     body_text = body_text.replace(
         "\xa0",
         " ",
     )
 
+    clean_body = clean_text(
+        body_text
+    )
+
     lines = [
         clean_text(line)
-        for line in body_text.splitlines()
+        for line
+        in body_text.splitlines()
         if clean_text(line)
     ]
 
-    # -------------------------------------------------------
+    # --------------------------------------------------------
     # TITULO
-    # -------------------------------------------------------
+    # --------------------------------------------------------
 
     title = ""
 
-    h2 = page.locator("h2")
-
-    if await h2.count() > 0:
-        title = clean_text(
-            await h2.first.inner_text()
+    for selector in (
+        "h1",
+        "h2",
+        "h3",
+    ):
+        locator = page.locator(
+            selector
         )
 
+        if await locator.count() > 0:
+
+            candidate = clean_text(
+                await locator.first.inner_text()
+            )
+
+            if candidate:
+                title = candidate
+                break
+
     if not title:
+
         title = seed[
             "titulo_listado"
         ]
 
-    # -------------------------------------------------------
+    # --------------------------------------------------------
     # OBJETO
-    # -------------------------------------------------------
+    # --------------------------------------------------------
 
-    objeto = first_meaningful_line_after(
-        lines,
-        title,
+    objeto = extract_regex(
+        body_text,
+        r"(?:Objeto|Descripci[oó]n)\s*:?\s*(.+?)"
+        r"(?=\n[A-ZÁÉÍÓÚÑ][^\n]{0,80}:|\Z)",
     )
 
-    # -------------------------------------------------------
+    if not objeto:
+
+        # Fallback: buscamos una línea cercana al titulo.
+        try:
+
+            index = lines.index(
+                title
+            )
+
+            for line in lines[
+                index + 1:
+                index + 8
+            ]:
+
+                if not line:
+                    continue
+
+                if (
+                    "recepción de ofertas"
+                    in line.lower()
+                ):
+                    continue
+
+                if (
+                    "fecha publicación"
+                    in line.lower()
+                ):
+                    continue
+
+                objeto = line
+                break
+
+        except ValueError:
+            pass
+
+    # --------------------------------------------------------
     # FECHAS
-    # -------------------------------------------------------
+    # --------------------------------------------------------
 
     cierre = extract_regex(
         body_text,
         r"Recepci[oó]n de ofertas hasta:\s*"
         r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
-        r"\s+[0-9]{2}:[0-9]{2})",
+        r"(?:\s+[0-9]{2}:[0-9]{2})?)",
     )
 
     publicacion = extract_regex(
         body_text,
         r"Fecha Publicaci[oó]n:\s*"
         r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
-        r"\s+[0-9]{2}:[0-9]{2})",
+        r"(?:\s+[0-9]{2}:[0-9]{2})?)",
     )
 
     if not publicacion:
+
         publicacion = extract_regex(
             body_text,
             r"Publicado:\s*"
             r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
-            r"\s+[0-9]{2}:[0-9]{2})",
+            r"(?:\s+[0-9]{2}:[0-9]{2})?)",
         )
 
     ultima_modificacion = extract_regex(
         body_text,
         r"[UÚ]ltima Modificaci[oó]n:\s*"
         r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
-        r"\s+[0-9]{2}:[0-9]{2})",
+        r"(?:\s+[0-9]{2}:[0-9]{2})?)",
     )
 
     acto_apertura = extract_regex(
         body_text,
         r"Acto de Apertura:\s*"
         r"([0-9]{2}/[0-9]{2}/[0-9]{4}"
-        r"\s+[0-9]{2}:[0-9]{2})",
+        r"(?:\s+[0-9]{2}:[0-9]{2})?)",
     )
 
-    # -------------------------------------------------------
+    # --------------------------------------------------------
     # ITEMS
-    # -------------------------------------------------------
+    # --------------------------------------------------------
 
     items = []
 
     item_pattern = re.compile(
-        r"Ítem\s*N[º°]?\s*(\d+)\s+(.+?)"
-        r"(?:\s+\(C[oó]d\.\s*Art[ií]culo\s*"
-        r"([^)]+)\))?$",
+        r"(?:Ítem|Item)\s*N?[º°]?\s*(\d+)\s+(.+?)"
+        r"(?:\s+\(C[oó]d\.\s*Art[ií]culo\s*([^)]+)\))?$",
         re.I,
     )
 
     for line in lines:
+
         if not line.lower().startswith(
             ("ítem", "item")
         ):
             continue
 
-        match = item_pattern.search(line)
+        match = item_pattern.search(
+            line
+        )
 
         if match:
+
             items.append(
                 {
                     "numero":
@@ -534,14 +871,15 @@ async def extract_detail(page, seed):
                         ),
                     "codigo_articulo":
                         clean_text(
-                            match.group(3) or ""
+                            match.group(3)
+                            or ""
                         ),
                 }
             )
 
-    # -------------------------------------------------------
+    # --------------------------------------------------------
     # ADJUNTOS
-    # -------------------------------------------------------
+    # --------------------------------------------------------
 
     attachments = []
 
@@ -549,10 +887,17 @@ async def extract_detail(page, seed):
         "a[href]"
     )
 
-    anchor_count = await anchors.count()
+    anchor_count = (
+        await anchors.count()
+    )
 
-    for i in range(anchor_count):
-        anchor = anchors.nth(i)
+    for i in range(
+        anchor_count
+    ):
+
+        anchor = anchors.nth(
+            i
+        )
 
         href = await anchor.get_attribute(
             "href"
@@ -565,53 +910,68 @@ async def extract_detail(page, seed):
             await anchor.inner_text()
         )
 
-        full_url = absolute_url(href)
+        full_url = absolute_url(
+            href
+        )
 
         href_lower = href.lower()
 
         if (
             ".pdf" in href_lower
+            or ".doc" in href_lower
+            or ".docx" in href_lower
+            or ".xls" in href_lower
+            or ".xlsx" in href_lower
+            or ".zip" in href_lower
             or "/pliegos/" in href_lower
             or "/aclaraciones/" in href_lower
         ):
+
             attachments.append(
                 {
-                    "texto": text,
-                    "url": full_url,
+                    "texto":
+                        text,
+                    "url":
+                        full_url,
                 }
             )
 
-    # eliminar duplicados
+    # Deduplicar.
     unique_attachments = []
-    attachment_seen = set()
+    seen_attachments = set()
 
-    for item in attachments:
-        key = item["url"]
+    for attachment in attachments:
 
-        if key in attachment_seen:
+        key = attachment[
+            "url"
+        ]
+
+        if key in seen_attachments:
             continue
 
-        attachment_seen.add(key)
-
-        unique_attachments.append(
-            item
+        seen_attachments.add(
+            key
         )
 
-    # -------------------------------------------------------
+        unique_attachments.append(
+            attachment
+        )
+
+    # --------------------------------------------------------
     # APERTURA ELECTRONICA
-    # -------------------------------------------------------
+    # --------------------------------------------------------
 
     apertura_electronica = (
-        "Apertura electrónica"
-        in body_text
+        "apertura electrónica"
+        in clean_body.lower()
         or
-        "Apertura electronica"
-        in body_text
+        "apertura electronica"
+        in clean_body.lower()
     )
 
-    # -------------------------------------------------------
-    # INFORMACION PARA ANALISIS SEMANTICO
-    # -------------------------------------------------------
+    # --------------------------------------------------------
+    # SEMANTIC TEXT
+    # --------------------------------------------------------
 
     semantic_parts = [
         title,
@@ -621,43 +981,70 @@ async def extract_detail(page, seed):
     semantic_parts.extend(
         item["descripcion"]
         for item in items
+        if item.get(
+            "descripcion"
+        )
     )
 
     semantic_text = clean_text(
         " | ".join(
             value
-            for value in semantic_parts
+            for value
+            in semantic_parts
             if value
         )
     )
 
     return {
-        "id": seed["detail_id"],
-        "titulo": title,
-        "objeto": objeto,
+        "id":
+            seed["detail_id"],
+
+        "titulo":
+            title,
+
+        "objeto":
+            objeto,
+
         "fecha_publicacion":
-            parse_datetime(publicacion),
+            parse_datetime(
+                publicacion
+            ),
+
         "ultima_modificacion":
             parse_datetime(
                 ultima_modificacion
             ),
+
         "recepcion_ofertas_hasta":
-            parse_datetime(cierre),
+            parse_datetime(
+                cierre
+            ),
+
         "acto_apertura":
             parse_datetime(
                 acto_apertura
             ),
+
         "apertura_electronica":
             apertura_electronica,
-        "items": items,
+
+        "items":
+            items,
+
         "adjuntos":
             unique_attachments,
+
         "semantic_text":
             semantic_text,
+
         "url_oficial":
             url,
     }
 
+
+# ============================================================
+# EXTRAER TODOS LOS DETALLES
+# ============================================================
 
 async def extract_all_details(
     context,
@@ -668,37 +1055,43 @@ async def extract_all_details(
     log("DETALLE DE CADA LLAMADO")
     log("====================================")
 
-    # Una sola página evita bombardear el servidor.
     page = await context.new_page()
 
     records = []
+
+    failures = []
 
     seeds = list(
         detail_links.values()
     )
 
-    total = len(seeds)
-
-    failures = []
+    total = len(
+        seeds
+    )
 
     for index, seed in enumerate(
         seeds,
         start=1,
     ):
+
         log(
             f"Detalle {index}/{total} "
             f"- ID {seed['detail_id']}"
         )
 
         try:
+
             record = await extract_detail(
                 page,
                 seed,
             )
 
-            records.append(record)
+            records.append(
+                record
+            )
 
         except Exception as exc:
+
             log_error(
                 f"ERROR detalle "
                 f"{seed['detail_id']}: "
@@ -708,9 +1101,13 @@ async def extract_all_details(
             failures.append(
                 {
                     "id":
-                        seed["detail_id"],
+                        seed[
+                            "detail_id"
+                        ],
                     "url":
-                        seed["detail_url"],
+                        seed[
+                            "detail_url"
+                        ],
                     "error":
                         str(exc),
                 }
@@ -722,8 +1119,15 @@ async def extract_all_details(
 
     await page.close()
 
-    return records, failures
+    return (
+        records,
+        failures,
+    )
 
+
+# ============================================================
+# VALIDACION
+# ============================================================
 
 def validate_records(
     portal_total,
@@ -733,7 +1137,8 @@ def validate_records(
 ):
     unique_ids = {
         record["id"]
-        for record in records
+        for record
+        in records
     }
 
     list_unique = len(
@@ -765,7 +1170,8 @@ def validate_records(
                 "titulo"
             )
         )
-        for record in records
+        for record
+        in records
     )
 
     all_have_url = all(
@@ -774,7 +1180,34 @@ def validate_records(
                 "url_oficial"
             )
         )
-        for record in records
+        for record
+        in records
+    )
+
+    content_records = sum(
+        1
+        for record
+        in records
+        if (
+            record.get(
+                "titulo"
+            )
+            or
+            record.get(
+                "objeto"
+            )
+            or
+            record.get(
+                "items"
+            )
+        )
+    )
+
+    content_quality_complete = (
+        content_records
+        == detail_unique
+        and
+        detail_unique > 0
     )
 
     coverage_complete = all(
@@ -785,29 +1218,64 @@ def validate_records(
             no_detail_failures,
             all_have_title,
             all_have_url,
+            content_quality_complete,
         ]
     )
 
     return {
         "portal_total":
             portal_total,
+
         "list_unique_records":
             list_unique,
+
         "detail_unique_records":
             detail_unique,
+
         "detail_failures":
             len(failures),
+
         "list_matches_portal":
             list_matches_portal,
+
         "details_match_portal":
             details_match_portal,
+
         "all_have_title":
             all_have_title,
+
         "all_have_url":
             all_have_url,
+
+        "content_records":
+            content_records,
+
+        "content_quality_complete":
+            content_quality_complete,
+
         "coverage_complete":
             coverage_complete,
     }
+
+
+# ============================================================
+# ARCHIVOS
+# ============================================================
+
+def cleanup_temp():
+    for path in (
+        TEMP_JSON,
+        TEMP_CSV,
+        TEMP_METADATA,
+    ):
+
+        try:
+
+            if path.exists():
+                path.unlink()
+
+        except Exception:
+            pass
 
 
 def write_temp_files(
@@ -820,17 +1288,26 @@ def write_temp_files(
         timezone.utc
     ).isoformat()
 
+    # --------------------------------------------------------
+    # JSON
+    # --------------------------------------------------------
+
     payload = {
         "generated_at":
             timestamp,
+
         "source":
             "Compras Estatales Uruguay / ARCE",
+
         "source_url":
             f"{BASE_URL}/consultas/",
+
         "publication_type":
             "Llamados vigentes",
+
         "total_records":
             len(records),
+
         "data":
             records,
     }
@@ -843,6 +1320,10 @@ def write_temp_files(
         ),
         encoding="utf-8",
     )
+
+    # --------------------------------------------------------
+    # CSV
+    # --------------------------------------------------------
 
     csv_columns = [
         "id",
@@ -873,6 +1354,7 @@ def write_temp_files(
         writer.writeheader()
 
         for record in records:
+
             row = record.copy()
 
             row["items"] = json.dumps(
@@ -885,7 +1367,13 @@ def write_temp_files(
                 ensure_ascii=False,
             )
 
-            writer.writerow(row)
+            writer.writerow(
+                row
+            )
+
+    # --------------------------------------------------------
+    # METADATA
+    # --------------------------------------------------------
 
     metadata = {
         "extraction_timestamp":
@@ -904,7 +1392,9 @@ def write_temp_files(
             "VIG",
 
         "portal_total":
-            validation["portal_total"],
+            validation[
+                "portal_total"
+            ],
 
         "search_pages_processed":
             search_pages_count,
@@ -960,16 +1450,15 @@ def write_temp_files(
                 ]
             ),
 
+        "content_records":
+            validation[
+                "content_records"
+            ],
+
         "content_quality_complete":
-            (
-                validation[
-                    "all_have_title"
-                ]
-                and
-                validation[
-                    "all_have_url"
-                ]
-            ),
+            validation[
+                "content_quality_complete"
+            ],
 
         "coverage_complete":
             validation[
@@ -996,12 +1485,13 @@ def write_temp_files(
 
         "note":
             (
-                "Cobertura validada contra el "
-                "contador visible de llamados "
-                "vigentes del portal ARCE. "
-                "Se recorrieron todas las paginas "
-                "de resultados y se recupero el "
-                "detalle de cada identificador."
+                "Cobertura validada contra "
+                "el contador visible del portal "
+                "ARCE. Se recorrieron "
+                "exclusivamente paginas de "
+                "llamados vigentes tipo-pub/VIG "
+                "y se recupero el detalle "
+                "de cada identificador."
             ),
     }
 
@@ -1016,6 +1506,10 @@ def write_temp_files(
 
     return metadata
 
+
+# ============================================================
+# PUBLICAR
+# ============================================================
 
 def publish_snapshot():
     os.replace(
@@ -1034,57 +1528,68 @@ def publish_snapshot():
     )
 
 
-def cleanup_temp():
-    for path in (
-        TEMP_JSON,
-        TEMP_CSV,
-        TEMP_METADATA,
-    ):
-        if path.exists():
-            try:
-                path.unlink()
-            except Exception:
-                pass
-
+# ============================================================
+# MAIN
+# ============================================================
 
 async def main():
     cleanup_temp()
 
+    browser = None
+
     try:
+
         async with async_playwright() as p:
 
             browser = await p.chromium.launch(
                 headless=True,
                 args=[
-                    "--disable-blink-features=AutomationControlled",
+                    "--disable-blink-features="
+                    "AutomationControlled",
                     "--no-sandbox",
+                    "--disable-dev-shm-usage",
                 ],
             )
 
-            context = await browser.new_context(
-                locale="es-UY",
-                timezone_id="America/Montevideo",
-                viewport={
-                    "width": 1440,
-                    "height": 1000,
-                },
-                user_agent=(
-                    "Mozilla/5.0 "
-                    "(Windows NT 10.0; Win64; x64) "
-                    "AppleWebKit/537.36 "
-                    "(KHTML, like Gecko) "
-                    "Chrome/130.0.0.0 "
-                    "Safari/537.36"
-                ),
+            context = (
+                await browser.new_context(
+                    locale="es-UY",
+
+                    timezone_id=
+                        "America/Montevideo",
+
+                    viewport={
+                        "width": 1440,
+                        "height": 1000,
+                    },
+
+                    user_agent=(
+                        "Mozilla/5.0 "
+                        "(Windows NT 10.0; "
+                        "Win64; x64) "
+                        "AppleWebKit/537.36 "
+                        "(KHTML, like Gecko) "
+                        "Chrome/130.0.0.0 "
+                        "Safari/537.36"
+                    ),
+                )
             )
 
             page = await context.new_page()
+
+            # ------------------------------------------------
+            # HEALTH CHECK
+            # ------------------------------------------------
 
             start_url = (
                 await find_working_start_url(
                     page
                 )
             )
+
+            # ------------------------------------------------
+            # LISTADO COMPLETO
+            # ------------------------------------------------
 
             (
                 portal_total,
@@ -1103,51 +1608,79 @@ async def main():
 
             log(
                 "IDs unicos encontrados:",
-                len(detail_links),
+                len(
+                    detail_links
+                ),
             )
 
-            # Si la lista ya no coincide, no hacemos
-            # cientos de requests de detalle.
+            # ------------------------------------------------
+            # VALIDACION LISTADO
+            # ------------------------------------------------
+
             if (
                 len(detail_links)
                 != portal_total
             ):
+
                 raise RuntimeError(
-                    "La paginacion no coincide con "
-                    "el contador del portal: "
+                    "La paginacion no coincide "
+                    "con el contador del portal: "
                     f"{len(detail_links)} "
                     f"!= {portal_total}"
                 )
 
-            records, failures = (
-                await extract_all_details(
-                    context,
+            # ------------------------------------------------
+            # DETALLES
+            # ------------------------------------------------
+
+            (
+                records,
+                failures,
+            ) = await extract_all_details(
+                context,
+                detail_links,
+            )
+
+            # ------------------------------------------------
+            # VALIDACION FINAL
+            # ------------------------------------------------
+
+            validation = (
+                validate_records(
+                    portal_total,
                     detail_links,
+                    records,
+                    failures,
                 )
             )
 
-            validation = validate_records(
-                portal_total,
-                detail_links,
-                records,
-                failures,
-            )
-
-            metadata = write_temp_files(
-                records,
-                validation,
-                len(visited_pages),
-                failures,
+            metadata = (
+                write_temp_files(
+                    records,
+                    validation,
+                    len(
+                        visited_pages
+                    ),
+                    failures,
+                )
             )
 
             log("")
-            log("====================================")
-            log("VALIDACION FINAL")
-            log("====================================")
+            log(
+                "===================================="
+            )
+            log(
+                "VALIDACION FINAL"
+            )
+            log(
+                "===================================="
+            )
 
             log(
                 "Portal total:",
-                metadata["portal_total"],
+                metadata[
+                    "portal_total"
+                ],
             )
 
             log(
@@ -1172,6 +1705,13 @@ async def main():
             )
 
             log(
+                "Contenido valido:",
+                metadata[
+                    "content_records"
+                ],
+            )
+
+            log(
                 "Coverage complete:",
                 metadata[
                     "coverage_complete"
@@ -1181,17 +1721,29 @@ async def main():
             if not metadata[
                 "coverage_complete"
             ]:
+
                 raise RuntimeError(
-                    "La validacion de cobertura "
-                    "del nuevo portal ARCE fallo."
+                    "La validacion final "
+                    "de cobertura del portal "
+                    "ARCE fallo."
                 )
+
+            # ------------------------------------------------
+            # PUBLICAR
+            # ------------------------------------------------
 
             publish_snapshot()
 
             log("")
-            log("====================================")
-            log("SNAPSHOT PUBLICADO OK")
-            log("====================================")
+            log(
+                "===================================="
+            )
+            log(
+                "SNAPSHOT PUBLICADO OK"
+            )
+            log(
+                "===================================="
+            )
 
             log(
                 f"{metadata['portal_total']}/"
@@ -1202,6 +1754,7 @@ async def main():
             await browser.close()
 
     except Exception as exc:
+
         cleanup_temp()
 
         log_error("")
@@ -1214,12 +1767,22 @@ async def main():
         log_error(
             "===================================="
         )
-        log_error(str(exc))
+
+        log_error(
+            str(exc)
+        )
+
         log_error("")
         log_error(
             "El ultimo snapshot valido "
             "queda intacto."
         )
+
+        if browser is not None:
+            try:
+                await browser.close()
+            except Exception:
+                pass
 
         sys.exit(1)
 
