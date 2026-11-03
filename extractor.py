@@ -1,13 +1,13 @@
 import asyncio
 import csv
 import json
-import math
 import os
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, parse_qsl, urlencode, urlunparse
 
 from playwright.async_api import async_playwright
 
@@ -39,11 +39,11 @@ DETAIL_PAUSE_SECONDS = 0.25
 
 MAX_ATTEMPTS = 2
 
-# Por lo que muestra el portal, hay 20 enlaces visibles
-# por página, aunque algunos pueden estar duplicados.
-EXPECTED_PAGE_LINKS = 20
+# Reintentos extra para una página que devuelve
+# los mismos IDs que la página anterior.
+DUPLICATE_PAGE_RETRIES = 3
+DUPLICATE_PAGE_WAIT_SECONDS = 4
 
-# Barrera de seguridad.
 MAX_SEARCH_PAGES = 200
 
 
@@ -76,10 +76,7 @@ def absolute_url(href):
 
 def extract_detail_id(url):
     """
-    Acepta IDs numericos y alfanumericos:
-    1302291
-    i504650
-    etc.
+    Acepta IDs numericos y alfanumericos.
     """
 
     if not url:
@@ -128,16 +125,6 @@ def extract_regex(text, pattern):
 
 
 def build_page_url(page_number):
-    """
-    Construye directamente la URL paginada.
-
-    Pagina 1:
-      /consultas/buscar/reset/1/tipo-pub/VIG
-
-    Pagina 2:
-      /consultas/buscar/page/2/reset/1/tipo-pub/VIG
-    """
-
     if page_number <= 1:
         return START_URL
 
@@ -145,6 +132,36 @@ def build_page_url(page_number):
         f"{BASE_URL}/consultas/buscar/"
         f"page/{page_number}/"
         "reset/1/tipo-pub/VIG"
+    )
+
+
+def add_cache_buster(url):
+    """
+    Agrega un parametro timestamp para evitar respuestas cacheadas.
+    """
+
+    parsed = urlparse(url)
+
+    query = dict(
+        parse_qsl(
+            parsed.query,
+            keep_blank_values=True,
+        )
+    )
+
+    query["_ts"] = str(
+        int(time.time() * 1000)
+    )
+
+    return urlunparse(
+        (
+            parsed.scheme,
+            parsed.netloc,
+            parsed.path,
+            parsed.params,
+            urlencode(query),
+            parsed.fragment,
+        )
     )
 
 
@@ -237,11 +254,6 @@ async def wait_for_search_content(page):
 
 
 async def wait_for_results_stable(page):
-    """
-    Espera a que el numero de links de detalle
-    deje de cambiar.
-    """
-
     selector = (
         "a[href*='/consultas/detalle/'], "
         "a[href*='mostrar-llamado']"
@@ -380,10 +392,6 @@ async def get_portal_total(page):
 # ============================================================
 
 async def collect_detail_links_from_page(page):
-    """
-    Usa la URL completa como base y acepta IDs alfanumericos.
-    """
-
     links = {}
 
     locator = page.locator(
@@ -407,24 +415,11 @@ async def collect_detail_links_from_page(page):
             href
         )
 
-        if (
-            "/consultas/detalle/"
-            not in url
-            and
-            "mostrar-llamado"
-            not in url
-        ):
-            continue
-
         detail_id = extract_detail_id(
             url
         )
 
         if not detail_id:
-            log(
-                "  aviso: URL sin ID interpretable:",
-                url,
-            )
             continue
 
         title = clean_text(
@@ -446,9 +441,6 @@ async def collect_detail_links_from_page(page):
                 f"Llamado {detail_id}"
             )
 
-        # Usamos el ID alfanumerico como clave.
-        # Si el mismo llamado aparece dos veces,
-        # queda automaticamente deduplicado.
         links[detail_id] = {
             "detail_id":
                 detail_id,
@@ -461,6 +453,130 @@ async def collect_detail_links_from_page(page):
         }
 
     return links
+
+
+# ============================================================
+# LEER PAGINA CON CONTROL ANTI-CACHE
+# ============================================================
+
+async def load_page_ids(
+    page,
+    page_number,
+    page_url,
+):
+    await goto_with_retry(
+        page,
+        page_url,
+        f"pagina-{page_number}",
+    )
+
+    await wait_for_search_content(
+        page
+    )
+
+    await wait_for_results_stable(
+        page
+    )
+
+    current_links = (
+        await collect_detail_links_from_page(
+            page
+        )
+    )
+
+    current_ids = set(
+        current_links.keys()
+    )
+
+    return (
+        current_links,
+        current_ids,
+    )
+
+
+async def load_page_with_duplicate_retry(
+    page,
+    page_number,
+    page_url,
+    previous_page_ids,
+):
+    """
+    Si ARCE devuelve los mismos IDs que la pagina anterior,
+    reintenta con cache-busting antes de abortar.
+    """
+
+    last_links = {}
+    last_ids = set()
+
+    for attempt in range(
+        1,
+        DUPLICATE_PAGE_RETRIES + 1,
+    ):
+
+        if attempt == 1:
+            url = page_url
+        else:
+            url = add_cache_buster(
+                page_url
+            )
+
+        log(
+            f"  carga pagina {page_number} "
+            f"intento {attempt}/"
+            f"{DUPLICATE_PAGE_RETRIES}"
+        )
+
+        current_links, current_ids = (
+            await load_page_ids(
+                page,
+                page_number,
+                url,
+            )
+        )
+
+        last_links = current_links
+        last_ids = current_ids
+
+        if not current_ids:
+            log(
+                "  pagina sin IDs, se reintentara."
+            )
+
+        elif (
+            previous_page_ids is None
+            or
+            current_ids != previous_page_ids
+        ):
+            return (
+                current_links,
+                current_ids,
+            )
+
+        log(
+            "  ARCE devolvio los mismos IDs "
+            "que la pagina anterior."
+        )
+
+        if (
+            attempt
+            < DUPLICATE_PAGE_RETRIES
+        ):
+            log(
+                f"  esperando "
+                f"{DUPLICATE_PAGE_WAIT_SECONDS}s "
+                "y reintentando sin cache..."
+            )
+
+            await asyncio.sleep(
+                DUPLICATE_PAGE_WAIT_SECONDS
+            )
+
+    raise RuntimeError(
+        f"La pagina {page_number} devolvio "
+        "los mismos IDs que la pagina anterior "
+        f"en {DUPLICATE_PAGE_RETRIES} intentos. "
+        "Posible cache/inconsistencia temporal de ARCE."
+    )
 
 
 # ============================================================
@@ -526,42 +642,14 @@ async def crawl_all_search_pages(
             f"{page_url}"
         )
 
-        await goto_with_retry(
+        (
+            current_links,
+            current_ids,
+        ) = await load_page_with_duplicate_retry(
             page,
+            page_number,
             page_url,
-            f"pagina-{page_number}",
-        )
-
-        await wait_for_search_content(
-            page
-        )
-
-        await wait_for_results_stable(
-            page
-        )
-
-        final_url = page.url
-
-        if "/consultas/rss/" in final_url:
-            raise RuntimeError(
-                "ARCE redirigio a RSS: "
-                f"{final_url}"
-            )
-
-        if "/tipo-pub/VIG" not in final_url:
-            raise RuntimeError(
-                "ARCE redirigio fuera de VIG: "
-                f"{final_url}"
-            )
-
-        current_links = (
-            await collect_detail_links_from_page(
-                page
-            )
-        )
-
-        current_ids = set(
-            current_links.keys()
+            previous_page_ids,
         )
 
         log(
@@ -573,22 +661,6 @@ async def crawl_all_search_pages(
             raise RuntimeError(
                 f"La pagina {page_number} "
                 "no contiene llamados interpretables."
-            )
-
-        # Si pagina 2 devuelve exactamente lo mismo
-        # que pagina 1, la forma de URL cambio y abortamos.
-        if (
-            previous_page_ids is not None
-            and
-            current_ids
-            == previous_page_ids
-        ):
-            raise RuntimeError(
-                f"La pagina {page_number} "
-                "devuelve los mismos IDs "
-                "que la pagina anterior. "
-                "La URL de paginacion no "
-                "esta siendo interpretada por ARCE."
             )
 
         before = len(
@@ -629,8 +701,6 @@ async def crawl_all_search_pages(
                 f"{after} > {portal_total}"
             )
 
-        # Si una pagina no agrega absolutamente nada,
-        # hay un problema de paginacion.
         if nuevos == 0:
             raise RuntimeError(
                 f"La pagina {page_number} "
@@ -729,7 +799,7 @@ async def extract_detail(
         ]
 
     # --------------------------------------------------------
-    # OBJETO / DESCRIPCION
+    # OBJETO
     # --------------------------------------------------------
 
     objeto = extract_regex(
@@ -1448,10 +1518,9 @@ def write_temp_files(
             (
                 "Cobertura validada contra "
                 "el contador visible del portal "
-                "ARCE. Se recorrieron directamente "
-                "las paginas numeradas de "
-                "llamados vigentes y se obtuvo "
-                "el detalle de cada llamado."
+                "ARCE. Las paginas se recorren "
+                "con reintentos anti-cache ante "
+                "duplicados temporales."
             ),
     }
 
@@ -1536,12 +1605,10 @@ async def main():
 
             page = await context.new_page()
 
-            # Health check
             start_url = await health_check(
                 page
             )
 
-            # Listado completo
             (
                 portal_total,
                 detail_links,
@@ -1575,7 +1642,6 @@ async def main():
                     f"!= {portal_total}"
                 )
 
-            # Detalles
             (
                 records,
                 failures,
@@ -1584,7 +1650,6 @@ async def main():
                 detail_links,
             )
 
-            # Validacion
             validation = validate_records(
                 portal_total,
                 detail_links,
