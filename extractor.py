@@ -35,31 +35,21 @@ CONTENT_TIMEOUT = 45000
 
 MAX_HTTP_ATTEMPTS = 2
 
-# Pausas conservadoras para no golpear ARCE.
 PAGE_PAUSE_SECONDS = 0.25
 DETAIL_PAUSE_SECONDS = 0.20
 
-# Cada ventana usa como máximo este tamaño.
+# Ventana inicial.
 WINDOW_DAYS = 14
 
-# Primero buscamos desde 2024.
-# Si no alcanzamos el total general, ampliamos hacia atrás.
-HISTORY_BLOCKS = [
-    (
-        datetime(2024, 1, 1),
-        None,
-    ),
-    (
-        datetime(2020, 1, 1),
-        datetime(2023, 12, 31),
-    ),
-    (
-        datetime(2010, 1, 1),
-        datetime(2019, 12, 31),
-    ),
-]
+# Si una ventana es demasiado grande,
+# se subdivide automáticamente.
+MAX_RESULTS_PER_WINDOW = 800
 
+# Barrera de seguridad.
 MAX_PAGES_PER_WINDOW = 100
+
+# Historia a recorrer.
+HISTORY_START = datetime(2010, 1, 1)
 
 
 # ============================================================
@@ -98,7 +88,9 @@ def absolute_url(href):
 
 def extract_detail_id(url):
     """
-    ARCE usa IDs numericos y alfanumericos:
+    ARCE puede usar IDs numéricos y alfanuméricos.
+
+    Ejemplos:
     1302291
     i504650
     """
@@ -143,13 +135,26 @@ def extract_regex(text, pattern):
 
 
 # ============================================================
-# URLS DE RANGO
+# FECHAS / URLS
 # ============================================================
 
 def encode_portal_datetime(
     date_value,
     end_of_day=False,
 ):
+    """
+    IMPORTANTE:
+
+    La nueva interfaz usa un espacio entre
+    fecha y hora.
+
+    El espacio debe enviarse como %20.
+
+    Ejemplo:
+
+    2026-11-01%2000%3A00%3A00
+    """
+
     date_text = date_value.strftime(
         "%Y-%m-%d"
     )
@@ -157,12 +162,12 @@ def encode_portal_datetime(
     if end_of_day:
         return (
             f"{date_text}"
-            "%2B23%3A59%3A59"
+            "%2023%3A59%3A59"
         )
 
     return (
         f"{date_text}"
-        "%2B00%3A00%3A00"
+        "%2000%3A00%3A00"
     )
 
 
@@ -172,49 +177,47 @@ def build_window_url(
     page_number=1,
 ):
     """
-    Ejemplo de estructura usada actualmente por ARCE:
+    Construye la URL siguiendo la estructura
+    observada en la nueva interfaz ARCE.
 
     /consultas/buscar/
-    reset/1/
+    page/1/
     tipo-pub/VIG/
     tipo-fecha/MOD/
     orden/ORD_MOD/
     tipo-orden/DESC/
     rango-fecha/<inicio>_<fin>/
-    page/1
+    reset/1
     """
 
-    start_encoded = (
-        encode_portal_datetime(
-            start_date,
-            False,
-        )
+    start_encoded = encode_portal_datetime(
+        start_date,
+        False,
     )
 
-    end_encoded = (
-        encode_portal_datetime(
-            end_date,
-            True,
-        )
+    end_encoded = encode_portal_datetime(
+        end_date,
+        True,
     )
 
     return (
         f"{BASE_URL}/consultas/buscar/"
-        "reset/1/"
+        f"page/{page_number}/"
         "tipo-pub/VIG/"
         "tipo-fecha/MOD/"
         "orden/ORD_MOD/"
         "tipo-orden/DESC/"
-        f"rango-fecha/"
+        "rango-fecha/"
         f"{start_encoded}_"
         f"{end_encoded}/"
-        f"page/{page_number}"
+        "reset/1"
     )
 
 
 def generate_windows(
     start_date,
     end_date,
+    window_days=WINDOW_DAYS,
 ):
     current = start_date
 
@@ -223,7 +226,7 @@ def generate_windows(
         window_end = min(
             current
             + timedelta(
-                days=WINDOW_DAYS - 1
+                days=window_days - 1
             ),
             end_date,
         )
@@ -322,6 +325,10 @@ async def goto_with_retry(
 
 
 async def wait_for_search_content(page):
+    """
+    Espera que aparezca el resultado del buscador.
+    """
+
     await page.wait_for_function(
         """
         () => {
@@ -349,6 +356,11 @@ async def wait_for_search_content(page):
 
 
 async def wait_for_results_stable(page):
+    """
+    Espera que la cantidad de links de detalle
+    deje de cambiar.
+    """
+
     selector = (
         "a[href*='/consultas/detalle/'], "
         "a[href*='mostrar-llamado']"
@@ -357,18 +369,19 @@ async def wait_for_results_stable(page):
     last_count = -1
     stable_rounds = 0
 
-    for _ in range(15):
+    for _ in range(20):
 
         count = await page.locator(
             selector
         ).count()
 
         if (
-            count == last_count
-            and
             count > 0
+            and
+            count == last_count
         ):
             stable_rounds += 1
+
         else:
             stable_rounds = 0
 
@@ -388,7 +401,7 @@ async def wait_for_results_stable(page):
 
 
 # ============================================================
-# CONTADOR DEL PORTAL
+# CONTADOR
 # ============================================================
 
 async def get_result_count(page):
@@ -484,6 +497,7 @@ async def collect_detail_links_from_page(
                 title = ""
 
         if not title:
+
             title = (
                 f"Llamado {detail_id}"
             )
@@ -503,7 +517,7 @@ async def collect_detail_links_from_page(
 
 
 # ============================================================
-# HEALTH CHECK + TOTAL GENERAL
+# TOTAL GENERAL
 # ============================================================
 
 async def get_general_portal_total(page):
@@ -533,6 +547,7 @@ async def get_general_portal_total(page):
     )
 
     if total <= 0:
+
         raise RuntimeError(
             "El portal general informa "
             "cero llamados vigentes."
@@ -547,60 +562,15 @@ async def get_general_portal_total(page):
 
 
 # ============================================================
-# EXTRAER UNA VENTANA
+# EXTRAER UNA VENTANA SIMPLE
 # ============================================================
 
-async def extract_window(
+async def extract_window_simple(
     page,
     start_date,
     end_date,
+    expected_total,
 ):
-    first_url = build_window_url(
-        start_date,
-        end_date,
-        1,
-    )
-
-    log("")
-    log(
-        "------------------------------------"
-    )
-
-    log(
-        "Ventana:",
-        start_date.strftime(
-            "%Y-%m-%d"
-        ),
-        "a",
-        end_date.strftime(
-            "%Y-%m-%d"
-        ),
-    )
-
-    await goto_with_retry(
-        page,
-        first_url,
-        "ventana-inicial",
-    )
-
-    await wait_for_search_content(
-        page
-    )
-
-    window_total = (
-        await get_result_count(
-            page
-        )
-    )
-
-    log(
-        "Resultados informados:",
-        window_total,
-    )
-
-    if window_total == 0:
-        return {}
-
     window_links = {}
 
     previous_ids = None
@@ -631,6 +601,7 @@ async def extract_window(
             (
                 f"ventana-"
                 f"{start_date:%Y%m%d}-"
+                f"{end_date:%Y%m%d}-"
                 f"pagina-{page_number}"
             ),
         )
@@ -658,8 +629,8 @@ async def extract_window(
             raise RuntimeError(
                 "La pagina no contiene "
                 "IDs interpretables pese "
-                "a que el contador de "
-                "la ventana es mayor que cero."
+                "a que el contador de la "
+                "ventana es mayor que cero."
             )
 
         if (
@@ -695,13 +666,22 @@ async def extract_window(
             f"  pagina {page_number}: "
             f"{len(current_ids)} IDs | "
             f"acumulados ventana "
-            f"{after}/{window_total}"
+            f"{after}/{expected_total}"
         )
 
-        if after >= window_total:
+        if after == expected_total:
             break
 
+        if after > expected_total:
+
+            raise RuntimeError(
+                "La pagina recupero mas IDs "
+                "que el contador de la ventana: "
+                f"{after} > {expected_total}"
+            )
+
         if nuevos == 0:
+
             raise RuntimeError(
                 "La pagina no agrego "
                 "resultados nuevos."
@@ -717,23 +697,227 @@ async def extract_window(
             PAGE_PAUSE_SECONDS
         )
 
+    return window_links
+
+
+# ============================================================
+# EXTRAER VENTANA CON SUBDIVISION AUTOMATICA
+# ============================================================
+
+async def extract_window(
+    page,
+    start_date,
+    end_date,
+    general_total,
+):
+    """
+    Consulta una ventana.
+
+    Si devuelve demasiados resultados,
+    divide automáticamente el rango en dos.
+    """
+
+    first_url = build_window_url(
+        start_date,
+        end_date,
+        1,
+    )
+
+    log("")
+    log(
+        "------------------------------------"
+    )
+
+    log(
+        "Ventana:",
+        start_date.strftime(
+            "%Y-%m-%d"
+        ),
+        "a",
+        end_date.strftime(
+            "%Y-%m-%d"
+        ),
+    )
+
+    log(
+        "URL:",
+        first_url,
+    )
+
+    await goto_with_retry(
+        page,
+        first_url,
+        "ventana-inicial",
+    )
+
+    await wait_for_search_content(
+        page
+    )
+
+    window_total = (
+        await get_result_count(
+            page
+        )
+    )
+
+    log(
+        "Resultados informados:",
+        window_total,
+    )
+
+    # --------------------------------------------------------
+    # CERO RESULTADOS
+    # --------------------------------------------------------
+
+    if window_total == 0:
+        return {}
+
+    # --------------------------------------------------------
+    # DETECCION DE FILTRO IGNORADO
+    # --------------------------------------------------------
+
+    number_of_days = (
+        end_date.date()
+        - start_date.date()
+    ).days + 1
+
     if (
-        len(window_links)
+        number_of_days == 1
+        and
+        window_total >= general_total
+    ):
+
+        raise RuntimeError(
+            "ARCE parece estar ignorando "
+            "el filtro de fecha: "
+            "una ventana de 1 dia devuelve "
+            f"{window_total} resultados "
+            f"y el total general es "
+            f"{general_total}."
+        )
+
+    # --------------------------------------------------------
+    # SUBDIVIDIR VENTANA GRANDE
+    # --------------------------------------------------------
+
+    if (
+        window_total
+        > MAX_RESULTS_PER_WINDOW
+    ):
+
+        if start_date.date() == end_date.date():
+
+            raise RuntimeError(
+                "Una ventana de un solo dia "
+                "supera MAX_RESULTS_PER_WINDOW: "
+                f"{window_total}"
+            )
+
+        days = (
+            end_date.date()
+            - start_date.date()
+        ).days
+
+        midpoint = (
+            start_date
+            + timedelta(
+                days=days // 2
+            )
+        )
+
+        left_end = midpoint
+
+        right_start = (
+            midpoint
+            + timedelta(days=1)
+        )
+
+        log(
+            "Ventana demasiado grande.",
+            window_total,
+            "resultados.",
+        )
+
+        log(
+            "Subdividiendo en:"
+        )
+
+        log(
+            "  A:",
+            start_date.strftime(
+                "%Y-%m-%d"
+            ),
+            "a",
+            left_end.strftime(
+                "%Y-%m-%d"
+            ),
+        )
+
+        log(
+            "  B:",
+            right_start.strftime(
+                "%Y-%m-%d"
+            ),
+            "a",
+            end_date.strftime(
+                "%Y-%m-%d"
+            ),
+        )
+
+        left_links = await extract_window(
+            page,
+            start_date,
+            left_end,
+            general_total,
+        )
+
+        right_links = await extract_window(
+            page,
+            right_start,
+            end_date,
+            general_total,
+        )
+
+        merged = {}
+
+        merged.update(
+            left_links
+        )
+
+        merged.update(
+            right_links
+        )
+
+        return merged
+
+    # --------------------------------------------------------
+    # VENTANA NORMAL
+    # --------------------------------------------------------
+
+    links = await extract_window_simple(
+        page,
+        start_date,
+        end_date,
+        window_total,
+    )
+
+    if (
+        len(links)
         != window_total
     ):
 
         raise RuntimeError(
             "La ventana no coincide "
-            "con su propio contador: "
-            f"{len(window_links)} "
+            "con su contador: "
+            f"{len(links)} "
             f"!= {window_total}"
         )
 
-    return window_links
+    return links
 
 
 # ============================================================
-# EXTRAER TODAS LAS VENTANAS
+# EXTRAER UNIVERSO COMPLETO
 # ============================================================
 
 async def collect_all_vig_links(
@@ -753,153 +937,84 @@ async def collect_all_vig_links(
     all_links = {}
 
     windows_processed = 0
-    blocks_processed = []
+
+    log("")
+    log(
+        "===================================="
+    )
+    log(
+        "EXTRACCION POR VENTANAS"
+    )
+    log(
+        "===================================="
+    )
 
     for (
-        block_start,
-        block_end,
-    ) in HISTORY_BLOCKS:
+        window_start,
+        window_end,
+    ) in generate_windows(
+        HISTORY_START,
+        today,
+        WINDOW_DAYS,
+    ):
 
-        effective_end = (
-            today
-            if block_end is None
-            else min(
-                block_end,
-                today,
-            )
-        )
-
-        if block_start > today:
-            continue
-
-        log("")
-        log(
-            "===================================="
-        )
-        log(
-            "BLOQUE HISTORICO:",
-            block_start.strftime(
-                "%Y-%m-%d"
-            ),
-            "a",
-            effective_end.strftime(
-                "%Y-%m-%d"
-            ),
-        )
-        log(
-            "===================================="
-        )
-
-        block_windows = 0
-
-        for (
+        links = await extract_window(
+            page,
             window_start,
             window_end,
-        ) in generate_windows(
-            block_start,
-            effective_end,
-        ):
-
-            links = await extract_window(
-                page,
-                window_start,
-                window_end,
-            )
-
-            before = len(
-                all_links
-            )
-
-            all_links.update(
-                links
-            )
-
-            after = len(
-                all_links
-            )
-
-            windows_processed += 1
-            block_windows += 1
-
-            log(
-                "Global:",
-                after,
-                "/",
-                portal_total,
-                "| nuevos:",
-                after - before,
-            )
-
-            # Ya encontramos todo el universo
-            # que informa la consulta general.
-            if after == portal_total:
-
-                blocks_processed.append(
-                    {
-                        "start":
-                            block_start.strftime(
-                                "%Y-%m-%d"
-                            ),
-
-                        "end":
-                            effective_end.strftime(
-                                "%Y-%m-%d"
-                            ),
-
-                        "windows":
-                            block_windows,
-                    }
-                )
-
-                return (
-                    all_links,
-                    windows_processed,
-                    blocks_processed,
-                )
-
-            if after > portal_total:
-
-                raise RuntimeError(
-                    "La union de ventanas "
-                    "supera el total general "
-                    f"del portal: "
-                    f"{after} > {portal_total}"
-                )
-
-        blocks_processed.append(
-            {
-                "start":
-                    block_start.strftime(
-                        "%Y-%m-%d"
-                    ),
-
-                "end":
-                    effective_end.strftime(
-                        "%Y-%m-%d"
-                    ),
-
-                "windows":
-                    block_windows,
-            }
-        )
-
-        log("")
-        log(
-            "Fin del bloque. IDs globales:",
-            len(all_links),
-            "/",
             portal_total,
         )
+
+        before = len(
+            all_links
+        )
+
+        all_links.update(
+            links
+        )
+
+        after = len(
+            all_links
+        )
+
+        windows_processed += 1
+
+        log(
+            "Global:",
+            after,
+            "/",
+            portal_total,
+            "| nuevos:",
+            after - before,
+        )
+
+        if after == portal_total:
+
+            log(
+                "Total general alcanzado."
+            )
+
+            return (
+                all_links,
+                windows_processed,
+            )
+
+        if after > portal_total:
+
+            raise RuntimeError(
+                "La union de ventanas "
+                "supera el total general: "
+                f"{after} > {portal_total}"
+            )
 
     return (
         all_links,
         windows_processed,
-        blocks_processed,
     )
 
 
 # ============================================================
-# DETALLE DE CADA LLAMADO
+# DETALLE
 # ============================================================
 
 async def extract_detail(
@@ -1146,6 +1261,7 @@ async def extract_detail(
             )
 
     unique_attachments = []
+
     seen = set()
 
     for attachment in attachments:
@@ -1162,7 +1278,7 @@ async def extract_detail(
         )
 
     # --------------------------------------------------------
-    # SEMANTIC TEXT
+    # TEXTO SEMANTICO
     # --------------------------------------------------------
 
     semantic_parts = [
@@ -1173,14 +1289,16 @@ async def extract_detail(
     semantic_parts.extend(
         item["descripcion"]
         for item in items
-        if item.get("descripcion")
+        if item.get(
+            "descripcion"
+        )
     )
 
     semantic_text = clean_text(
         " | ".join(
-            x
-            for x in semantic_parts
-            if x
+            value
+            for value in semantic_parts
+            if value
         )
     )
 
@@ -1244,7 +1362,9 @@ async def extract_all_details(
         detail_links.values()
     )
 
-    total = len(seeds)
+    total = len(
+        seeds
+    )
 
     for index, seed in enumerate(
         seeds,
@@ -1330,7 +1450,6 @@ def write_temp_files(
     records,
     portal_total,
     windows_processed,
-    blocks_processed,
     failures,
     total_start,
     total_end,
@@ -1360,6 +1479,21 @@ def write_temp_files(
         == total_end
     )
 
+    content_quality_complete = (
+        len(records) > 0
+        and
+        all(
+            record.get(
+                "titulo"
+            )
+            and
+            record.get(
+                "url_oficial"
+            )
+            for record in records
+        )
+    )
+
     coverage_complete = (
         portal_total_stable
         and
@@ -1368,7 +1502,13 @@ def write_temp_files(
         detail_unique == total_end
         and
         file_integrity
+        and
+        content_quality_complete
     )
+
+    # --------------------------------------------------------
+    # JSON
+    # --------------------------------------------------------
 
     payload = {
         "generated_at":
@@ -1398,6 +1538,10 @@ def write_temp_files(
         ),
         encoding="utf-8",
     )
+
+    # --------------------------------------------------------
+    # CSV
+    # --------------------------------------------------------
 
     columns = [
         "id",
@@ -1435,16 +1579,18 @@ def write_temp_files(
                 ensure_ascii=False,
             )
 
-            row["adjuntos"] = (
-                json.dumps(
-                    row["adjuntos"],
-                    ensure_ascii=False,
-                )
+            row["adjuntos"] = json.dumps(
+                row["adjuntos"],
+                ensure_ascii=False,
             )
 
             writer.writerow(
                 row
             )
+
+    # --------------------------------------------------------
+    # METADATA
+    # --------------------------------------------------------
 
     metadata = {
         "extraction_timestamp":
@@ -1457,9 +1603,7 @@ def write_temp_files(
             f"{BASE_URL}/consultas/",
 
         "extraction_method":
-            (
-                "PLAYWRIGHT_DATE_WINDOWS"
-            ),
+            "PLAYWRIGHT_DATE_WINDOWS",
 
         "publication_type":
             "VIG",
@@ -1470,11 +1614,13 @@ def write_temp_files(
         "window_days":
             WINDOW_DAYS,
 
+        "history_start":
+            HISTORY_START.strftime(
+                "%Y-%m-%d"
+            ),
+
         "windows_processed":
             windows_processed,
-
-        "history_blocks":
-            blocks_processed,
 
         "portal_total_start":
             total_start,
@@ -1516,20 +1662,7 @@ def write_temp_files(
             ),
 
         "content_quality_complete":
-            (
-                len(records)
-                > 0
-                and
-                all(
-                    record.get("titulo")
-                    and
-                    record.get(
-                        "url_oficial"
-                    )
-                    for record
-                    in records
-                )
-            ),
+            content_quality_complete,
 
         "coverage_complete":
             coverage_complete,
@@ -1550,13 +1683,13 @@ def write_temp_files(
         "note":
             (
                 "Los llamados vigentes se "
-                "recuperan por ventanas de "
-                "fecha para evitar limites "
-                "de paginacion del portal. "
-                "Los IDs se deduplican y la "
-                "union final se reconcilia "
+                "recuperan mediante ventanas "
+                "de fecha de modificacion. "
+                "Las ventanas grandes se "
+                "subdividen automaticamente. "
+                "La union de IDs se reconcilia "
                 "contra el contador general "
-                "de llamados vigentes."
+                "del portal antes de publicar."
             ),
     }
 
@@ -1571,6 +1704,10 @@ def write_temp_files(
 
     return metadata
 
+
+# ============================================================
+# PUBLICACION
+# ============================================================
 
 def publish_snapshot():
 
@@ -1638,11 +1775,13 @@ async def main():
                 )
             )
 
-            page = await context.new_page()
+            page = (
+                await context.new_page()
+            )
 
-            # -----------------------------------------------
-            # TOTAL ANTES DE EMPEZAR
-            # -----------------------------------------------
+            # ------------------------------------------------
+            # TOTAL GENERAL INICIAL
+            # ------------------------------------------------
 
             total_start = (
                 await get_general_portal_total(
@@ -1650,14 +1789,13 @@ async def main():
                 )
             )
 
-            # -----------------------------------------------
-            # EXTRAER POR VENTANAS
-            # -----------------------------------------------
+            # ------------------------------------------------
+            # EXTRAER TODOS LOS IDS
+            # ------------------------------------------------
 
             (
                 detail_links,
                 windows_processed,
-                blocks_processed,
             ) = await collect_all_vig_links(
                 page,
                 total_start,
@@ -1681,7 +1819,9 @@ async def main():
 
             log(
                 "IDs recuperados:",
-                len(detail_links),
+                len(
+                    detail_links
+                ),
             )
 
             if (
@@ -1696,9 +1836,9 @@ async def main():
                     f"!= {total_start}"
                 )
 
-            # -----------------------------------------------
-            # DETALLES
-            # -----------------------------------------------
+            # ------------------------------------------------
+            # EXTRAER DETALLES
+            # ------------------------------------------------
 
             (
                 records,
@@ -1708,9 +1848,9 @@ async def main():
                 detail_links,
             )
 
-            # -----------------------------------------------
-            # TOTAL AL FINAL
-            # -----------------------------------------------
+            # ------------------------------------------------
+            # TOTAL GENERAL FINAL
+            # ------------------------------------------------
 
             total_end = (
                 await get_general_portal_total(
@@ -1729,28 +1869,31 @@ async def main():
                 total_end,
             )
 
-            if total_start != total_end:
+            if (
+                total_start
+                != total_end
+            ):
 
                 raise RuntimeError(
                     "El total de vigentes cambio "
                     "durante la extraccion. "
                     "Se aborta para evitar "
-                    "publicar un snapshot "
-                    "inconsistente."
+                    "un snapshot inconsistente."
                 )
 
-            # -----------------------------------------------
-            # ARCHIVOS TEMPORALES
-            # -----------------------------------------------
+            # ------------------------------------------------
+            # GENERAR ARCHIVOS
+            # ------------------------------------------------
 
-            metadata = write_temp_files(
-                records,
-                total_end,
-                windows_processed,
-                blocks_processed,
-                failures,
-                total_start,
-                total_end,
+            metadata = (
+                write_temp_files(
+                    records,
+                    total_end,
+                    windows_processed,
+                    failures,
+                    total_start,
+                    total_end,
+                )
             )
 
             log("")
@@ -1808,9 +1951,9 @@ async def main():
                     "no fue satisfactoria."
                 )
 
-            # -----------------------------------------------
+            # ------------------------------------------------
             # PUBLICAR
-            # -----------------------------------------------
+            # ------------------------------------------------
 
             publish_snapshot()
 
@@ -1860,9 +2003,11 @@ async def main():
         if browser is not None:
 
             try:
+
                 await browser.close()
 
             except Exception:
+
                 pass
 
         sys.exit(1)
