@@ -45,8 +45,17 @@ MAX_PAGES_PER_WINDOW = 100
 
 HISTORY_START = datetime(2010, 1, 1)
 
-# Si el contador cambia durante la corrida,
-# esperamos brevemente y lo confirmamos.
+# ============================================================
+# CATCH-UP
+# ============================================================
+
+# Si durante la corrida aparecen llamados nuevos,
+# volvemos a revisar el período reciente.
+CATCHUP_DAYS = 45
+
+# Cantidad máxima de rondas de catch-up.
+MAX_CATCHUP_ROUNDS = 3
+
 RECONCILIATION_WAIT_SECONDS = 3
 
 
@@ -59,7 +68,11 @@ def log(*args):
 
 
 def log_error(*args):
-    print(*args, file=sys.stderr, flush=True)
+    print(
+        *args,
+        file=sys.stderr,
+        flush=True,
+    )
 
 
 # ============================================================
@@ -86,7 +99,7 @@ def absolute_url(href):
 
 def extract_detail_id(url):
     """
-    Acepta IDs numericos y alfanumericos.
+    ARCE puede utilizar IDs numéricos y alfanuméricos.
 
     Ejemplos:
     1302291
@@ -141,8 +154,10 @@ def encode_portal_datetime(
     end_of_day=False,
 ):
     """
-    La interfaz usa espacio entre fecha y hora,
-    codificado como %20.
+    La nueva interfaz utiliza espacio entre fecha y hora.
+
+    Ejemplo:
+    2026-11-04%2000%3A00%3A00
     """
 
     date_text = date_value.strftime(
@@ -288,10 +303,7 @@ async def goto_with_retry(
                 f"fallo: {exc}"
             )
 
-            if (
-                attempt
-                < MAX_HTTP_ATTEMPTS
-            ):
+            if attempt < MAX_HTTP_ATTEMPTS:
 
                 await asyncio.sleep(
                     3 * attempt
@@ -374,7 +386,7 @@ async def wait_for_results_stable(page):
 
 
 # ============================================================
-# CONTADOR
+# CONTADORES
 # ============================================================
 
 async def get_result_count(page):
@@ -414,6 +426,77 @@ async def get_result_count(page):
     )
 
 
+async def get_general_portal_total(page):
+
+    await goto_with_retry(
+        page,
+        GENERAL_VIG_URL,
+        "total-general",
+    )
+
+    await wait_for_search_content(
+        page
+    )
+
+    total = await get_result_count(
+        page
+    )
+
+    if total <= 0:
+
+        raise RuntimeError(
+            "El portal general informa "
+            "cero llamados vigentes."
+        )
+
+    return total
+
+
+async def refresh_general_total(
+    page,
+    previous_total,
+):
+
+    log("")
+    log(
+        "Revalidando contador general ARCE..."
+    )
+
+    current = (
+        await get_general_portal_total(
+            page
+        )
+    )
+
+    log(
+        "Contador anterior:",
+        previous_total,
+        "| contador actual:",
+        current,
+    )
+
+    if current != previous_total:
+
+        await asyncio.sleep(
+            RECONCILIATION_WAIT_SECONDS
+        )
+
+        confirmation = (
+            await get_general_portal_total(
+                page
+            )
+        )
+
+        log(
+            "Confirmacion contador:",
+            confirmation,
+        )
+
+        return confirmation
+
+    return current
+
+
 # ============================================================
 # LINKS DE DETALLE
 # ============================================================
@@ -421,6 +504,7 @@ async def get_result_count(page):
 async def collect_detail_links_from_page(
     page,
 ):
+
     links = {}
 
     locator = page.locator(
@@ -434,8 +518,10 @@ async def collect_detail_links_from_page(
 
         element = locator.nth(i)
 
-        href = await element.get_attribute(
-            "href"
+        href = (
+            await element.get_attribute(
+                "href"
+            )
         )
 
         if not href:
@@ -488,79 +574,6 @@ async def collect_detail_links_from_page(
         }
 
     return links
-
-
-# ============================================================
-# TOTAL GENERAL
-# ============================================================
-
-async def get_general_portal_total(page):
-
-    await goto_with_retry(
-        page,
-        GENERAL_VIG_URL,
-        "total-general",
-    )
-
-    await wait_for_search_content(
-        page
-    )
-
-    total = await get_result_count(
-        page
-    )
-
-    if total <= 0:
-
-        raise RuntimeError(
-            "El portal general informa "
-            "cero llamados vigentes."
-        )
-
-    return total
-
-
-async def refresh_general_total(
-    page,
-    previous_total,
-):
-
-    log("")
-    log(
-        "Revalidando contador general ARCE..."
-    )
-
-    total = await get_general_portal_total(
-        page
-    )
-
-    log(
-        "Contador anterior:",
-        previous_total,
-        "| contador actual:",
-        total,
-    )
-
-    if total != previous_total:
-
-        await asyncio.sleep(
-            RECONCILIATION_WAIT_SECONDS
-        )
-
-        confirmation = (
-            await get_general_portal_total(
-                page
-            )
-        )
-
-        log(
-            "Confirmacion contador:",
-            confirmation,
-        )
-
-        return confirmation
-
-    return total
 
 
 # ============================================================
@@ -763,7 +776,7 @@ async def extract_window(
     ).days + 1
 
     # --------------------------------------------------------
-    # FILTRO DE FECHA APARENTEMENTE IGNORADO
+    # DETECTAR FILTRO IGNORADO
     # --------------------------------------------------------
 
     if (
@@ -782,7 +795,7 @@ async def extract_window(
         )
 
     # --------------------------------------------------------
-    # SUBDIVISION
+    # SUBDIVIDIR
     # --------------------------------------------------------
 
     if (
@@ -826,7 +839,7 @@ async def extract_window(
         )
 
         log(
-            "Subdividiendo en:"
+            "Subdividiendo:"
         )
 
         log(
@@ -851,18 +864,22 @@ async def extract_window(
             ),
         )
 
-        left_links = await extract_window(
-            page,
-            start_date,
-            left_end,
-            general_total,
+        left_links = (
+            await extract_window(
+                page,
+                start_date,
+                left_end,
+                general_total,
+            )
         )
 
-        right_links = await extract_window(
-            page,
-            right_start,
-            end_date,
-            general_total,
+        right_links = (
+            await extract_window(
+                page,
+                right_start,
+                end_date,
+                general_total,
+            )
         )
 
         merged = {}
@@ -877,15 +894,13 @@ async def extract_window(
 
         return merged
 
-    # --------------------------------------------------------
-    # VENTANA NORMAL
-    # --------------------------------------------------------
-
-    links = await extract_window_simple(
-        page,
-        start_date,
-        end_date,
-        window_total,
+    links = (
+        await extract_window_simple(
+            page,
+            start_date,
+            end_date,
+            window_total,
+        )
     )
 
     if (
@@ -904,7 +919,106 @@ async def extract_window(
 
 
 # ============================================================
-# EXTRAER UNIVERSO COMPLETO
+# CATCH-UP RECIENTE
+# ============================================================
+
+async def run_recent_catchup(
+    page,
+    all_links,
+    portal_total,
+):
+
+    today_date = (
+        datetime.now().date()
+    )
+
+    today = datetime(
+        today_date.year,
+        today_date.month,
+        today_date.day,
+    )
+
+    catchup_start = (
+        today
+        - timedelta(
+            days=CATCHUP_DAYS - 1
+        )
+    )
+
+    log("")
+    log(
+        "===================================="
+    )
+    log(
+        "CATCH-UP DE LLAMADOS RECIENTES"
+    )
+    log(
+        "===================================="
+    )
+
+    log(
+        "Periodo:",
+        catchup_start.strftime(
+            "%Y-%m-%d"
+        ),
+        "a",
+        today.strftime(
+            "%Y-%m-%d"
+        ),
+    )
+
+    added_total = 0
+
+    for (
+        window_start,
+        window_end,
+    ) in generate_windows(
+        catchup_start,
+        today,
+        WINDOW_DAYS,
+    ):
+
+        links = (
+            await extract_window(
+                page,
+                window_start,
+                window_end,
+                portal_total,
+            )
+        )
+
+        before = len(
+            all_links
+        )
+
+        all_links.update(
+            links
+        )
+
+        after = len(
+            all_links
+        )
+
+        added = (
+            after - before
+        )
+
+        added_total += added
+
+        log(
+            "Catch-up global:",
+            after,
+            "/",
+            portal_total,
+            "| nuevos:",
+            added,
+        )
+
+    return added_total
+
+
+# ============================================================
+# UNIVERSO COMPLETO
 # ============================================================
 
 async def collect_all_vig_links(
@@ -935,11 +1049,15 @@ async def collect_all_vig_links(
         "===================================="
     )
     log(
-        "EXTRACCION POR VENTANAS"
+        "EXTRACCION HISTORICA POR VENTANAS"
     )
     log(
         "===================================="
     )
+
+    # --------------------------------------------------------
+    # PRIMERA PASADA COMPLETA
+    # --------------------------------------------------------
 
     for (
         window_start,
@@ -950,11 +1068,13 @@ async def collect_all_vig_links(
         WINDOW_DAYS,
     ):
 
-        links = await extract_window(
-            page,
-            window_start,
-            window_end,
-            current_target,
+        links = (
+            await extract_window(
+                page,
+                window_start,
+                window_end,
+                current_target,
+            )
         )
 
         before = len(
@@ -980,87 +1100,157 @@ async def collect_all_vig_links(
             after - before,
         )
 
-        # ----------------------------------------------------
-        # SI ALCANZAMOS O SUPERAMOS EL OBJETIVO,
-        # REVALIDAMOS EL TOTAL ACTUAL
-        # ----------------------------------------------------
-
-        if after >= current_target:
-
-            refreshed_total = (
-                await refresh_general_total(
-                    page,
-                    current_target,
-                )
-            )
-
-            current_target = (
-                refreshed_total
-            )
-
-            log(
-                "Nuevo objetivo vigente:",
-                current_target,
-            )
-
-            # Coincidencia exacta.
-            if after == current_target:
-
-                log(
-                    "Universo reconciliado "
-                    "contra el contador actual."
-                )
-
-                return (
-                    all_links,
-                    windows_processed,
-                    current_target,
-                )
-
-            # Si el portal creció durante la corrida,
-            # seguimos con las ventanas restantes.
-            if after < current_target:
-
-                log(
-                    "El portal incorporo nuevos "
-                    "llamados durante la corrida. "
-                    "Continuando extraccion..."
-                )
-
-                continue
-
-            # Si tenemos mas IDs que el contador actual,
-            # NO abortamos todavía. Puede haberse cerrado
-            # un llamado entre consultas.
-            if after > current_target:
-
-                log(
-                    "AVISO: se recuperaron",
-                    after,
-                    "IDs pero el portal informa",
-                    current_target,
-                )
-
-                log(
-                    "Se continuara hasta el final "
-                    "y se reconciliara nuevamente."
-                )
-
     # --------------------------------------------------------
-    # FINAL DE TODAS LAS VENTANAS
+    # RECONCILIAR DESPUES DE PASADA COMPLETA
     # --------------------------------------------------------
 
-    final_target = (
+    current_target = (
         await refresh_general_total(
             page,
             current_target,
         )
     )
 
+    log("")
+    log(
+        "Despues de pasada historica:"
+    )
+
+    log(
+        "IDs:",
+        len(all_links),
+        "| portal:",
+        current_target,
+    )
+
+    # --------------------------------------------------------
+    # CATCH-UP
+    # --------------------------------------------------------
+
+    for round_number in range(
+        1,
+        MAX_CATCHUP_ROUNDS + 1,
+    ):
+
+        if (
+            len(all_links)
+            == current_target
+        ):
+
+            log(
+                "Universo reconciliado."
+            )
+
+            return (
+                all_links,
+                windows_processed,
+                current_target,
+                round_number - 1,
+            )
+
+        if (
+            len(all_links)
+            > current_target
+        ):
+
+            log(
+                "AVISO: hay mas IDs acumulados "
+                "que el contador actual."
+            )
+
+            log(
+                "IDs:",
+                len(all_links),
+                "| portal:",
+                current_target,
+            )
+
+            break
+
+        missing = (
+            current_target
+            - len(all_links)
+        )
+
+        log("")
+        log(
+            "===================================="
+        )
+
+        log(
+            f"CATCH-UP RONDA "
+            f"{round_number}/"
+            f"{MAX_CATCHUP_ROUNDS}"
+        )
+
+        log(
+            "Faltantes antes de catch-up:",
+            missing,
+        )
+
+        log(
+            "===================================="
+        )
+
+        added = (
+            await run_recent_catchup(
+                page,
+                all_links,
+                current_target,
+            )
+        )
+
+        log(
+            "Nuevos IDs encontrados:",
+            added,
+        )
+
+        # Revalidamos porque durante el catch-up
+        # puede haber cambiado nuevamente el portal.
+        current_target = (
+            await refresh_general_total(
+                page,
+                current_target,
+            )
+        )
+
+        log(
+            "Despues del catch-up:",
+            len(all_links),
+            "/",
+            current_target,
+        )
+
+        if (
+            len(all_links)
+            == current_target
+        ):
+
+            log(
+                "Universo reconciliado "
+                "despues de catch-up."
+            )
+
+            return (
+                all_links,
+                windows_processed,
+                current_target,
+                round_number,
+            )
+
+        await asyncio.sleep(
+            RECONCILIATION_WAIT_SECONDS
+        )
+
+    # --------------------------------------------------------
+    # FIN DE CATCH-UP
+    # --------------------------------------------------------
+
     return (
         all_links,
         windows_processed,
-        final_target,
+        current_target,
+        MAX_CATCHUP_ROUNDS,
     )
 
 
@@ -1118,8 +1308,10 @@ async def extract_detail(
         "h3",
     ):
 
-        locator = page.locator(
-            selector
+        locator = (
+            page.locator(
+                selector
+            )
         )
 
         if await locator.count():
@@ -1218,7 +1410,6 @@ async def extract_detail(
         if not line.lower().startswith(
             ("ítem", "item")
         ):
-
             continue
 
         match = item_pattern.search(
@@ -1265,12 +1456,14 @@ async def extract_detail(
         anchor_count
     ):
 
-        anchor = anchors.nth(
-            i
+        anchor = (
+            anchors.nth(i)
         )
 
-        href = await anchor.get_attribute(
-            "href"
+        href = (
+            await anchor.get_attribute(
+                "href"
+            )
         )
 
         if not href:
@@ -1284,7 +1477,9 @@ async def extract_detail(
             href
         )
 
-        lower_href = href.lower()
+        lower_href = (
+            href.lower()
+        )
 
         if (
             ".pdf" in lower_href
@@ -1315,11 +1510,15 @@ async def extract_detail(
             )
 
     unique_attachments = []
+
     seen = set()
 
     for attachment in attachments:
 
-        if attachment["url"] in seen:
+        if (
+            attachment["url"]
+            in seen
+        ):
             continue
 
         seen.add(
@@ -1407,7 +1606,9 @@ async def extract_all_details(
         "===================================="
     )
 
-    page = await context.new_page()
+    page = (
+        await context.new_page()
+    )
 
     records = []
     failures = []
@@ -1432,9 +1633,11 @@ async def extract_all_details(
 
         try:
 
-            record = await extract_detail(
-                page,
-                seed,
+            record = (
+                await extract_detail(
+                    page,
+                    seed,
+                )
             )
 
             records.append(
@@ -1505,6 +1708,7 @@ def write_temp_files(
     portal_total_start,
     portal_total_final,
     windows_processed,
+    catchup_rounds,
     failures,
 ):
 
@@ -1655,7 +1859,10 @@ def write_temp_files(
             f"{BASE_URL}/consultas/",
 
         "extraction_method":
-            "PLAYWRIGHT_DATE_WINDOWS_DYNAMIC_TOTAL",
+            (
+                "PLAYWRIGHT_DATE_WINDOWS"
+                "_PLUS_RECENT_CATCHUP"
+            ),
 
         "publication_type":
             "VIG",
@@ -1665,6 +1872,12 @@ def write_temp_files(
 
         "window_days":
             WINDOW_DAYS,
+
+        "catchup_days":
+            CATCHUP_DAYS,
+
+        "catchup_rounds":
+            catchup_rounds,
 
         "history_start":
             HISTORY_START.strftime(
@@ -1721,7 +1934,9 @@ def write_temp_files(
 
         "coverage_basis":
             (
-                "PORTAL_DYNAMIC_TOTAL_PLUS_DATE_WINDOWS"
+                "PORTAL_DYNAMIC_TOTAL"
+                "_PLUS_DATE_WINDOWS"
+                "_PLUS_RECENT_CATCHUP"
                 "_PLUS_DETAIL_VALIDATION"
             ),
 
@@ -1734,14 +1949,15 @@ def write_temp_files(
 
         "note":
             (
-                "El universo de llamados vigentes "
-                "se extrae mediante ventanas de "
-                "fecha. El contador general se "
-                "revalida durante la corrida si "
-                "la cantidad de IDs alcanza o "
-                "supera el objetivo inicial, para "
-                "tolerar altas o bajas publicadas "
-                "mientras la extraccion esta en curso."
+                "Los llamados vigentes se recuperan "
+                "mediante ventanas historicas y una "
+                "fase final de catch-up sobre los "
+                "ultimos dias. El catch-up permite "
+                "incorporar llamados publicados o "
+                "modificados mientras la extraccion "
+                "esta en curso. La publicacion solo "
+                "se realiza si el total final "
+                "reconcilia con el portal."
             ),
     }
 
@@ -1858,13 +2074,14 @@ async def main():
             )
 
             # ------------------------------------------------
-            # EXTRAER IDS
+            # IDS + CATCH-UP
             # ------------------------------------------------
 
             (
                 detail_links,
                 windows_processed,
                 target_after_windows,
+                catchup_rounds,
             ) = await collect_all_vig_links(
                 page,
                 total_start,
@@ -1894,7 +2111,7 @@ async def main():
             )
 
             # ------------------------------------------------
-            # REVALIDACION INMEDIATA
+            # REVALIDAR ANTES DE DETALLES
             # ------------------------------------------------
 
             total_before_details = (
@@ -1915,9 +2132,10 @@ async def main():
             ):
 
                 raise RuntimeError(
-                    "La union de ventanas no coincide "
-                    "con el contador vigente antes "
-                    "de descargar detalles: "
+                    "La union de ventanas + catch-up "
+                    "no coincide con el contador "
+                    "vigente antes de descargar "
+                    "detalles: "
                     f"{len(detail_links)} "
                     f"!= {total_before_details}"
                 )
@@ -1961,8 +2179,6 @@ async def main():
                 total_final,
             )
 
-            # Si cambió mientras descargábamos cientos
-            # de detalles, no podemos certificar el snapshot.
             if (
                 total_final
                 != total_before_details
@@ -1986,6 +2202,7 @@ async def main():
                     total_start,
                     total_final,
                     windows_processed,
+                    catchup_rounds,
                     failures,
                 )
             )
@@ -2026,6 +2243,13 @@ async def main():
                 "Fallos detalle:",
                 metadata[
                     "detail_failures"
+                ],
+            )
+
+            log(
+                "Catch-up rounds:",
+                metadata[
+                    "catchup_rounds"
                 ],
             )
 
@@ -2099,9 +2323,11 @@ async def main():
         if browser is not None:
 
             try:
+
                 await browser.close()
 
             except Exception:
+
                 pass
 
         sys.exit(1)
