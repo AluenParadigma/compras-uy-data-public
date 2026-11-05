@@ -13,7 +13,7 @@ jobs:
   update:
     runs-on: ubuntu-24.04
 
-    timeout-minutes: 45
+    timeout-minutes: 90
 
     steps:
       - name: Checkout repository
@@ -33,9 +33,39 @@ jobs:
         run: |
           python -m playwright install --with-deps chromium
 
-      - name: Run extractor
+      - name: Run extractor with retries
+        shell: bash
         run: |
-          python extractor.py
+          set +e
+
+          MAX_ATTEMPTS=3
+          WAIT_SECONDS=600
+
+          for attempt in $(seq 1 $MAX_ATTEMPTS); do
+            echo "========================================"
+            echo "EJECUCION COMPLETA $attempt/$MAX_ATTEMPTS"
+            echo "========================================"
+
+            python extractor.py
+            EXIT_CODE=$?
+
+            if [ $EXIT_CODE -eq 0 ]; then
+              echo "Extractor completado correctamente."
+              exit 0
+            fi
+
+            if [ $attempt -lt $MAX_ATTEMPTS ]; then
+              echo ""
+              echo "El extractor fallo."
+              echo "Se conserva el ultimo snapshot valido."
+              echo "Esperando 10 minutos antes de reintentar..."
+              sleep $WAIT_SECONDS
+            fi
+          done
+
+          echo ""
+          echo "El extractor fallo en los $MAX_ATTEMPTS intentos."
+          exit 1
 
       - name: Commit updated data
         run: |
