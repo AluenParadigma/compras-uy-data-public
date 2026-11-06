@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-05T20:29:37.646573+00:00",
+  "generated_at": "2026-11-06T13:01:39.882057+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "source_url": "https://www.comprasestatales.gub.uy/consultas/",
   "publication_type": "Llamados vigentes",
-  "total_records": 964,
+  "total_records": 995,
   "data": [
     {
       "id": "i500874",
@@ -283,34 +283,6 @@
       ],
       "semantic_text": "Licitación Pública 41/2026 Administración Nacional de Educación Pública | Consejo de Educación Secundaria | SERVICIO DE EMERGENCIA MEDICA",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1379923"
-    },
-    {
-      "id": "1379476",
-      "titulo": "Licitación Abreviada 27700/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
-      "objeto": "",
-      "fecha_publicacion": "14/10/2026 15:05",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "10/11/2026 14:00",
-      "acto_apertura": "10/11/2026 14:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "SERVICIO DE RESPUESTA DE ALARMA",
-          "codigo_articulo": "14940"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1379476.doc"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 0",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379476_0.pdf"
-        }
-      ],
-      "semantic_text": "Licitación Abreviada 27700/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | SERVICIO DE RESPUESTA DE ALARMA",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1379476"
     },
     {
       "id": "i503576",
@@ -4340,28 +4312,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1315900"
     },
     {
-      "id": "i504311",
-      "titulo": "Compra Directa D199261/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:59",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504311.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504311_2.PDF"
-        }
-      ],
-      "semantic_text": "Compra Directa D199261/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504311"
-    },
-    {
       "id": "i504249",
       "titulo": "Compra Directa D199455/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "objeto": "",
@@ -4540,72 +4490,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504273"
     },
     {
-      "id": "i504293",
-      "titulo": "Compra Directa D199332/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 18:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504293.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504293_2.ODT"
-        }
-      ],
-      "semantic_text": "Compra Directa D199332/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504293"
-    },
-    {
-      "id": "i504260",
-      "titulo": "Compra Directa D198003/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 20:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504260.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504260_2.PDF"
-        }
-      ],
-      "semantic_text": "Compra Directa D198003/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504260"
-    },
-    {
-      "id": "i504278",
-      "titulo": "Compra Directa D199444/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 18:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504278.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504278_2.ZIP"
-        }
-      ],
-      "semantic_text": "Compra Directa D199444/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504278"
-    },
-    {
       "id": "i504272",
       "titulo": "Compra Directa D198539/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "objeto": "",
@@ -4706,24 +4590,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i503152"
     },
     {
-      "id": "i504316",
-      "titulo": "Compra Directa D198708/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:59",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504316.html"
-        }
-      ],
-      "semantic_text": "Compra Directa D198708/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504316"
-    },
-    {
       "id": "i504315",
       "titulo": "Compra Directa D198212/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "objeto": "",
@@ -4742,78 +4608,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504315"
     },
     {
-      "id": "i504307",
-      "titulo": "Compra Directa D199161/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:59",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504307.html"
-        }
-      ],
-      "semantic_text": "Compra Directa D199161/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504307"
-    },
-    {
-      "id": "i504294",
-      "titulo": "Compra Directa D199330/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 18:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504294.html"
-        }
-      ],
-      "semantic_text": "Compra Directa D199330/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504294"
-    },
-    {
-      "id": "i504270",
-      "titulo": "Compra Directa D199571/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 18:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504270.html"
-        }
-      ],
-      "semantic_text": "Compra Directa D199571/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504270"
-    },
-    {
-      "id": "i504265",
-      "titulo": "Compra Directa D196693/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:59",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504265.html"
-        }
-      ],
-      "semantic_text": "Compra Directa D196693/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504265"
-    },
-    {
       "id": "i504251",
       "titulo": "Compra Directa D197546/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "objeto": "",
@@ -4830,24 +4624,6 @@
       ],
       "semantic_text": "Compra Directa D197546/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504251"
-    },
-    {
-      "id": "i504238",
-      "titulo": "Compra Directa D198892/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:59",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504238.html"
-        }
-      ],
-      "semantic_text": "Compra Directa D198892/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504238"
     },
     {
       "id": "i504232",
@@ -6553,34 +6329,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1380108"
     },
     {
-      "id": "1381783",
-      "titulo": "Concurso de Precios 7790/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 23:35",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "06/11/2026 09:00",
-      "acto_apertura": "06/11/2026 09:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "MANTENIMIENTO DE RED DE AGUA (ABASTECIMIENTO)",
-          "codigo_articulo": "917"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1381783.doc"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 0",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381783_0.doc"
-        }
-      ],
-      "semantic_text": "Concurso de Precios 7790/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | MANTENIMIENTO DE RED DE AGUA (ABASTECIMIENTO)",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381783"
-    },
-    {
       "id": "1377948",
       "titulo": "Licitación Abreviada 618/2026 Banco de Previsión Social | Banco de Previsión Social",
       "objeto": "",
@@ -7721,36 +7469,6 @@
       ],
       "semantic_text": "Licitación Abreviada A197421/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i503695"
-    },
-    {
-      "id": "i504096",
-      "titulo": "Licitación Abreviada A195096/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "21/10/2026 21:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "10/11/2026 10:30",
-      "acto_apertura": "10/11/2026 10:30",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504096.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 4",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504096_4.PDF"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504096_2.RAR"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 3",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504096_3.pdf"
-        }
-      ],
-      "semantic_text": "Licitación Abreviada A195096/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504096"
     },
     {
       "id": "1380119",
@@ -10409,28 +10127,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504838"
     },
     {
-      "id": "i504271",
-      "titulo": "Compra Directa D1995341/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 00:00",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:59",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504271.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504271_2.ZIP"
-        }
-      ],
-      "semantic_text": "Compra Directa D1995341/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504271"
-    },
-    {
       "id": "1383197",
       "titulo": "Concurso de Precios 9945/2026 Banco de Previsión Social | Banco de Previsión Social",
       "objeto": "",
@@ -12488,54 +12184,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504876"
     },
     {
-      "id": "1370633",
-      "titulo": "Licitación Abreviada 7920/2026 Banco de la República del Uruguay | Banco de la República del Uruguay",
-      "objeto": "",
-      "fecha_publicacion": "09/09/2026 16:20",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "17/11/2026 16:00",
-      "acto_apertura": "17/11/2026 16:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "REFORMA DE EDIFICIO",
-          "codigo_articulo": "72644"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1370633.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 6",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_6.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 5",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_5.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 4",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_4.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 3",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_3.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_2.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 1",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_1.pdf"
-        }
-      ],
-      "semantic_text": "Licitación Abreviada 7920/2026 Banco de la República del Uruguay | Banco de la República del Uruguay | REFORMA DE EDIFICIO",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1370633"
-    },
-    {
       "id": "1382978",
       "titulo": "Licitación Pública 7/2026 Intendencia de Tacuarembó | Intendencia de Tacuarembó",
       "objeto": "",
@@ -14221,28 +13869,6 @@
       ],
       "semantic_text": "Compra Directa D198792/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504835"
-    },
-    {
-      "id": "i504844",
-      "titulo": "Compra Directa D199731/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "03/11/2026 15:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "06/11/2026 08:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504844.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504844_2.PDF"
-        }
-      ],
-      "semantic_text": "Compra Directa D199731/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504844"
     },
     {
       "id": "i504843",
@@ -19943,30 +19569,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382537"
     },
     {
-      "id": "1382547",
-      "titulo": "Licitación Abreviada 109436/2026 Administración Nacional de Telecomunicaciones | Administración Nacional de Telecomunicaciones",
-      "objeto": "",
-      "fecha_publicacion": "03/11/2026 12:06",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "24/11/2026 10:30",
-      "acto_apertura": "24/11/2026 10:30",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "SERVICIO DE AROMATIZACION DE AMBIENTES",
-          "codigo_articulo": "71898"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1382547.pdf"
-        }
-      ],
-      "semantic_text": "Licitación Abreviada 109436/2026 Administración Nacional de Telecomunicaciones | Administración Nacional de Telecomunicaciones | SERVICIO DE AROMATIZACION DE AMBIENTES",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382547"
-    },
-    {
       "id": "1374090",
       "titulo": "Licitación Abreviada 13/2026 Ministerio de Educación y Cultura | Dirección General de Secretaría",
       "objeto": "",
@@ -20604,34 +20206,6 @@
       ],
       "semantic_text": "Licitación Abreviada 152107/2026 Administración Nacional de Combustible, Alcohol y Portland | Administración Nacional de Combustible, Alcohol y Portland | INTERCAMBIADOR DE CALOR",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1380714"
-    },
-    {
-      "id": "1382192",
-      "titulo": "Licitación Abreviada 490/2026 Banco de Previsión Social | Banco de Previsión Social",
-      "objeto": "",
-      "fecha_publicacion": "03/11/2026 11:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "23/11/2026 14:00",
-      "acto_apertura": "23/11/2026 14:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "LIMPIEZA INTEGRAL DE LOCALES",
-          "codigo_articulo": "7022"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1382192.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 0",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382192_0.xls"
-        }
-      ],
-      "semantic_text": "Licitación Abreviada 490/2026 Banco de Previsión Social | Banco de Previsión Social | LIMPIEZA INTEGRAL DE LOCALES",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382192"
     },
     {
       "id": "1381326",
@@ -22886,76 +22460,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504765"
     },
     {
-      "id": "i504322",
-      "titulo": "Compra Directa D199585/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "30/10/2026 18:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504322.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 3",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504322_3.PDF"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504322_2.PDF"
-        }
-      ],
-      "semantic_text": "Compra Directa D199585/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504322"
-    },
-    {
-      "id": "i504761",
-      "titulo": "Compra Directa D199551/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "03/11/2026 09:00",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 23:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504761.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504761_2.PDF"
-        }
-      ],
-      "semantic_text": "Compra Directa D199551/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504761"
-    },
-    {
-      "id": "i504762",
-      "titulo": "Compra Directa D199610/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "objeto": "",
-      "fecha_publicacion": "03/11/2026 09:00",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "05/11/2026 18:00",
-      "acto_apertura": "",
-      "items": [],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504762.html"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504762_2.PDF"
-        }
-      ],
-      "semantic_text": "Compra Directa D199610/2026 Intendencia de Montevideo | Intendencia de Montevideo",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504762"
-    },
-    {
       "id": "i504760",
       "titulo": "Compra Directa D199081/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "objeto": "",
@@ -23366,35 +22870,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381967"
     },
     {
-      "id": "1381950",
-      "titulo": "Compra Directa 45/2026 Ministerio de Educación y Cultura | Archivo General de la Nación",
-      "objeto": "",
-      "fecha_publicacion": "03/11/2026 08:30",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "06/11/2026 09:00",
-      "acto_apertura": "",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "SOPORTE PARA TELEVISOR",
-          "codigo_articulo": "14781"
-        },
-        {
-          "numero": "2",
-          "descripcion": "TELEVISOR LED",
-          "codigo_articulo": "67115"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1381950.docx"
-        }
-      ],
-      "semantic_text": "Compra Directa 45/2026 Ministerio de Educación y Cultura | Archivo General de la Nación | SOPORTE PARA TELEVISOR | TELEVISOR LED",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381950"
-    },
-    {
       "id": "1381964",
       "titulo": "Concurso de Precios 41/2026 Intendencia de Soriano | Intendencia de Soriano",
       "objeto": "",
@@ -23679,6 +23154,2074 @@
       ],
       "semantic_text": "Compra Directa 2341090800/2026 Administración Nacional de Combustible, Alcohol y Portland | Administración Nacional de Combustible, Alcohol y Portland",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504753"
+    },
+    {
+      "id": "1384233",
+      "titulo": "Compra Directa 10317/2026 Ministerio de Educación y Cultura | Dirección General de Secretaría",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:40",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "13/11/2026 13:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "IMPRESION DE LIBRO",
+          "codigo_articulo": "12569"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384233.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 10317/2026 Ministerio de Educación y Cultura | Dirección General de Secretaría | IMPRESION DE LIBRO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384233"
+    },
+    {
+      "id": "1381593",
+      "titulo": "Concurso de Precios 704437/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas",
+      "objeto": "",
+      "fecha_publicacion": "22/10/2026 13:20",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "09/11/2026 11:00",
+      "acto_apertura": "09/11/2026 11:00",
+      "items": [
+        {
+          "numero": "10",
+          "descripcion": "MANTENIMIENTO Y REP. DE VEHICULOS Y EQUIPOS INDUSTRIALES NO TRACCIONADOS",
+          "codigo_articulo": "26546"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1381593.7z"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 8",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381593_8.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 6",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381593_6.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 7",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381593_7.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 5",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381593_5.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 4",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381593_4.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381593_2.pdf"
+        }
+      ],
+      "semantic_text": "Concurso de Precios 704437/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas | MANTENIMIENTO Y REP. DE VEHICULOS Y EQUIPOS INDUSTRIALES NO TRACCIONADOS",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381593"
+    },
+    {
+      "id": "1381632",
+      "titulo": "Concurso de Precios 704364/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas",
+      "objeto": "",
+      "fecha_publicacion": "22/10/2026 14:25",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "09/11/2026 11:00",
+      "acto_apertura": "09/11/2026 11:00",
+      "items": [
+        {
+          "numero": "10",
+          "descripcion": "MANTENIMIENTO EDILICIO",
+          "codigo_articulo": "27478"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1381632.7z"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381632_3.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 1",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381632_1.pdf"
+        }
+      ],
+      "semantic_text": "Concurso de Precios 704364/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas | MANTENIMIENTO EDILICIO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381632"
+    },
+    {
+      "id": "1384225",
+      "titulo": "Compra Directa 1735/2026 Administración de Servicios de Salud del Estado | Hospital Maciel",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "09/11/2026 12:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "APOSITO ESTERIL AUTOADHESIVO TRANSPARENTE",
+          "codigo_articulo": "36931"
+        },
+        {
+          "numero": "2",
+          "descripcion": "INFUSOR ELASTOMERICO",
+          "codigo_articulo": "43639"
+        },
+        {
+          "numero": "3",
+          "descripcion": "SET CATETER DOBLE J",
+          "codigo_articulo": "17969"
+        },
+        {
+          "numero": "4",
+          "descripcion": "GASA IODOFORMADA AL 5 % (APOSITO)",
+          "codigo_articulo": "18967"
+        },
+        {
+          "numero": "5",
+          "descripcion": "MANGO DE BISTURI",
+          "codigo_articulo": "2810"
+        },
+        {
+          "numero": "6",
+          "descripcion": "MANGO DE BISTURI",
+          "codigo_articulo": "2810"
+        },
+        {
+          "numero": "7",
+          "descripcion": "MASCARA DE B-PAP BOCA Y NARIZ",
+          "codigo_articulo": "19565"
+        },
+        {
+          "numero": "8",
+          "descripcion": "MASCARA DE B-PAP BOCA Y NARIZ",
+          "codigo_articulo": "19565"
+        },
+        {
+          "numero": "9",
+          "descripcion": "PUNTERO PARA ASPIRACION TIPO YANKAUER CON ALARGUE DESCARTABLE ESTERIL",
+          "codigo_articulo": "24981"
+        },
+        {
+          "numero": "10",
+          "descripcion": "SUTURA CATGUT SIMPLE 1",
+          "codigo_articulo": "20910"
+        },
+        {
+          "numero": "11",
+          "descripcion": "SUTURA MECANICA CIRCULAR",
+          "codigo_articulo": "20926"
+        },
+        {
+          "numero": "12",
+          "descripcion": "TUBO DE EXTRACCION C/GEL Y ACELERADOR DE LA COAGULACION, AL VACIO",
+          "codigo_articulo": "66233"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384225.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 1735/2026 Administración de Servicios de Salud del Estado | Hospital Maciel | APOSITO ESTERIL AUTOADHESIVO TRANSPARENTE | INFUSOR ELASTOMERICO | SET CATETER DOBLE J | GASA IODOFORMADA AL 5 % (APOSITO) | MANGO DE BISTURI | MANGO DE BISTURI | MASCARA DE B-PAP BOCA Y NARIZ | MASCARA DE B-PAP BOCA Y NARIZ | PUNTERO PARA ASPIRACION TIPO YANKAUER CON ALARGUE DESCARTABLE ESTERIL | SUTURA CATGUT SIMPLE 1 | SUTURA MECANICA CIRCULAR | TUBO DE EXTRACCION C/GEL Y ACELERADOR DE LA COAGULACION, AL VACIO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384225"
+    },
+    {
+      "id": "1382192",
+      "titulo": "Licitación Abreviada 490/2026 Banco de Previsión Social | Banco de Previsión Social",
+      "objeto": "",
+      "fecha_publicacion": "03/11/2026 11:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "23/11/2026 14:00",
+      "acto_apertura": "23/11/2026 14:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "LIMPIEZA INTEGRAL DE LOCALES",
+          "codigo_articulo": "7022"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1382192.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382192_0.xls"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 490/2026 Banco de Previsión Social | Banco de Previsión Social | LIMPIEZA INTEGRAL DE LOCALES",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382192"
+    },
+    {
+      "id": "1384227",
+      "titulo": "Concurso de Precios 11315/2026 Banco de Previsión Social | Banco de Previsión Social",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:25",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 15:30",
+      "acto_apertura": "11/11/2026 15:30",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "POTENCIAL EVOCADO AUDITIVO",
+          "codigo_articulo": "24558"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384227.pdf"
+        }
+      ],
+      "semantic_text": "Concurso de Precios 11315/2026 Banco de Previsión Social | Banco de Previsión Social | POTENCIAL EVOCADO AUDITIVO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384227"
+    },
+    {
+      "id": "1382547",
+      "titulo": "Licitación Abreviada 109436/2026 Administración Nacional de Telecomunicaciones | Administración Nacional de Telecomunicaciones",
+      "objeto": "",
+      "fecha_publicacion": "03/11/2026 12:06",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "24/11/2026 10:30",
+      "acto_apertura": "24/11/2026 10:30",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "SERVICIO DE AROMATIZACION DE AMBIENTES",
+          "codigo_articulo": "71898"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1382547.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382547_0.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 109436/2026 Administración Nacional de Telecomunicaciones | Administración Nacional de Telecomunicaciones | SERVICIO DE AROMATIZACION DE AMBIENTES",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382547"
+    },
+    {
+      "id": "1384210",
+      "titulo": "Compra Directa 1732/2026 Administración de Servicios de Salud del Estado | Hospital Maciel",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:20",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "09/11/2026 12:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "AGUJA PARA EXTRACCION DE SANGRE AL VACIO",
+          "codigo_articulo": "19539"
+        },
+        {
+          "numero": "2",
+          "descripcion": "APOSITO CON ANTIBACTERIANOS",
+          "codigo_articulo": "25963"
+        },
+        {
+          "numero": "3",
+          "descripcion": "BANDEJA DE ACERO INOXIDABLE PARA INSTRUMENTAL MEDICO",
+          "codigo_articulo": "34342"
+        },
+        {
+          "numero": "4",
+          "descripcion": "BANDEJA DE ACERO INOXIDABLE PARA INSTRUMENTAL MEDICO",
+          "codigo_articulo": "34342"
+        },
+        {
+          "numero": "5",
+          "descripcion": "CABESTRILLO ADULTO",
+          "codigo_articulo": "17578"
+        },
+        {
+          "numero": "6",
+          "descripcion": "CAMPO DESCARTABLE PARA CIRUGIA",
+          "codigo_articulo": "12264"
+        },
+        {
+          "numero": "7",
+          "descripcion": "CATETER NASAL PARA OXIGENOTERAPIA SILICONADO ADULTO",
+          "codigo_articulo": "18043"
+        },
+        {
+          "numero": "8",
+          "descripcion": "COLCHON AIRE",
+          "codigo_articulo": "18411"
+        },
+        {
+          "numero": "9",
+          "descripcion": "COLCHON AIRE",
+          "codigo_articulo": "18411"
+        },
+        {
+          "numero": "10",
+          "descripcion": "CONTROL QUIMICO DE ESTERILIZACION POR CALOR HUMEDO (AUTOCLAVE)",
+          "codigo_articulo": "18725"
+        },
+        {
+          "numero": "11",
+          "descripcion": "TROCAR DE TORAX FLEXIBLE",
+          "codigo_articulo": "25222"
+        },
+        {
+          "numero": "12",
+          "descripcion": "TROCAR DE TORAX FLEXIBLE",
+          "codigo_articulo": "25222"
+        },
+        {
+          "numero": "13",
+          "descripcion": "SET COMPLETO DE DRENAJE DE TORAX",
+          "codigo_articulo": "65798"
+        },
+        {
+          "numero": "14",
+          "descripcion": "SET COMPLETO DE DRENAJE DE TORAX",
+          "codigo_articulo": "65798"
+        },
+        {
+          "numero": "15",
+          "descripcion": "FRASCO DE PLASTICO CON TAPA ROSCA",
+          "codigo_articulo": "44831"
+        },
+        {
+          "numero": "16",
+          "descripcion": "CAMISA PARA TUBO DE EXTRACCION AL VACIO",
+          "codigo_articulo": "72549"
+        },
+        {
+          "numero": "17",
+          "descripcion": "MORTAJA",
+          "codigo_articulo": "74277"
+        },
+        {
+          "numero": "18",
+          "descripcion": "MEMBRANA PARA REPARACION DURAL",
+          "codigo_articulo": "78710"
+        },
+        {
+          "numero": "19",
+          "descripcion": "INSUMOS PARA ANALIZADOR DE SEDIMIENTO URINARIO",
+          "codigo_articulo": "74830"
+        },
+        {
+          "numero": "20",
+          "descripcion": "PUNTERO PARA PIPETA AUTOMATICA",
+          "codigo_articulo": "56912"
+        },
+        {
+          "numero": "21",
+          "descripcion": "RESUCITADOR MANUAL",
+          "codigo_articulo": "12270"
+        },
+        {
+          "numero": "22",
+          "descripcion": "REPUESTO Y/O ACCESORIO PARA ELECTROCARDIOGRAFO",
+          "codigo_articulo": "15616"
+        },
+        {
+          "numero": "23",
+          "descripcion": "STENT BILIAR PLASTICO",
+          "codigo_articulo": "20864"
+        },
+        {
+          "numero": "24",
+          "descripcion": "TOALLA DESINFECTANTE",
+          "codigo_articulo": "71048"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384210.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 1732/2026 Administración de Servicios de Salud del Estado | Hospital Maciel | AGUJA PARA EXTRACCION DE SANGRE AL VACIO | APOSITO CON ANTIBACTERIANOS | BANDEJA DE ACERO INOXIDABLE PARA INSTRUMENTAL MEDICO | BANDEJA DE ACERO INOXIDABLE PARA INSTRUMENTAL MEDICO | CABESTRILLO ADULTO | CAMPO DESCARTABLE PARA CIRUGIA | CATETER NASAL PARA OXIGENOTERAPIA SILICONADO ADULTO | COLCHON AIRE | COLCHON AIRE | CONTROL QUIMICO DE ESTERILIZACION POR CALOR HUMEDO (AUTOCLAVE) | TROCAR DE TORAX FLEXIBLE | TROCAR DE TORAX FLEXIBLE | SET COMPLETO DE DRENAJE DE TORAX | SET COMPLETO DE DRENAJE DE TORAX | FRASCO DE PLASTICO CON TAPA ROSCA | CAMISA PARA TUBO DE EXTRACCION AL VACIO | MORTAJA | MEMBRANA PARA REPARACION DURAL | INSUMOS PARA ANALIZADOR DE SEDIMIENTO URINARIO | PUNTERO PARA PIPETA AUTOMATICA | RESUCITADOR MANUAL | REPUESTO Y/O ACCESORIO PARA ELECTROCARDIOGRAFO | STENT BILIAR PLASTICO | TOALLA DESINFECTANTE",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384210"
+    },
+    {
+      "id": "1384222",
+      "titulo": "Licitación Pública 1/2026 Poder Legislativo | Comisión Administrativa del Poder Legislativo",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:20",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "01/12/2026 11:30",
+      "acto_apertura": "01/12/2026 11:30",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "MANTENIMIENTO DE ASCENSOR",
+          "codigo_articulo": "1873"
+        },
+        {
+          "numero": "2",
+          "descripcion": "MODERNIZACION DE ASCENSOR",
+          "codigo_articulo": "101372"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384222.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Pública 1/2026 Poder Legislativo | Comisión Administrativa del Poder Legislativo | MANTENIMIENTO DE ASCENSOR | MODERNIZACION DE ASCENSOR",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384222"
+    },
+    {
+      "id": "1384215",
+      "titulo": "Licitación Abreviada 2/2026 Universidad de la República | Instituto de Higiene",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:15",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "18/11/2026 12:00",
+      "acto_apertura": "18/11/2026 12:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "REFORMA DE EDIFICIO",
+          "codigo_articulo": "72644"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384215.zip"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 2/2026 Universidad de la República | Instituto de Higiene | REFORMA DE EDIFICIO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384215"
+    },
+    {
+      "id": "1384204",
+      "titulo": "Compra Directa 1736/2026 Administración de Servicios de Salud del Estado | Hospital Maciel",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:10",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "MANDARINA (USO HUMANO)",
+          "codigo_articulo": "957"
+        },
+        {
+          "numero": "2",
+          "descripcion": "NARANJA (USO HUMANO)",
+          "codigo_articulo": "129"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384204.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 1736/2026 Administración de Servicios de Salud del Estado | Hospital Maciel | MANDARINA (USO HUMANO) | NARANJA (USO HUMANO)",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384204"
+    },
+    {
+      "id": "1381081",
+      "titulo": "Compra Directa 6148/2026 Ministerio de Defensa Nacional | Comando General de la Armada",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:10",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "SERVICIO PORTUARIO PARA EMBARCACION",
+          "codigo_articulo": "27592"
+        },
+        {
+          "numero": "2",
+          "descripcion": "SERVICIO PORTUARIO PARA EMBARCACION",
+          "codigo_articulo": "27592"
+        },
+        {
+          "numero": "3",
+          "descripcion": "SERVICIO PORTUARIO PARA EMBARCACION",
+          "codigo_articulo": "27592"
+        },
+        {
+          "numero": "4",
+          "descripcion": "SERVICIO PORTUARIO PARA EMBARCACION",
+          "codigo_articulo": "27592"
+        },
+        {
+          "numero": "5",
+          "descripcion": "SERVICIO PORTUARIO PARA EMBARCACION",
+          "codigo_articulo": "27592"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1381081.doc"
+        }
+      ],
+      "semantic_text": "Compra Directa 6148/2026 Ministerio de Defensa Nacional | Comando General de la Armada | SERVICIO PORTUARIO PARA EMBARCACION | SERVICIO PORTUARIO PARA EMBARCACION | SERVICIO PORTUARIO PARA EMBARCACION | SERVICIO PORTUARIO PARA EMBARCACION | SERVICIO PORTUARIO PARA EMBARCACION",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381081"
+    },
+    {
+      "id": "1384192",
+      "titulo": "Compra Directa 635/2026 Administración de Servicios de Salud del Estado | Hospital del Cerro",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:00",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "DISPOSITIVO DE ACCESO VASCULAR INTRAOSEO",
+          "codigo_articulo": "69382"
+        },
+        {
+          "numero": "2",
+          "descripcion": "PAÑAL DESCARTABLE PARA ADULTO",
+          "codigo_articulo": "32649"
+        },
+        {
+          "numero": "3",
+          "descripcion": "PAÑAL DESCARTABLE PARA ADULTO",
+          "codigo_articulo": "32649"
+        },
+        {
+          "numero": "4",
+          "descripcion": "TUBULADURA PVC",
+          "codigo_articulo": "21392"
+        },
+        {
+          "numero": "5",
+          "descripcion": "SET DE CUIDADO PERSONAL PARA PACIENTE INTERNADO",
+          "codigo_articulo": "78658"
+        },
+        {
+          "numero": "6",
+          "descripcion": "MASCARA DE OXIGENO DE FLUJO LIBRE",
+          "codigo_articulo": "19577"
+        },
+        {
+          "numero": "7",
+          "descripcion": "MASCARA DE OXIGENO DE FLUJO CONTROLADO CON TUBULADURA",
+          "codigo_articulo": "19596"
+        },
+        {
+          "numero": "8",
+          "descripcion": "VENDA COHESIVA (ELASTICA Y AUTOADHESIVA)",
+          "codigo_articulo": "21494"
+        },
+        {
+          "numero": "9",
+          "descripcion": "SUTURA ENDOSCOPICA LAZO NYLON MONOFILAMENTO TIPO ENDOLOOP",
+          "codigo_articulo": "37387"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384192.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 635/2026 Administración de Servicios de Salud del Estado | Hospital del Cerro | DISPOSITIVO DE ACCESO VASCULAR INTRAOSEO | PAÑAL DESCARTABLE PARA ADULTO | PAÑAL DESCARTABLE PARA ADULTO | TUBULADURA PVC | SET DE CUIDADO PERSONAL PARA PACIENTE INTERNADO | MASCARA DE OXIGENO DE FLUJO LIBRE | MASCARA DE OXIGENO DE FLUJO CONTROLADO CON TUBULADURA | VENDA COHESIVA (ELASTICA Y AUTOADHESIVA) | SUTURA ENDOSCOPICA LAZO NYLON MONOFILAMENTO TIPO ENDOLOOP",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384192"
+    },
+    {
+      "id": "1384193",
+      "titulo": "Licitación Pública 10037/2026 Administración de Servicios de Salud del Estado | Administración de Servicios de Salud del Estado",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 09:00",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "30/11/2026 10:00",
+      "acto_apertura": "30/11/2026 10:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "CAMA ARTICULADA CON RUEDAS, FRENOS, BARANDAS",
+          "codigo_articulo": "15118"
+        },
+        {
+          "numero": "2",
+          "descripcion": "CAMILLA CON RUEDAS Y FRENO",
+          "codigo_articulo": "27336"
+        },
+        {
+          "numero": "3",
+          "descripcion": "CAMA ARTICULADA CON RUEDAS, FRENOS, BARANDAS",
+          "codigo_articulo": "15118"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384193.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Pública 10037/2026 Administración de Servicios de Salud del Estado | Administración de Servicios de Salud del Estado | CAMA ARTICULADA CON RUEDAS, FRENOS, BARANDAS | CAMILLA CON RUEDAS Y FRENO | CAMA ARTICULADA CON RUEDAS, FRENOS, BARANDAS",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384193"
+    },
+    {
+      "id": "1384174",
+      "titulo": "Compra Directa 22/2026 Administración de Servicios de Salud del Estado | Red de Atención Primaria de Treinta y Tres",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 08:45",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "CONTRATACION DE MANO DE OBRA",
+          "codigo_articulo": "28031"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384174.docx"
+        }
+      ],
+      "semantic_text": "Compra Directa 22/2026 Administración de Servicios de Salud del Estado | Red de Atención Primaria de Treinta y Tres | CONTRATACION DE MANO DE OBRA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384174"
+    },
+    {
+      "id": "1380157",
+      "titulo": "Compra Directa 1060/2026 Ministerio de Defensa Nacional | Comando General de la Armada",
+      "objeto": "",
+      "fecha_publicacion": "21/10/2026 09:45",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 11:44",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "FILTRO DE TANQUE DE COMBUSTIBLE",
+          "codigo_articulo": "8360"
+        },
+        {
+          "numero": "2",
+          "descripcion": "FILTRO DE GASOIL PARA MOTOR",
+          "codigo_articulo": "13543"
+        },
+        {
+          "numero": "3",
+          "descripcion": "FILTRO DE ACEITE DE MOTOR",
+          "codigo_articulo": "13544"
+        },
+        {
+          "numero": "4",
+          "descripcion": "FILTRO DE AIRE DE MOTOR",
+          "codigo_articulo": "5231"
+        },
+        {
+          "numero": "5",
+          "descripcion": "FILTRO DE TANQUE DE COMBUSTIBLE",
+          "codigo_articulo": "8360"
+        },
+        {
+          "numero": "6",
+          "descripcion": "FILTRO DE TANQUE DE COMBUSTIBLE",
+          "codigo_articulo": "8360"
+        },
+        {
+          "numero": "7",
+          "descripcion": "FILTRO DE ACEITE DE MOTOR",
+          "codigo_articulo": "13544"
+        },
+        {
+          "numero": "8",
+          "descripcion": "FILTRO DE AIRE DE MOTOR",
+          "codigo_articulo": "5231"
+        },
+        {
+          "numero": "9",
+          "descripcion": "NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
+          "codigo_articulo": "7570"
+        },
+        {
+          "numero": "10",
+          "descripcion": "NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
+          "codigo_articulo": "7570"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1380157.doc"
+        }
+      ],
+      "semantic_text": "Compra Directa 1060/2026 Ministerio de Defensa Nacional | Comando General de la Armada | FILTRO DE TANQUE DE COMBUSTIBLE | FILTRO DE GASOIL PARA MOTOR | FILTRO DE ACEITE DE MOTOR | FILTRO DE AIRE DE MOTOR | FILTRO DE TANQUE DE COMBUSTIBLE | FILTRO DE TANQUE DE COMBUSTIBLE | FILTRO DE ACEITE DE MOTOR | FILTRO DE AIRE DE MOTOR | NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES | NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1380157"
+    },
+    {
+      "id": "1384181",
+      "titulo": "Compra Directa 1096/2026 Intendencia de Paysandú | Intendencia de Paysandú",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 08:25",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "CABLE PREENSAMBLADO",
+          "codigo_articulo": "10249"
+        },
+        {
+          "numero": "2",
+          "descripcion": "CAJON EXTERIOR DE POLICARBONATO PARA MEDIDOR Y LLAVE",
+          "codigo_articulo": "11155"
+        },
+        {
+          "numero": "3",
+          "descripcion": "CAÑO DE PVC (SANEAMIENTO)",
+          "codigo_articulo": "11227"
+        },
+        {
+          "numero": "4",
+          "descripcion": "CABLE CONDUCTOR SUPERPLASTICO PARA DESCARGA A TIERRA",
+          "codigo_articulo": "12265"
+        },
+        {
+          "numero": "5",
+          "descripcion": "CABLE FORRADO SUPERPLASTICO",
+          "codigo_articulo": "12964"
+        },
+        {
+          "numero": "6",
+          "descripcion": "CABLE FORRADO SUPERPLASTICO",
+          "codigo_articulo": "12964"
+        },
+        {
+          "numero": "7",
+          "descripcion": "CABLE FORRADO SUPERPLASTICO",
+          "codigo_articulo": "12964"
+        },
+        {
+          "numero": "8",
+          "descripcion": "CABLE FORRADO SUPERPLASTICO",
+          "codigo_articulo": "12964"
+        },
+        {
+          "numero": "9",
+          "descripcion": "CABLE FORRADO SUPERPLASTICO",
+          "codigo_articulo": "12964"
+        },
+        {
+          "numero": "10",
+          "descripcion": "CONECTOR DENTADO DE DERIVACION PARA CABLE PREENSAMBLADO (MORSETO)",
+          "codigo_articulo": "13251"
+        },
+        {
+          "numero": "11",
+          "descripcion": "CINTA AISLADORA",
+          "codigo_articulo": "1968"
+        },
+        {
+          "numero": "12",
+          "descripcion": "REGLETA DE UNION",
+          "codigo_articulo": "2096"
+        },
+        {
+          "numero": "13",
+          "descripcion": "DUCTO EXTERIOR AUTOADHESIVO PARA INSTALACION ELECTRICA",
+          "codigo_articulo": "2613"
+        },
+        {
+          "numero": "14",
+          "descripcion": "BARRA PARA DESCARGA A TIERRA (JABALINA)",
+          "codigo_articulo": "4146"
+        },
+        {
+          "numero": "15",
+          "descripcion": "CODO DE PVC DE 90 MACHO-HEMBRA",
+          "codigo_articulo": "63"
+        },
+        {
+          "numero": "16",
+          "descripcion": "CONJUNTO DE RETENCION DE ACOMETIDAS PARA CABLE PREENSAMBLADO",
+          "codigo_articulo": "8967"
+        },
+        {
+          "numero": "17",
+          "descripcion": "PRECINTO DE PLASTICO",
+          "codigo_articulo": "9098"
+        }
+      ],
+      "adjuntos": [],
+      "semantic_text": "Compra Directa 1096/2026 Intendencia de Paysandú | Intendencia de Paysandú | CABLE PREENSAMBLADO | CAJON EXTERIOR DE POLICARBONATO PARA MEDIDOR Y LLAVE | CAÑO DE PVC (SANEAMIENTO) | CABLE CONDUCTOR SUPERPLASTICO PARA DESCARGA A TIERRA | CABLE FORRADO SUPERPLASTICO | CABLE FORRADO SUPERPLASTICO | CABLE FORRADO SUPERPLASTICO | CABLE FORRADO SUPERPLASTICO | CABLE FORRADO SUPERPLASTICO | CONECTOR DENTADO DE DERIVACION PARA CABLE PREENSAMBLADO (MORSETO) | CINTA AISLADORA | REGLETA DE UNION | DUCTO EXTERIOR AUTOADHESIVO PARA INSTALACION ELECTRICA | BARRA PARA DESCARGA A TIERRA (JABALINA) | CODO DE PVC DE 90 MACHO-HEMBRA | CONJUNTO DE RETENCION DE ACOMETIDAS PARA CABLE PREENSAMBLADO | PRECINTO DE PLASTICO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384181"
+    },
+    {
+      "id": "1384175",
+      "titulo": "Compra Directa 18586/2026 Administración de Servicios de Salud del Estado | Centro Hospitalario Pereira Rossell",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 08:25",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "CEPILLO PARA LAVADO QUIRURGICO DE MANOS",
+          "codigo_articulo": "18222"
+        },
+        {
+          "numero": "2",
+          "descripcion": "CEPILLO PARA LAVADO QUIRURGICO DE MANOS",
+          "codigo_articulo": "18222"
+        },
+        {
+          "numero": "3",
+          "descripcion": "LAPIZ DERMOGRAFICO",
+          "codigo_articulo": "19358"
+        },
+        {
+          "numero": "4",
+          "descripcion": "BOLSA DE NYLON",
+          "codigo_articulo": "28601"
+        },
+        {
+          "numero": "5",
+          "descripcion": "CINTA METRICA DE PRECISION",
+          "codigo_articulo": "15729"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384175.doc"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384175_0.doc"
+        }
+      ],
+      "semantic_text": "Compra Directa 18586/2026 Administración de Servicios de Salud del Estado | Centro Hospitalario Pereira Rossell | CEPILLO PARA LAVADO QUIRURGICO DE MANOS | CEPILLO PARA LAVADO QUIRURGICO DE MANOS | LAPIZ DERMOGRAFICO | BOLSA DE NYLON | CINTA METRICA DE PRECISION",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384175"
+    },
+    {
+      "id": "1384178",
+      "titulo": "Concurso de Precios 11321/2026 Banco de Previsión Social | Banco de Previsión Social",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 08:25",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 15:30",
+      "acto_apertura": "11/11/2026 15:30",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "INHALOCAMARA CON VALVULA PEDIATRICO - CON MASCARA",
+          "codigo_articulo": "19122"
+        },
+        {
+          "numero": "2",
+          "descripcion": "INHALOCAMARA PARA TRAQUEOTOMIA",
+          "codigo_articulo": "68955"
+        },
+        {
+          "numero": "3",
+          "descripcion": "NEBULIZADOR CON MASCARA Y TUBULADURA",
+          "codigo_articulo": "44061"
+        },
+        {
+          "numero": "4",
+          "descripcion": "NEBULIZADOR CON MASCARA Y TUBULADURA",
+          "codigo_articulo": "44061"
+        },
+        {
+          "numero": "5",
+          "descripcion": "CATETER NASAL PARA OXIGENOTERAPIA SILICONADO NEONATAL",
+          "codigo_articulo": "18044"
+        },
+        {
+          "numero": "6",
+          "descripcion": "REPUESTO Y/O ACCESORIO PARA EQUIPO CPAP / BPAP",
+          "codigo_articulo": "17401"
+        },
+        {
+          "numero": "7",
+          "descripcion": "REPUESTO Y/O ACCESORIO PARA EQUIPO CPAP / BPAP",
+          "codigo_articulo": "17401"
+        },
+        {
+          "numero": "8",
+          "descripcion": "MASCARA DE OXIGENO DE FLUJO CONTROLADO CON TUBULADURA",
+          "codigo_articulo": "19596"
+        },
+        {
+          "numero": "9",
+          "descripcion": "MASCARA DE TRAQUEOSTOMIA",
+          "codigo_articulo": "19570"
+        },
+        {
+          "numero": "10",
+          "descripcion": "MASCARA DE TRAQUEOSTOMIA PEDIATRICA",
+          "codigo_articulo": "19571"
+        },
+        {
+          "numero": "11",
+          "descripcion": "SUJETADOR DE CANULA DE TRAQUEOTOMIA",
+          "codigo_articulo": "15675"
+        },
+        {
+          "numero": "12",
+          "descripcion": "CANULA DE TRAQUEOSTOMIA PEDIATRICA TIPO SHILEY SIN BALON",
+          "codigo_articulo": "37832"
+        },
+        {
+          "numero": "13",
+          "descripcion": "CANULA DE TRAQUEOSTOMIA PEDIATRICA TIPO SHILEY CON BALON",
+          "codigo_articulo": "37818"
+        },
+        {
+          "numero": "14",
+          "descripcion": "CANULA DE TRAQUEOSTOMIA CON BALON",
+          "codigo_articulo": "32695"
+        },
+        {
+          "numero": "15",
+          "descripcion": "CANULA DE TRAQUEOSTOMIA CON BALON",
+          "codigo_articulo": "32695"
+        },
+        {
+          "numero": "16",
+          "descripcion": "CANULA DE TRAQUEOSTOMIA CON BALON",
+          "codigo_articulo": "32695"
+        },
+        {
+          "numero": "17",
+          "descripcion": "CANULA DE TRAQUEOSTOMIA CON VALVULA FONACION",
+          "codigo_articulo": "32696"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384178.pdf"
+        }
+      ],
+      "semantic_text": "Concurso de Precios 11321/2026 Banco de Previsión Social | Banco de Previsión Social | INHALOCAMARA CON VALVULA PEDIATRICO - CON MASCARA | INHALOCAMARA PARA TRAQUEOTOMIA | NEBULIZADOR CON MASCARA Y TUBULADURA | NEBULIZADOR CON MASCARA Y TUBULADURA | CATETER NASAL PARA OXIGENOTERAPIA SILICONADO NEONATAL | REPUESTO Y/O ACCESORIO PARA EQUIPO CPAP / BPAP | REPUESTO Y/O ACCESORIO PARA EQUIPO CPAP / BPAP | MASCARA DE OXIGENO DE FLUJO CONTROLADO CON TUBULADURA | MASCARA DE TRAQUEOSTOMIA | MASCARA DE TRAQUEOSTOMIA PEDIATRICA | SUJETADOR DE CANULA DE TRAQUEOTOMIA | CANULA DE TRAQUEOSTOMIA PEDIATRICA TIPO SHILEY SIN BALON | CANULA DE TRAQUEOSTOMIA PEDIATRICA TIPO SHILEY CON BALON | CANULA DE TRAQUEOSTOMIA CON BALON | CANULA DE TRAQUEOSTOMIA CON BALON | CANULA DE TRAQUEOSTOMIA CON BALON | CANULA DE TRAQUEOSTOMIA CON VALVULA FONACION",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384178"
+    },
+    {
+      "id": "1383929",
+      "titulo": "Compra Directa 185/2026 Administración de Servicios de Salud del Estado | Hospital de San Carlos",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 08:05",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 08:33",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "ACIDO TRANEXAMICO (COMPRIMIDOS)",
+          "codigo_articulo": "17085"
+        },
+        {
+          "numero": "2",
+          "descripcion": "LAGRIMA ARTIFICIAL (USO OFTALMICO)",
+          "codigo_articulo": "26253"
+        },
+        {
+          "numero": "3",
+          "descripcion": "LAGRIMA ARTIFICIAL (USO OFTALMICO)",
+          "codigo_articulo": "26253"
+        },
+        {
+          "numero": "4",
+          "descripcion": "SUPLEMENTO NUTRICIONAL ENTERAL ESPECIFICO",
+          "codigo_articulo": "31557"
+        },
+        {
+          "numero": "5",
+          "descripcion": "INSULINA NPH (HUMANA)",
+          "codigo_articulo": "26219"
+        },
+        {
+          "numero": "6",
+          "descripcion": "CALCITRIOL (COMPRIMIDOS)",
+          "codigo_articulo": "66308"
+        },
+        {
+          "numero": "7",
+          "descripcion": "MEPIVACAINA CON VASOCONSTRICTOR",
+          "codigo_articulo": "26283"
+        },
+        {
+          "numero": "8",
+          "descripcion": "METFORMINA (COMPRIMIDOS)",
+          "codigo_articulo": "16906"
+        },
+        {
+          "numero": "9",
+          "descripcion": "NISTATINA (SUSPENSION)",
+          "codigo_articulo": "26310"
+        },
+        {
+          "numero": "10",
+          "descripcion": "RIVAROXABAN (COMPRIMIDOS)",
+          "codigo_articulo": "66345"
+        },
+        {
+          "numero": "11",
+          "descripcion": "RIVAROXABAN (COMPRIMIDOS)",
+          "codigo_articulo": "66345"
+        },
+        {
+          "numero": "12",
+          "descripcion": "SOMATROPINA",
+          "codigo_articulo": "25263"
+        },
+        {
+          "numero": "13",
+          "descripcion": "TIBOLONA (COMPRIMIDOS)",
+          "codigo_articulo": "17068"
+        },
+        {
+          "numero": "14",
+          "descripcion": "APOSITO ANTISEPTICO",
+          "codigo_articulo": "11381"
+        },
+        {
+          "numero": "15",
+          "descripcion": "SUPLEMENTO NUTRICIONAL ENTERAL ESPECIFICO",
+          "codigo_articulo": "31557"
+        },
+        {
+          "numero": "16",
+          "descripcion": "METOTREXATO (INYECTABLE)",
+          "codigo_articulo": "31488"
+        },
+        {
+          "numero": "17",
+          "descripcion": "PIMECROLIMUS (CREMA)",
+          "codigo_articulo": "43864"
+        },
+        {
+          "numero": "18",
+          "descripcion": "PROTECTOR SOLAR",
+          "codigo_articulo": "26364"
+        },
+        {
+          "numero": "19",
+          "descripcion": "RIVAROXABAN (COMPRIMIDOS)",
+          "codigo_articulo": "66345"
+        },
+        {
+          "numero": "20",
+          "descripcion": "ACIDO ZOLEDRONICO (INYECTABLE)",
+          "codigo_articulo": "16601"
+        },
+        {
+          "numero": "21",
+          "descripcion": "SALBUTAMOL CON IPRATROPIO ( SOLUCION PARA NEBULIZAR)",
+          "codigo_articulo": "76634"
+        }
+      ],
+      "adjuntos": [],
+      "semantic_text": "Compra Directa 185/2026 Administración de Servicios de Salud del Estado | Hospital de San Carlos | ACIDO TRANEXAMICO (COMPRIMIDOS) | LAGRIMA ARTIFICIAL (USO OFTALMICO) | LAGRIMA ARTIFICIAL (USO OFTALMICO) | SUPLEMENTO NUTRICIONAL ENTERAL ESPECIFICO | INSULINA NPH (HUMANA) | CALCITRIOL (COMPRIMIDOS) | MEPIVACAINA CON VASOCONSTRICTOR | METFORMINA (COMPRIMIDOS) | NISTATINA (SUSPENSION) | RIVAROXABAN (COMPRIMIDOS) | RIVAROXABAN (COMPRIMIDOS) | SOMATROPINA | TIBOLONA (COMPRIMIDOS) | APOSITO ANTISEPTICO | SUPLEMENTO NUTRICIONAL ENTERAL ESPECIFICO | METOTREXATO (INYECTABLE) | PIMECROLIMUS (CREMA) | PROTECTOR SOLAR | RIVAROXABAN (COMPRIMIDOS) | ACIDO ZOLEDRONICO (INYECTABLE) | SALBUTAMOL CON IPRATROPIO ( SOLUCION PARA NEBULIZAR)",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1383929"
+    },
+    {
+      "id": "1384168",
+      "titulo": "Compra Directa 18089/2026 Administración de Servicios de Salud del Estado | Centro Departamental de Flores",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 07:55",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "HIDROCORTISONA",
+          "codigo_articulo": "26194"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384168.odt"
+        }
+      ],
+      "semantic_text": "Compra Directa 18089/2026 Administración de Servicios de Salud del Estado | Centro Departamental de Flores | HIDROCORTISONA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384168"
+    },
+    {
+      "id": "1384165",
+      "titulo": "Compra Directa 18418/2026 Administración de Servicios de Salud del Estado | Centro Departamental de Flores",
+      "objeto": "",
+      "fecha_publicacion": "06/11/2026 07:45",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "MELATONINA (COMPRIMIDOS)",
+          "codigo_articulo": "16895"
+        },
+        {
+          "numero": "2",
+          "descripcion": "ALPRAZOLAM (COMPRIMIDOS)",
+          "codigo_articulo": "16607"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384165.odt"
+        }
+      ],
+      "semantic_text": "Compra Directa 18418/2026 Administración de Servicios de Salud del Estado | Centro Departamental de Flores | MELATONINA (COMPRIMIDOS) | ALPRAZOLAM (COMPRIMIDOS)",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384165"
+    },
+    {
+      "id": "1379476",
+      "titulo": "Licitación Abreviada 27700/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
+      "objeto": "",
+      "fecha_publicacion": "14/10/2026 15:05",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 14:00",
+      "acto_apertura": "11/11/2026 14:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "SERVICIO DE RESPUESTA DE ALARMA",
+          "codigo_articulo": "14940"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1379476.doc"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379476_2.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 1",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379476_1.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379476_0.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 27700/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | SERVICIO DE RESPUESTA DE ALARMA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1379476"
+    },
+    {
+      "id": "1384146",
+      "titulo": "Compra Directa 89646/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 23:35",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "18/11/2026 11:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "PEDREGULLO",
+          "codigo_articulo": "1"
+        },
+        {
+          "numero": "2",
+          "descripcion": "ARENA GRUESA",
+          "codigo_articulo": "5"
+        },
+        {
+          "numero": "3",
+          "descripcion": "ALAMBRE DE PUA",
+          "codigo_articulo": "225"
+        },
+        {
+          "numero": "4",
+          "descripcion": "COLUMNA DE HORMIGON PREFAFRICADA PARA CERCO",
+          "codigo_articulo": "12105"
+        },
+        {
+          "numero": "5",
+          "descripcion": "MALLA ELECTROSOLDADA",
+          "codigo_articulo": "15499"
+        },
+        {
+          "numero": "6",
+          "descripcion": "MARCO DE HORMIGON CON TAPA PARA TRANSITO PESADO",
+          "codigo_articulo": "72317"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384146.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 89646/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | PEDREGULLO | ARENA GRUESA | ALAMBRE DE PUA | COLUMNA DE HORMIGON PREFAFRICADA PARA CERCO | MALLA ELECTROSOLDADA | MARCO DE HORMIGON CON TAPA PARA TRANSITO PESADO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384146"
+    },
+    {
+      "id": "1384145",
+      "titulo": "Compra Directa 89378/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 23:35",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 11:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "MAQUINA CORTA PAVIMENTO",
+          "codigo_articulo": "2034"
+        },
+        {
+          "numero": "2",
+          "descripcion": "MEDIDOR DE DISTANCIA ELECTRONICO",
+          "codigo_articulo": "3135"
+        },
+        {
+          "numero": "3",
+          "descripcion": "HORMIGONERA",
+          "codigo_articulo": "5511"
+        },
+        {
+          "numero": "4",
+          "descripcion": "ODOMETRO",
+          "codigo_articulo": "8507"
+        },
+        {
+          "numero": "5",
+          "descripcion": "ROTOPERCUTOR",
+          "codigo_articulo": "9675"
+        },
+        {
+          "numero": "6",
+          "descripcion": "DETECTOR DE METALES",
+          "codigo_articulo": "11509"
+        },
+        {
+          "numero": "7",
+          "descripcion": "TALADRO ATORNILLADOR A BATERIA",
+          "codigo_articulo": "12718"
+        },
+        {
+          "numero": "8",
+          "descripcion": "CORTADORA MANUAL DE CERAMICA",
+          "codigo_articulo": "13592"
+        },
+        {
+          "numero": "9",
+          "descripcion": "AMOLADORA ANGULAR ELECTRICA PORTATIL A BATERIA",
+          "codigo_articulo": "77015"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384145.doc"
+        }
+      ],
+      "semantic_text": "Compra Directa 89378/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | MAQUINA CORTA PAVIMENTO | MEDIDOR DE DISTANCIA ELECTRONICO | HORMIGONERA | ODOMETRO | ROTOPERCUTOR | DETECTOR DE METALES | TALADRO ATORNILLADOR A BATERIA | CORTADORA MANUAL DE CERAMICA | AMOLADORA ANGULAR ELECTRICA PORTATIL A BATERIA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384145"
+    },
+    {
+      "id": "1384144",
+      "titulo": "Compra Directa 89351/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 23:35",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 11:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "SELLO MECANICO",
+          "codigo_articulo": "13512"
+        },
+        {
+          "numero": "2",
+          "descripcion": "BOMBA PRESURIZADORA DE AGUA",
+          "codigo_articulo": "66735"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384144.doc"
+        }
+      ],
+      "semantic_text": "Compra Directa 89351/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | SELLO MECANICO | BOMBA PRESURIZADORA DE AGUA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384144"
+    },
+    {
+      "id": "1384143",
+      "titulo": "Compra Directa 89112/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 23:35",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 11:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "VARIADOR DE FRECUENCIA",
+          "codigo_articulo": "7092"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384143.doc"
+        }
+      ],
+      "semantic_text": "Compra Directa 89112/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | VARIADOR DE FRECUENCIA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384143"
+    },
+    {
+      "id": "i505153",
+      "titulo": "Compra Directa D199698/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 21:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505153.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505153_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199698/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505153"
+    },
+    {
+      "id": "i505154",
+      "titulo": "Licitación Abreviada A193761/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 21:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "23/11/2026 10:30",
+      "acto_apertura": "23/11/2026 10:30",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505154.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505154_2.RAR"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505154_3.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada A193761/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505154"
+    },
+    {
+      "id": "i505152",
+      "titulo": "Compra Directa D199772/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 21:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505152.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505152_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199772/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505152"
+    },
+    {
+      "id": "i505147",
+      "titulo": "Compra Directa D200053/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 19:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505147.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505147_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D200053/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505147"
+    },
+    {
+      "id": "i505148",
+      "titulo": "Compra Directa D198668/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 19:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505148.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505148_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D198668/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505148"
+    },
+    {
+      "id": "i505150",
+      "titulo": "Compra Directa D199689/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 19:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 15:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505150.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D199689/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505150"
+    },
+    {
+      "id": "i505149",
+      "titulo": "Compra Directa D199837/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 19:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 08:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505149.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D199837/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505149"
+    },
+    {
+      "id": "i504096",
+      "titulo": "Licitación Abreviada A195096/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "21/10/2026 00:00",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "17/11/2026 10:30",
+      "acto_apertura": "17/11/2026 10:30",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i504096.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 5",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504096_5.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 4",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504096_4.PDF"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504096_2.RAR"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i504096_3.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada A195096/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504096"
+    },
+    {
+      "id": "1384137",
+      "titulo": "Concurso de Precios 12015/2026 Banco de la República del Uruguay | Banco de la República del Uruguay",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:55",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "20/11/2026 16:00",
+      "acto_apertura": "20/11/2026 16:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "RECOLECCION DE RESIDUOS",
+          "codigo_articulo": "936"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384137.pdf"
+        }
+      ],
+      "semantic_text": "Concurso de Precios 12015/2026 Banco de la República del Uruguay | Banco de la República del Uruguay | RECOLECCION DE RESIDUOS",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384137"
+    },
+    {
+      "id": "1382982",
+      "titulo": "Compra Directa 381/2026 Ministerio del Interior | Dirección Nacional de Sanidad Policial",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 18:20",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 14:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "DRENAJE DE SILICONA 4 CANALES TIPO BLAKE",
+          "codigo_articulo": "18615"
+        },
+        {
+          "numero": "2",
+          "descripcion": "DRENAJE DE SILICONA 4 CANALES TIPO BLAKE",
+          "codigo_articulo": "18615"
+        },
+        {
+          "numero": "3",
+          "descripcion": "REPUESTO Y/O ACCESORIO PARA MICROSCOPIO QUIRURGICO OFTALMOLOGICO",
+          "codigo_articulo": "63463"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1382982.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 381/2026 Ministerio del Interior | Dirección Nacional de Sanidad Policial | DRENAJE DE SILICONA 4 CANALES TIPO BLAKE | DRENAJE DE SILICONA 4 CANALES TIPO BLAKE | REPUESTO Y/O ACCESORIO PARA MICROSCOPIO QUIRURGICO OFTALMOLOGICO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382982"
+    },
+    {
+      "id": "1384136",
+      "titulo": "Compra Directa 96/2026 Intendencia de Montevideo | Junta Departamental de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:50",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "20/11/2026 15:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "ACONDICIONAMIENTO DE LOCAL",
+          "codigo_articulo": "10438"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384136.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384136_0.rar"
+        }
+      ],
+      "semantic_text": "Compra Directa 96/2026 Intendencia de Montevideo | Junta Departamental de Montevideo | ACONDICIONAMIENTO DE LOCAL",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384136"
+    },
+    {
+      "id": "1384139",
+      "titulo": "Compra Directa 1734/2026 Administración de Servicios de Salud del Estado | Hospital Maciel",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:50",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "09/11/2026 17:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "DISCO PARA ANTIBIOGRAMA",
+          "codigo_articulo": "21840"
+        },
+        {
+          "numero": "2",
+          "descripcion": "DISCO PARA ANTIBIOGRAMA",
+          "codigo_articulo": "21840"
+        },
+        {
+          "numero": "3",
+          "descripcion": "DISCO PARA ANTIBIOGRAMA",
+          "codigo_articulo": "21840"
+        },
+        {
+          "numero": "4",
+          "descripcion": "REACTIVO PARA DETECCION DE ANTIGENO PNEUMOCOCCICO",
+          "codigo_articulo": "28550"
+        },
+        {
+          "numero": "5",
+          "descripcion": "REACTIVO PARA DETECCION DE BACTERIAS GRAM NEGATIVAS PRODUCTORAS DE CARBAPENEMASA-TEST RAPIDO",
+          "codigo_articulo": "74445"
+        },
+        {
+          "numero": "6",
+          "descripcion": "INSUMOS PARA EQUIPO P/ DETERMINACIONES POR BIOLOGIA MOLECULAR",
+          "codigo_articulo": "37265"
+        },
+        {
+          "numero": "7",
+          "descripcion": "INSUMOS PARA EQUIPO P/ DETERMINACIONES POR BIOLOGIA MOLECULAR",
+          "codigo_articulo": "37265"
+        },
+        {
+          "numero": "8",
+          "descripcion": "INSUMOS PARA EQUIPO PCR EN TIEMPO REAL TOTALMENTE AUTOMATIZADO",
+          "codigo_articulo": "75205"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384139.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 1734/2026 Administración de Servicios de Salud del Estado | Hospital Maciel | DISCO PARA ANTIBIOGRAMA | DISCO PARA ANTIBIOGRAMA | DISCO PARA ANTIBIOGRAMA | REACTIVO PARA DETECCION DE ANTIGENO PNEUMOCOCCICO | REACTIVO PARA DETECCION DE BACTERIAS GRAM NEGATIVAS PRODUCTORAS DE CARBAPENEMASA-TEST RAPIDO | INSUMOS PARA EQUIPO P/ DETERMINACIONES POR BIOLOGIA MOLECULAR | INSUMOS PARA EQUIPO P/ DETERMINACIONES POR BIOLOGIA MOLECULAR | INSUMOS PARA EQUIPO PCR EN TIEMPO REAL TOTALMENTE AUTOMATIZADO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384139"
+    },
+    {
+      "id": "1370633",
+      "titulo": "Licitación Abreviada 7920/2026 Banco de la República del Uruguay | Banco de la República del Uruguay",
+      "objeto": "",
+      "fecha_publicacion": "09/09/2026 16:20",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "17/11/2026 16:00",
+      "acto_apertura": "17/11/2026 16:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "REFORMA DE EDIFICIO",
+          "codigo_articulo": "72644"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1370633.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 7",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_7.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 6",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_6.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 5",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_5.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 4",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_4.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_3.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_2.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 1",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1370633_1.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 7920/2026 Banco de la República del Uruguay | Banco de la República del Uruguay | REFORMA DE EDIFICIO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1370633"
+    },
+    {
+      "id": "i505138",
+      "titulo": "Compra Directa D199896/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "09/11/2026 23:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505138.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505138_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199896/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505138"
+    },
+    {
+      "id": "i505130",
+      "titulo": "Compra Directa D199579/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505130.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505130_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199579/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505130"
+    },
+    {
+      "id": "i505128",
+      "titulo": "Compra Directa D194901A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "19/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505128.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505128_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D194901A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505128"
+    },
+    {
+      "id": "i505141",
+      "titulo": "Licitación Pública P199511/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "30/11/2026 13:00",
+      "acto_apertura": "30/11/2026 13:00",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505141.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505141_3.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505141_2.html"
+        }
+      ],
+      "semantic_text": "Licitación Pública P199511/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505141"
+    },
+    {
+      "id": "i505140",
+      "titulo": "Licitación Abreviada A198322/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "25/11/2026 11:45",
+      "acto_apertura": "25/11/2026 11:45",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505140.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505140_3.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505140_2.PDF"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada A198322/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505140"
+    },
+    {
+      "id": "i505139",
+      "titulo": "Compra Directa D200026/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 13:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505139.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505139_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D200026/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505139"
+    },
+    {
+      "id": "i505131",
+      "titulo": "Compra Directa D199812/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 23:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505131.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505131_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199812/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505131"
+    },
+    {
+      "id": "i505136",
+      "titulo": "Licitación Abreviada A198629/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "23/11/2026 14:15",
+      "acto_apertura": "23/11/2026 14:15",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505136.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505136_2.RAR"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i505136_3.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada A198629/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505136"
+    },
+    {
+      "id": "i505142",
+      "titulo": "Compra Directa D198817/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505142.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D198817/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505142"
+    },
+    {
+      "id": "i505137",
+      "titulo": "Compra Directa D197950/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "13/11/2026 12:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505137.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D197950/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505137"
+    },
+    {
+      "id": "i505135",
+      "titulo": "Compra Directa D199354/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "10/11/2026 14:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505135.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D199354/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505135"
+    },
+    {
+      "id": "i505134",
+      "titulo": "Compra Directa D198830/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505134.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D198830/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505134"
+    },
+    {
+      "id": "i505133",
+      "titulo": "Compra Directa D198814/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505133.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D198814/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505133"
+    },
+    {
+      "id": "i505132",
+      "titulo": "Compra Directa D198819/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505132.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D198819/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505132"
+    },
+    {
+      "id": "i505129",
+      "titulo": "Compra Directa D198884/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "11/11/2026 23:59",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i505129.html"
+        }
+      ],
+      "semantic_text": "Compra Directa D198884/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i505129"
+    },
+    {
+      "id": "1384134",
+      "titulo": "Compra Directa 10293/2026 Ministerio de Educación y Cultura | Dirección General de Secretaría",
+      "objeto": "",
+      "fecha_publicacion": "05/11/2026 17:20",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "12/11/2026 13:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "FICHA TIPO SCHUKO MACHO",
+          "codigo_articulo": "6921"
+        },
+        {
+          "numero": "2",
+          "descripcion": "TOMACORRIENTE MULTIPLE (ZAPATILLA) RACKEABLE",
+          "codigo_articulo": "66830"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1384134.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 10293/2026 Ministerio de Educación y Cultura | Dirección General de Secretaría | FICHA TIPO SCHUKO MACHO | TOMACORRIENTE MULTIPLE (ZAPATILLA) RACKEABLE",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384134"
     },
     {
       "id": "1384131",
@@ -27728,34 +29271,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1379249"
     },
     {
-      "id": "1381632",
-      "titulo": "Concurso de Precios 704364/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas",
-      "objeto": "",
-      "fecha_publicacion": "22/10/2026 14:25",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "09/11/2026 11:00",
-      "acto_apertura": "09/11/2026 11:00",
-      "items": [
-        {
-          "numero": "10",
-          "descripcion": "MANTENIMIENTO EDILICIO",
-          "codigo_articulo": "27478"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1381632.7z"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 1",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381632_1.pdf"
-        }
-      ],
-      "semantic_text": "Concurso de Precios 704364/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas | MANTENIMIENTO EDILICIO",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381632"
-    },
-    {
       "id": "1380194",
       "titulo": "Licitación Abreviada 28/2026 Universidad de la República | Oficinas Centrales y Escuelas Dependientes de Rectorado",
       "objeto": "",
@@ -27826,34 +29341,6 @@
       ],
       "semantic_text": "Licitación Abreviada 28/2026 Universidad de la República | Oficinas Centrales y Escuelas Dependientes de Rectorado | REFORMA DE EDIFICIO",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1380194"
-    },
-    {
-      "id": "1381593",
-      "titulo": "Concurso de Precios 704437/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas",
-      "objeto": "",
-      "fecha_publicacion": "22/10/2026 13:20",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "09/11/2026 11:00",
-      "acto_apertura": "09/11/2026 11:00",
-      "items": [
-        {
-          "numero": "10",
-          "descripcion": "MANTENIMIENTO Y REP. DE VEHICULOS Y EQUIPOS INDUSTRIALES NO TRACCIONADOS",
-          "codigo_articulo": "26546"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1381593.7z"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1381593_2.pdf"
-        }
-      ],
-      "semantic_text": "Concurso de Precios 704437/2026 Administración Nacional de Usinas y Trasmisiones Eléctricas | Administración Nacional de Usinas y Trasmisiones Eléctricas | MANTENIMIENTO Y REP. DE VEHICULOS Y EQUIPOS INDUSTRIALES NO TRACCIONADOS",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1381593"
     },
     {
       "id": "1381660",
@@ -37610,75 +39097,6 @@
       ],
       "semantic_text": "Concurso de Precios 1014/2026 Ministerio de Defensa Nacional | Comando General de la Armada | REPARACION DE TECHO",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1378848"
-    },
-    {
-      "id": "1380157",
-      "titulo": "Compra Directa 1060/2026 Ministerio de Defensa Nacional | Comando General de la Armada",
-      "objeto": "",
-      "fecha_publicacion": "21/10/2026 09:45",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "09/11/2026 11:44",
-      "acto_apertura": "",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "FILTRO DE TANQUE DE COMBUSTIBLE",
-          "codigo_articulo": "8360"
-        },
-        {
-          "numero": "2",
-          "descripcion": "FILTRO DE GASOIL PARA MOTOR",
-          "codigo_articulo": "13543"
-        },
-        {
-          "numero": "3",
-          "descripcion": "FILTRO DE ACEITE DE MOTOR",
-          "codigo_articulo": "13544"
-        },
-        {
-          "numero": "4",
-          "descripcion": "FILTRO DE AIRE DE MOTOR",
-          "codigo_articulo": "5231"
-        },
-        {
-          "numero": "5",
-          "descripcion": "FILTRO DE TANQUE DE COMBUSTIBLE",
-          "codigo_articulo": "8360"
-        },
-        {
-          "numero": "6",
-          "descripcion": "FILTRO DE TANQUE DE COMBUSTIBLE",
-          "codigo_articulo": "8360"
-        },
-        {
-          "numero": "7",
-          "descripcion": "FILTRO DE ACEITE DE MOTOR",
-          "codigo_articulo": "13544"
-        },
-        {
-          "numero": "8",
-          "descripcion": "FILTRO DE AIRE DE MOTOR",
-          "codigo_articulo": "5231"
-        },
-        {
-          "numero": "9",
-          "descripcion": "NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
-          "codigo_articulo": "7570"
-        },
-        {
-          "numero": "10",
-          "descripcion": "NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
-          "codigo_articulo": "7570"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1380157.doc"
-        }
-      ],
-      "semantic_text": "Compra Directa 1060/2026 Ministerio de Defensa Nacional | Comando General de la Armada | FILTRO DE TANQUE DE COMBUSTIBLE | FILTRO DE GASOIL PARA MOTOR | FILTRO DE ACEITE DE MOTOR | FILTRO DE AIRE DE MOTOR | FILTRO DE TANQUE DE COMBUSTIBLE | FILTRO DE TANQUE DE COMBUSTIBLE | FILTRO DE ACEITE DE MOTOR | FILTRO DE AIRE DE MOTOR | NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES | NEUMATICO PARA AUTOMOVILES, CAMIONETAS Y MICROBUSES",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1380157"
     },
     {
       "id": "1383917",
