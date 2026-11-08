@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-07T16:53:15.395479+00:00",
+  "generated_at": "2026-11-08T17:05:41.447788+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "source_url": "https://www.comprasestatales.gub.uy/consultas/",
   "publication_type": "Llamados vigentes",
-  "total_records": 1018,
+  "total_records": 1019,
   "data": [
     {
       "id": "i500874",
@@ -13753,6 +13753,80 @@
       ],
       "semantic_text": "Compra Directa D197546/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i504251"
+    },
+    {
+      "id": "1384697",
+      "titulo": "Concurso de Precios 7756/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
+      "objeto": "",
+      "fecha_publicacion": "07/11/2026 15:05",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "23/11/2026 11:00",
+      "acto_apertura": "23/11/2026 11:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "MOTOR ELECTRICO TRIFASICO",
+          "codigo_articulo": "7009"
+        },
+        {
+          "numero": "2",
+          "descripcion": "MOTOR ELECTRICO TRIFASICO",
+          "codigo_articulo": "7009"
+        },
+        {
+          "numero": "3",
+          "descripcion": "MOTOR ELECTRICO TRIFASICO",
+          "codigo_articulo": "7009"
+        },
+        {
+          "numero": "4",
+          "descripcion": "MOTOR ELECTRICO TRIFASICO",
+          "codigo_articulo": "7009"
+        },
+        {
+          "numero": "5",
+          "descripcion": "MOTOR ELECTRICO MONOFASICO",
+          "codigo_articulo": "27581"
+        },
+        {
+          "numero": "6",
+          "descripcion": "MOTOR PARA BOMBA SUMERGIBLE",
+          "codigo_articulo": "78205"
+        },
+        {
+          "numero": "7",
+          "descripcion": "MOTOR PARA BOMBA SUMERGIBLE",
+          "codigo_articulo": "78205"
+        },
+        {
+          "numero": "8",
+          "descripcion": "MOTOR PARA BOMBA SUMERGIBLE",
+          "codigo_articulo": "78205"
+        },
+        {
+          "numero": "9",
+          "descripcion": "MOTOR PARA BOMBA SUMERGIBLE",
+          "codigo_articulo": "78205"
+        },
+        {
+          "numero": "10",
+          "descripcion": "MOTOR PARA BOMBA SUMERGIBLE",
+          "codigo_articulo": "78205"
+        },
+        {
+          "numero": "11",
+          "descripcion": "MOTOR PARA BOMBA SUMERGIBLE",
+          "codigo_articulo": "78205"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384697.doc"
+        }
+      ],
+      "semantic_text": "Concurso de Precios 7756/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado | MOTOR ELECTRICO TRIFASICO | MOTOR ELECTRICO TRIFASICO | MOTOR ELECTRICO TRIFASICO | MOTOR ELECTRICO TRIFASICO | MOTOR ELECTRICO MONOFASICO | MOTOR PARA BOMBA SUMERGIBLE | MOTOR PARA BOMBA SUMERGIBLE | MOTOR PARA BOMBA SUMERGIBLE | MOTOR PARA BOMBA SUMERGIBLE | MOTOR PARA BOMBA SUMERGIBLE | MOTOR PARA BOMBA SUMERGIBLE",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384697"
     },
     {
       "id": "i505294",
