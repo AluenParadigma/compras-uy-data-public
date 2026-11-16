@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-16T20:02:14.800519+00:00",
+  "generated_at": "2026-11-16T20:57:14.956258+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "source_url": "https://www.comprasestatales.gub.uy/consultas/",
   "publication_type": "Llamados vigentes",
-  "total_records": 896,
+  "total_records": 903,
   "data": [
     {
       "id": "i500874",
@@ -831,54 +831,6 @@
       ],
       "semantic_text": "Compra Directa 409/2026 Administración de los Ferrocarriles del Estado | Administración de los Ferrocarriles del Estado | PAPEL HIGIENICO | PAPEL TOALLA",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1386231"
-    },
-    {
-      "id": "1382430",
-      "titulo": "Compra Directa 294/2026 Fiscalia General de la Nación | Fiscalia General de la Nación",
-      "objeto": "",
-      "fecha_publicacion": "10/11/2026 11:35",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "16/11/2026 17:00",
-      "acto_apertura": "",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "COLOCACION DE VIDRIO",
-          "codigo_articulo": "7474"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1382430.pdf"
-        }
-      ],
-      "semantic_text": "Compra Directa 294/2026 Fiscalia General de la Nación | Fiscalia General de la Nación | COLOCACION DE VIDRIO",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382430"
-    },
-    {
-      "id": "1382437",
-      "titulo": "Compra Directa 292/2026 Fiscalia General de la Nación | Fiscalia General de la Nación",
-      "objeto": "",
-      "fecha_publicacion": "10/11/2026 11:15",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "16/11/2026 17:00",
-      "acto_apertura": "",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "PUERTA DE VIDRIO TEMPLADO",
-          "codigo_articulo": "69358"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1382437.pdf"
-        }
-      ],
-      "semantic_text": "Compra Directa 292/2026 Fiscalia General de la Nación | Fiscalia General de la Nación | PUERTA DE VIDRIO TEMPLADO",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382437"
     },
     {
       "id": "1378357",
@@ -8669,50 +8621,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1302291"
     },
     {
-      "id": "1384876",
-      "titulo": "Concurso de Precios 28/2026 Administración Nacional de Correos | Adminstración Nacional de Correos",
-      "objeto": "",
-      "fecha_publicacion": "09/11/2026 13:00",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "20/11/2026 15:00",
-      "acto_apertura": "20/11/2026 15:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "SERVIDOR DE ALMACENAMIENTO",
-          "codigo_articulo": "65691"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384876.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 4",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_4.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 3",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_3.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 1",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_1.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_2.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 0",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_0.pdf"
-        }
-      ],
-      "semantic_text": "Concurso de Precios 28/2026 Administración Nacional de Correos | Adminstración Nacional de Correos | SERVIDOR DE ALMACENAMIENTO",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384876"
-    },
-    {
       "id": "1381460",
       "titulo": "Licitación Abreviada 529/2026 Banco de Previsión Social | Banco de Previsión Social",
       "objeto": "",
@@ -8956,46 +8864,6 @@
       ],
       "semantic_text": "Concurso de Precios 109712/2026 Administración Nacional de Telecomunicaciones | Administración Nacional de Telecomunicaciones | ARRENDAMIENTO DE CAMIONETA",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384930"
-    },
-    {
-      "id": "1379755",
-      "titulo": "Concurso de Precios 42/2026 Universidad Tecnológica del Uruguay | Universidad Tecnológica del Uruguay",
-      "objeto": "",
-      "fecha_publicacion": "15/10/2026 13:55",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "16/11/2026 17:00",
-      "acto_apertura": "16/11/2026 17:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "GENERADOR DE HIDROGENO",
-          "codigo_articulo": "4085"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1379755.zip"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 4",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379755_4.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 3",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379755_3.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379755_2.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 0",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1379755_0.pdf"
-        }
-      ],
-      "semantic_text": "Concurso de Precios 42/2026 Universidad Tecnológica del Uruguay | Universidad Tecnológica del Uruguay | GENERADOR DE HIDROGENO",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1379755"
     },
     {
       "id": "1385823",
@@ -15151,8 +15019,8 @@
       "objeto": "",
       "fecha_publicacion": "09/11/2026 09:20",
       "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "18/11/2026 17:00",
-      "acto_apertura": "18/11/2026 17:00",
+      "recepcion_ofertas_hasta": "23/11/2026 17:00",
+      "acto_apertura": "23/11/2026 17:00",
       "items": [
         {
           "numero": "1",
@@ -23438,6 +23306,515 @@
       ],
       "semantic_text": "Licitación Pública P194198/2026 Intendencia de Montevideo | Intendencia de Montevideo",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i503152"
+    },
+    {
+      "id": "1382819",
+      "titulo": "Licitación Abreviada 6/2026 Banco Hipotecario del Uruguay | Banco Hipotecario del Uruguay",
+      "objeto": "",
+      "fecha_publicacion": "03/11/2026 14:50",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "02/12/2026 14:00",
+      "acto_apertura": "02/12/2026 14:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "SERVICIO DE CONSULTORIA",
+          "codigo_articulo": "4771"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1382819.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 5",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_5.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 4",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_4.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_3.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 1",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_1.docx"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_2.docx"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_0.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 6/2026 Banco Hipotecario del Uruguay | Banco Hipotecario del Uruguay | SERVICIO DE CONSULTORIA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382819"
+    },
+    {
+      "id": "i506008",
+      "titulo": "Licitación Abreviada A197490A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "02/12/2026 13:00",
+      "acto_apertura": "02/12/2026 13:00",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506008.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506008_2.RAR"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506008_3.pdf"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada A197490A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506008"
+    },
+    {
+      "id": "i506009",
+      "titulo": "Licitación Pública P194822A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "25/11/2026 10:30",
+      "acto_apertura": "25/11/2026 10:30",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506009.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506009_3.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506009_2.RAR"
+        }
+      ],
+      "semantic_text": "Licitación Pública P194822A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506009"
+    },
+    {
+      "id": "i506004",
+      "titulo": "Compra Directa D199248/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "23/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506004.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506004_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199248/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506004"
+    },
+    {
+      "id": "i506007",
+      "titulo": "Compra Directa D200464/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "20/11/2026 10:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506007.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506007_2.ZIP"
+        }
+      ],
+      "semantic_text": "Compra Directa D200464/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506007"
+    },
+    {
+      "id": "i506005",
+      "titulo": "Compra Directa D199390/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "20/11/2026 14:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506005.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506005_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199390/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506005"
+    },
+    {
+      "id": "i506003",
+      "titulo": "Compra Directa D200559/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "23/11/2026 12:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506003.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506003_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D200559/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506003"
+    },
+    {
+      "id": "i506002",
+      "titulo": "Compra Directa D200370/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "19/11/2026 08:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506002.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506002_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D200370/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506002"
+    },
+    {
+      "id": "i506006",
+      "titulo": "Compra Directa D199738A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:30",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "19/11/2026 18:00",
+      "acto_apertura": "",
+      "items": [],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_i506006.html"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_i506006_2.PDF"
+        }
+      ],
+      "semantic_text": "Compra Directa D199738A/2026 Intendencia de Montevideo | Intendencia de Montevideo",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/i506006"
+    },
+    {
+      "id": "1387164",
+      "titulo": "Licitación Abreviada 22/2026 Intendencia de Artigas | Intendencia de Artigas",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:25",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "02/12/2026 14:00",
+      "acto_apertura": "02/12/2026 16:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "CAÑO DE HORMIGON LISO",
+          "codigo_articulo": "477"
+        },
+        {
+          "numero": "2",
+          "descripcion": "CAÑO DE POLIETILENO DE ALTA DENSIDAD (PEAD)",
+          "codigo_articulo": "15076"
+        },
+        {
+          "numero": "3",
+          "descripcion": "MALLA DE SEGURIDAD",
+          "codigo_articulo": "75504"
+        },
+        {
+          "numero": "4",
+          "descripcion": "CINTA PARE",
+          "codigo_articulo": "11082"
+        },
+        {
+          "numero": "5",
+          "descripcion": "MALLA DE ACERO GALVANIZADO",
+          "codigo_articulo": "27479"
+        },
+        {
+          "numero": "6",
+          "descripcion": "CAÑO DE HORMIGON LISO",
+          "codigo_articulo": "477"
+        },
+        {
+          "numero": "7",
+          "descripcion": "CAÑO DE POLIETILENO DE ALTA DENSIDAD (PEAD)",
+          "codigo_articulo": "15076"
+        },
+        {
+          "numero": "8",
+          "descripcion": "CAÑO DE HORMIGON LISO",
+          "codigo_articulo": "477"
+        },
+        {
+          "numero": "9",
+          "descripcion": "MALLA POLIPROPILENO",
+          "codigo_articulo": "19432"
+        },
+        {
+          "numero": "10",
+          "descripcion": "CAÑO DE POLIETILENO DE ALTA DENSIDAD (PEAD)",
+          "codigo_articulo": "15076"
+        },
+        {
+          "numero": "11",
+          "descripcion": "TABLA DE PINO BRASIL",
+          "codigo_articulo": "7683"
+        },
+        {
+          "numero": "12",
+          "descripcion": "TABLA DE PINO BRASIL",
+          "codigo_articulo": "7683"
+        },
+        {
+          "numero": "13",
+          "descripcion": "TABLA DE EUCALIPTUS GRANDIS",
+          "codigo_articulo": "69330"
+        },
+        {
+          "numero": "14",
+          "descripcion": "CONO DE GOMA",
+          "codigo_articulo": "3787"
+        },
+        {
+          "numero": "15",
+          "descripcion": "BLOQUE DE HORMIGON PRENSADO",
+          "codigo_articulo": "77203"
+        },
+        {
+          "numero": "16",
+          "descripcion": "VARILLA DE HIERRO ACERADO",
+          "codigo_articulo": "13115"
+        },
+        {
+          "numero": "17",
+          "descripcion": "VARILLA DE HIERRO ACERADO",
+          "codigo_articulo": "13115"
+        },
+        {
+          "numero": "18",
+          "descripcion": "ACOPLE RAPIDO DE PVC (PLG)",
+          "codigo_articulo": "12420"
+        },
+        {
+          "numero": "19",
+          "descripcion": "CLAVO DE HIERRO CABEZA REDONDA",
+          "codigo_articulo": "1010"
+        },
+        {
+          "numero": "20",
+          "descripcion": "ALAMBRE DE HIERRO NEGRO RECOCIDO",
+          "codigo_articulo": "15366"
+        },
+        {
+          "numero": "21",
+          "descripcion": "BALDOSA DE VEREDA",
+          "codigo_articulo": "3530"
+        },
+        {
+          "numero": "22",
+          "descripcion": "BALIZA PLASTICA (TRIANGULO)",
+          "codigo_articulo": "15421"
+        },
+        {
+          "numero": "23",
+          "descripcion": "VARILLA DE HIERRO ACERADO",
+          "codigo_articulo": "13115"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1387164.doc"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 22/2026 Intendencia de Artigas | Intendencia de Artigas | CAÑO DE HORMIGON LISO | CAÑO DE POLIETILENO DE ALTA DENSIDAD (PEAD) | MALLA DE SEGURIDAD | CINTA PARE | MALLA DE ACERO GALVANIZADO | CAÑO DE HORMIGON LISO | CAÑO DE POLIETILENO DE ALTA DENSIDAD (PEAD) | CAÑO DE HORMIGON LISO | MALLA POLIPROPILENO | CAÑO DE POLIETILENO DE ALTA DENSIDAD (PEAD) | TABLA DE PINO BRASIL | TABLA DE PINO BRASIL | TABLA DE EUCALIPTUS GRANDIS | CONO DE GOMA | BLOQUE DE HORMIGON PRENSADO | VARILLA DE HIERRO ACERADO | VARILLA DE HIERRO ACERADO | ACOPLE RAPIDO DE PVC (PLG) | CLAVO DE HIERRO CABEZA REDONDA | ALAMBRE DE HIERRO NEGRO RECOCIDO | BALDOSA DE VEREDA | BALIZA PLASTICA (TRIANGULO) | VARILLA DE HIERRO ACERADO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1387164"
+    },
+    {
+      "id": "1384876",
+      "titulo": "Concurso de Precios 28/2026 Administración Nacional de Correos | Adminstración Nacional de Correos",
+      "objeto": "",
+      "fecha_publicacion": "09/11/2026 13:00",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "20/11/2026 15:00",
+      "acto_apertura": "20/11/2026 15:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "SERVIDOR DE ALMACENAMIENTO",
+          "codigo_articulo": "65691"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1384876.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 5",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_5.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 4",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_4.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_3.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 1",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_1.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_2.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1384876_0.pdf"
+        }
+      ],
+      "semantic_text": "Concurso de Precios 28/2026 Administración Nacional de Correos | Adminstración Nacional de Correos | SERVIDOR DE ALMACENAMIENTO",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1384876"
+    },
+    {
+      "id": "1387170",
+      "titulo": "Compra Directa 19246/2026 Administración de Servicios de Salud del Estado | Hospital Español",
+      "objeto": "",
+      "fecha_publicacion": "16/11/2026 17:05",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "18/11/2026 17:00",
+      "acto_apertura": "",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "BOMBA DE AGUA RECIRCULADORA",
+          "codigo_articulo": "28711"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pedido_1387170.pdf"
+        }
+      ],
+      "semantic_text": "Compra Directa 19246/2026 Administración de Servicios de Salud del Estado | Hospital Español | BOMBA DE AGUA RECIRCULADORA",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1387170"
+    },
+    {
+      "id": "1383232",
+      "titulo": "Licitación Abreviada 600/2026 Banco de Previsión Social | Banco de Previsión Social",
+      "objeto": "",
+      "fecha_publicacion": "04/11/2026 11:00",
+      "ultima_modificacion": "",
+      "recepcion_ofertas_hasta": "20/11/2026 14:00",
+      "acto_apertura": "20/11/2026 14:00",
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "MANTENIMIENTO DE SISTEMA DE INCENDIO",
+          "codigo_articulo": "2152"
+        },
+        {
+          "numero": "2",
+          "descripcion": "MANTENIMIENTO DE SISTEMA DE INCENDIO",
+          "codigo_articulo": "2152"
+        },
+        {
+          "numero": "3",
+          "descripcion": "MANTENIMIENTO DE SISTEMA DE SEGURIDAD",
+          "codigo_articulo": "75301"
+        },
+        {
+          "numero": "4",
+          "descripcion": "MANTENIMIENTO DE SISTEMA DE SEGURIDAD",
+          "codigo_articulo": "75301"
+        }
+      ],
+      "adjuntos": [
+        {
+          "texto": "archivo adjunto/pliego",
+          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1383232.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 7",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_7.xlsx"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 6",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_6.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 5",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_5.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 4",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_4.pdf"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 3",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_3.xlsx"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 2",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_2.docx"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 0",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_0.xlsx"
+        },
+        {
+          "texto": "Archivo adjunto de la aclaración Nº 1",
+          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_1.xlsx"
+        }
+      ],
+      "semantic_text": "Licitación Abreviada 600/2026 Banco de Previsión Social | Banco de Previsión Social | MANTENIMIENTO DE SISTEMA DE INCENDIO | MANTENIMIENTO DE SISTEMA DE INCENDIO | MANTENIMIENTO DE SISTEMA DE SEGURIDAD | MANTENIMIENTO DE SISTEMA DE SEGURIDAD",
+      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1383232"
     },
     {
       "id": "1367499",
@@ -32469,50 +32846,6 @@
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1369830"
     },
     {
-      "id": "1382819",
-      "titulo": "Licitación Abreviada 6/2026 Banco Hipotecario del Uruguay | Banco Hipotecario del Uruguay",
-      "objeto": "",
-      "fecha_publicacion": "03/11/2026 14:50",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "02/12/2026 14:00",
-      "acto_apertura": "02/12/2026 14:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "SERVICIO DE CONSULTORIA",
-          "codigo_articulo": "4771"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1382819.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 4",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_4.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 3",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_3.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 1",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_1.docx"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_2.docx"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 0",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1382819_0.pdf"
-        }
-      ],
-      "semantic_text": "Licitación Abreviada 6/2026 Banco Hipotecario del Uruguay | Banco Hipotecario del Uruguay | SERVICIO DE CONSULTORIA",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382819"
-    },
-    {
       "id": "1384793",
       "titulo": "Concurso de Precios 7812/2026 Administración de las Obras Sanitarias del Estado | Administración de las Obras Sanitarias del Estado",
       "objeto": "",
@@ -36748,77 +37081,6 @@
       ],
       "semantic_text": "Licitación Abreviada 40/2026 Intendencia de Treinta y Tres | Intendencia de Treinta y Tres | COTIZAR LENTEJONES (no lentejas) | ACEITE COMESTIBLE | SUERO DE LECHE EN POLVO (USO HUMANO) | PULPA DE TOMATE | LENTEJA (USO HUMANO) | POROTO | HARINA DE TRIGO (USO HUMANO) | HARINA DE MAIZ (USO HUMANO) | PASTA SECA DE TRIGO | ARROZ (USO HUMANO) | EDULCORANTE (POLVO) | CAFE DE MALTA | ATUN ELABORADO",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1382165"
-    },
-    {
-      "id": "1383232",
-      "titulo": "Licitación Abreviada 600/2026 Banco de Previsión Social | Banco de Previsión Social",
-      "objeto": "",
-      "fecha_publicacion": "04/11/2026 11:00",
-      "ultima_modificacion": "",
-      "recepcion_ofertas_hasta": "20/11/2026 14:00",
-      "acto_apertura": "20/11/2026 14:00",
-      "items": [
-        {
-          "numero": "1",
-          "descripcion": "MANTENIMIENTO DE SISTEMA DE INCENDIO",
-          "codigo_articulo": "2152"
-        },
-        {
-          "numero": "2",
-          "descripcion": "MANTENIMIENTO DE SISTEMA DE INCENDIO",
-          "codigo_articulo": "2152"
-        },
-        {
-          "numero": "3",
-          "descripcion": "MANTENIMIENTO DE SISTEMA DE SEGURIDAD",
-          "codigo_articulo": "75301"
-        },
-        {
-          "numero": "4",
-          "descripcion": "MANTENIMIENTO DE SISTEMA DE SEGURIDAD",
-          "codigo_articulo": "75301"
-        }
-      ],
-      "adjuntos": [
-        {
-          "texto": "archivo adjunto/pliego",
-          "url": "https://www.comprasestatales.gub.uy/Pliegos/pliego_1383232.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 7",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_7.xlsx"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 6",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_6.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 5",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_5.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 4",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_4.pdf"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 3",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_3.xlsx"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 2",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_2.docx"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 0",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_0.xlsx"
-        },
-        {
-          "texto": "Archivo adjunto de la aclaración Nº 1",
-          "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1383232_1.xlsx"
-        }
-      ],
-      "semantic_text": "Licitación Abreviada 600/2026 Banco de Previsión Social | Banco de Previsión Social | MANTENIMIENTO DE SISTEMA DE INCENDIO | MANTENIMIENTO DE SISTEMA DE INCENDIO | MANTENIMIENTO DE SISTEMA DE SEGURIDAD | MANTENIMIENTO DE SISTEMA DE SEGURIDAD",
-      "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1383232"
     },
     {
       "id": "1359202",
