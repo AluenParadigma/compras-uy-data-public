@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-21T17:59:43.794773+00:00",
+  "generated_at": "2026-11-22T18:14:13.059556+00:00",
   "source": "Compras Estatales Uruguay / ARCE",
   "source_url": "https://www.comprasestatales.gub.uy/consultas/",
   "publication_type": "Llamados vigentes",
@@ -39368,7 +39368,33 @@
       "ultima_modificacion": "",
       "recepcion_ofertas_hasta": "04/12/2026 10:00",
       "acto_apertura": "04/12/2026 10:00",
-      "items": [],
+      "items": [
+        {
+          "numero": "1",
+          "descripcion": "AUXILIAR DE SERVICIO",
+          "codigo_articulo": "69145"
+        },
+        {
+          "numero": "2",
+          "descripcion": "AUXILIAR DE SERVICIO",
+          "codigo_articulo": "69145"
+        },
+        {
+          "numero": "3",
+          "descripcion": "LIMPIEZA DE HOSPITAL",
+          "codigo_articulo": "25261"
+        },
+        {
+          "numero": "4",
+          "descripcion": "LIMPIEZA DE HOSPITAL",
+          "codigo_articulo": "25261"
+        },
+        {
+          "numero": "5",
+          "descripcion": "LIMPIEZA DE VIDRIOS",
+          "codigo_articulo": "939"
+        }
+      ],
       "adjuntos": [
         {
           "texto": "archivo adjunto/pliego",
@@ -39471,7 +39497,7 @@
           "url": "https://www.comprasestatales.gub.uy/Aclaraciones/aclar_llamado_1315939_0.pdf"
         }
       ],
-      "semantic_text": "Licitación Pública 10007/2026 UCC - ASSE",
+      "semantic_text": "Licitación Pública 10007/2026 UCC - ASSE | AUXILIAR DE SERVICIO | AUXILIAR DE SERVICIO | LIMPIEZA DE HOSPITAL | LIMPIEZA DE HOSPITAL | LIMPIEZA DE VIDRIOS",
       "url_oficial": "https://www.comprasestatales.gub.uy/consultas/detalle/mostrar-llamado/1/id/1315939"
     },
     {
